@@ -1,0 +1,261 @@
+STUDYID,USUBJID,SUBJID,SITEID,TRTP,TRTPN,TRTA,TRTAN,RANDFL,SAFFL,MITTFL,PPROTFL,PARAM,PARAMCD,PARAMN,AVAL,AVALCAT1
+BBC,BBC-10-041,041,10,ARM B,2,ARM B,2,Y,N,N,N,Total Duration of Treatment,TRTDUR,1,,Missing
+BBC,BBC-10-041,041,10,ARM B,2,ARM B,2,Y,N,N,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,,
+BBC,BBC-10-041,041,10,ARM B,2,ARM B,2,Y,N,N,N,Total Number of Applications,NUMAPP,3,,Missing
+BBC,BBC-10-041,041,10,ARM B,2,ARM B,2,Y,N,N,N,Percent Compliance,COMPLNC,4,,Missing
+BBC,BBC-10-042,042,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,94,72-99 Days
+BBC,BBC-10-042,042,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,74,
+BBC,BBC-10-042,042,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,94,72-99
+BBC,BBC-10-042,042,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-10-043,043,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-10-043,043,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,129,
+BBC,BBC-10-043,043,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-10-043,043,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-10-145,145,10,ARM A,1,ARM A,1,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,113,>=100 Days
+BBC,BBC-10-145,145,10,ARM A,1,ARM A,1,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,69,
+BBC,BBC-10-145,145,10,ARM A,1,ARM A,1,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,113,>=100
+BBC,BBC-10-145,145,10,ARM A,1,ARM A,1,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-10-146,146,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,96,72-99 Days
+BBC,BBC-10-146,146,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,153,
+BBC,BBC-10-146,146,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,94,72-99
+BBC,BBC-10-146,146,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,97.9,85.0-100.0
+BBC,BBC-10-147,147,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,97,72-99 Days
+BBC,BBC-10-147,147,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,440,
+BBC,BBC-10-147,147,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,97,72-99
+BBC,BBC-10-147,147,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-10-148,148,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,86,72-99 Days
+BBC,BBC-10-148,148,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,88,
+BBC,BBC-10-148,148,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,79,72-99
+BBC,BBC-10-148,148,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,91.9,85.0-100.0
+BBC,BBC-10-149,149,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,91,72-99 Days
+BBC,BBC-10-149,149,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,97,
+BBC,BBC-10-149,149,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,91,72-99
+BBC,BBC-10-149,149,10,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-10-150,150,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,90,72-99 Days
+BBC,BBC-10-150,150,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,16,
+BBC,BBC-10-150,150,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,79,72-99
+BBC,BBC-10-150,150,10,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,87.8,85.0-100.0
+BBC,BBC-10-151,151,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-10-151,151,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,723,
+BBC,BBC-10-151,151,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-10-151,151,10,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-10-152,152,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,87,72-99 Days
+BBC,BBC-10-152,152,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,660,
+BBC,BBC-10-152,152,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,87,72-99
+BBC,BBC-10-152,152,10,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-11-048,048,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,82,72-99 Days
+BBC,BBC-11-048,048,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,101,
+BBC,BBC-11-048,048,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,81,72-99
+BBC,BBC-11-048,048,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,98.8,85.0-100.0
+BBC,BBC-11-093,093,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-11-093,093,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,87,
+BBC,BBC-11-093,093,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-11-093,093,11,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-11-094,094,11,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,91,72-99 Days
+BBC,BBC-11-094,094,11,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,211,
+BBC,BBC-11-094,094,11,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-11-094,094,11,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,93.4,85.0-100.0
+BBC,BBC-11-095,095,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,83,72-99 Days
+BBC,BBC-11-095,095,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,171,
+BBC,BBC-11-095,095,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,83,72-99
+BBC,BBC-11-095,095,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-11-096,096,11,ARM D,4,ARM D,4,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,99,72-99 Days
+BBC,BBC-11-096,096,11,ARM D,4,ARM D,4,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,92,
+BBC,BBC-11-096,096,11,ARM D,4,ARM D,4,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,95,72-99
+BBC,BBC-11-096,096,11,ARM D,4,ARM D,4,Y,Y,Y,N,Percent Compliance,COMPLNC,4,96,85.0-100.0
+BBC,BBC-11-097,097,11,ARM A,1,ARM A,1,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-11-097,097,11,ARM A,1,ARM A,1,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,134,
+BBC,BBC-11-097,097,11,ARM A,1,ARM A,1,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-11-097,097,11,ARM A,1,ARM A,1,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-11-098,098,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-11-098,098,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,695,
+BBC,BBC-11-098,098,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-11-098,098,11,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-11-099,099,11,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-11-099,099,11,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,137,
+BBC,BBC-11-099,099,11,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-11-099,099,11,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-11-100,100,11,ARM B,2,ARM B,2,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,83,72-99 Days
+BBC,BBC-11-100,100,11,ARM B,2,ARM B,2,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,62,
+BBC,BBC-11-100,100,11,ARM B,2,ARM B,2,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,75,72-99
+BBC,BBC-11-100,100,11,ARM B,2,ARM B,2,Y,Y,Y,N,Percent Compliance,COMPLNC,4,90.4,85.0-100.0
+BBC,BBC-12-057,057,12,ARM B,2,ARM B,2,Y,Y,N,N,Total Duration of Treatment,TRTDUR,1,,Missing
+BBC,BBC-12-057,057,12,ARM B,2,ARM B,2,Y,Y,N,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,24,
+BBC,BBC-12-057,057,12,ARM B,2,ARM B,2,Y,Y,N,N,Total Number of Applications,NUMAPP,3,,Missing
+BBC,BBC-12-057,057,12,ARM B,2,ARM B,2,Y,Y,N,N,Percent Compliance,COMPLNC,4,,Missing
+BBC,BBC-12-058,058,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-12-058,058,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,658,
+BBC,BBC-12-058,058,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,82,72-99
+BBC,BBC-12-058,058,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,97.6,85.0-100.0
+BBC,BBC-12-059,059,12,ARM D,4,ARM D,4,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,83,72-99 Days
+BBC,BBC-12-059,059,12,ARM D,4,ARM D,4,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,87,
+BBC,BBC-12-059,059,12,ARM D,4,ARM D,4,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,80,72-99
+BBC,BBC-12-059,059,12,ARM D,4,ARM D,4,Y,Y,Y,N,Percent Compliance,COMPLNC,4,96.4,85.0-100.0
+BBC,BBC-12-060,060,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-12-060,060,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,2080,
+BBC,BBC-12-060,060,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-12-060,060,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-12-061,061,12,ARM B,2,ARM B,2,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,83,72-99 Days
+BBC,BBC-12-061,061,12,ARM B,2,ARM B,2,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,561,
+BBC,BBC-12-061,061,12,ARM B,2,ARM B,2,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,70,51-71
+BBC,BBC-12-061,061,12,ARM B,2,ARM B,2,Y,Y,Y,N,Percent Compliance,COMPLNC,4,84.3,61.0-84.9
+BBC,BBC-12-062,062,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-12-062,062,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,355,
+BBC,BBC-12-062,062,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-12-062,062,12,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-12-063,063,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-12-063,063,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,343,
+BBC,BBC-12-063,063,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-12-063,063,12,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-13-025,025,13,ARM A,1,ARM A,1,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,72,72-99 Days
+BBC,BBC-13-025,025,13,ARM A,1,ARM A,1,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,280,
+BBC,BBC-13-025,025,13,ARM A,1,ARM A,1,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,57,51-71
+BBC,BBC-13-025,025,13,ARM A,1,ARM A,1,Y,Y,Y,N,Percent Compliance,COMPLNC,4,79.2,61.0-84.9
+BBC,BBC-13-026,026,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-13-026,026,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,73,
+BBC,BBC-13-026,026,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,82,72-99
+BBC,BBC-13-026,026,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,97.6,85.0-100.0
+BBC,BBC-13-027,027,13,ARM C,3,ARM C,3,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-13-027,027,13,ARM C,3,ARM C,3,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,85,
+BBC,BBC-13-027,027,13,ARM C,3,ARM C,3,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,68,51-71
+BBC,BBC-13-027,027,13,ARM C,3,ARM C,3,Y,Y,Y,N,Percent Compliance,COMPLNC,4,81,61.0-84.9
+BBC,BBC-13-028,028,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-13-028,028,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,973,
+BBC,BBC-13-028,028,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,79,72-99
+BBC,BBC-13-028,028,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,94,85.0-100.0
+BBC,BBC-13-029,029,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,91,72-99 Days
+BBC,BBC-13-029,029,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,123,
+BBC,BBC-13-029,029,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,91,72-99
+BBC,BBC-13-029,029,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-13-030,030,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-13-030,030,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,257,
+BBC,BBC-13-030,030,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-13-030,030,13,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-13-031,031,13,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-13-031,031,13,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,639,
+BBC,BBC-13-031,031,13,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-13-031,031,13,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-13-032,032,13,ARM B,2,ARM B,2,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,28,23-36 Days
+BBC,BBC-13-032,032,13,ARM B,2,ARM B,2,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,153,
+BBC,BBC-13-032,032,13,ARM B,2,ARM B,2,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,28,23-36
+BBC,BBC-13-032,032,13,ARM B,2,ARM B,2,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-13-141,141,13,ARM D,4,ARM D,4,Y,Y,N,N,Total Duration of Treatment,TRTDUR,1,4,1-22 Days
+BBC,BBC-13-141,141,13,ARM D,4,ARM D,4,Y,Y,N,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,12,
+BBC,BBC-13-141,141,13,ARM D,4,ARM D,4,Y,Y,N,N,Total Number of Applications,NUMAPP,3,4,1-22
+BBC,BBC-13-141,141,13,ARM D,4,ARM D,4,Y,Y,N,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-13-142,142,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-13-142,142,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,561,
+BBC,BBC-13-142,142,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-13-142,142,13,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-13-143,143,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-13-143,143,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,535,
+BBC,BBC-13-143,143,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-13-143,143,13,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-081,081,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-14-081,081,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,63,
+BBC,BBC-14-081,081,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-14-081,081,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-082,082,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,86,72-99 Days
+BBC,BBC-14-082,082,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,1120,
+BBC,BBC-14-082,082,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,86,72-99
+BBC,BBC-14-082,082,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-083,083,14,ARM C,3,ARM C,3,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,93,72-99 Days
+BBC,BBC-14-083,083,14,ARM C,3,ARM C,3,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,70,
+BBC,BBC-14-083,083,14,ARM C,3,ARM C,3,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,81,72-99
+BBC,BBC-14-083,083,14,ARM C,3,ARM C,3,Y,Y,Y,N,Percent Compliance,COMPLNC,4,87.1,85.0-100.0
+BBC,BBC-14-084,084,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-14-084,084,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,365,
+BBC,BBC-14-084,084,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,83,72-99
+BBC,BBC-14-084,084,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,97.6,85.0-100.0
+BBC,BBC-14-085,085,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-14-085,085,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,1529,
+BBC,BBC-14-085,085,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-14-085,085,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-086,086,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-14-086,086,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,48,
+BBC,BBC-14-086,086,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-14-086,086,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-087,087,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-14-087,087,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,110,
+BBC,BBC-14-087,087,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,81,72-99
+BBC,BBC-14-087,087,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,96.4,85.0-100.0
+BBC,BBC-14-088,088,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-14-088,088,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,496,
+BBC,BBC-14-088,088,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,79,72-99
+BBC,BBC-14-088,088,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,92.9,85.0-100.0
+BBC,BBC-14-117,117,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,87,72-99 Days
+BBC,BBC-14-117,117,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,860,
+BBC,BBC-14-117,117,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,87,72-99
+BBC,BBC-14-117,117,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-118,118,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-14-118,118,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,16,
+BBC,BBC-14-118,118,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-14-118,118,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,98.8,85.0-100.0
+BBC,BBC-14-119,119,14,ARM C,3,ARM C,3,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,42,37-50 Days
+BBC,BBC-14-119,119,14,ARM C,3,ARM C,3,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,321,
+BBC,BBC-14-119,119,14,ARM C,3,ARM C,3,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,42,37-50
+BBC,BBC-14-119,119,14,ARM C,3,ARM C,3,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-120,120,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-14-120,120,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,65,
+BBC,BBC-14-120,120,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-14-120,120,14,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-121,121,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,86,72-99 Days
+BBC,BBC-14-121,121,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,140,
+BBC,BBC-14-121,121,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,86,72-99
+BBC,BBC-14-121,121,14,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-122,122,14,ARM D,4,ARM D,4,Y,N,N,N,Total Duration of Treatment,TRTDUR,1,,Missing
+BBC,BBC-14-122,122,14,ARM D,4,ARM D,4,Y,N,N,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,,
+BBC,BBC-14-122,122,14,ARM D,4,ARM D,4,Y,N,N,N,Total Number of Applications,NUMAPP,3,,Missing
+BBC,BBC-14-122,122,14,ARM D,4,ARM D,4,Y,N,N,N,Percent Compliance,COMPLNC,4,,Missing
+BBC,BBC-14-123,123,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-14-123,123,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,282,
+BBC,BBC-14-123,123,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-14-123,123,14,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-14-124,124,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-14-124,124,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,36,
+BBC,BBC-14-124,124,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-14-124,124,14,ARM B,2,ARM B,2,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-15-153,153,15,ARM D,4,ARM D,4,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,45,37-50 Days
+BBC,BBC-15-153,153,15,ARM D,4,ARM D,4,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,98,
+BBC,BBC-15-153,153,15,ARM D,4,ARM D,4,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,44,37-50
+BBC,BBC-15-153,153,15,ARM D,4,ARM D,4,Y,Y,Y,N,Percent Compliance,COMPLNC,4,97.8,85.0-100.0
+BBC,BBC-15-154,154,15,ARM C,3,ARM C,3,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,34,23-36 Days
+BBC,BBC-15-154,154,15,ARM C,3,ARM C,3,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,38,
+BBC,BBC-15-154,154,15,ARM C,3,ARM C,3,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,34,23-36
+BBC,BBC-15-154,154,15,ARM C,3,ARM C,3,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-15-155,155,15,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-15-155,155,15,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,32,
+BBC,BBC-15-155,155,15,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,85,72-99
+BBC,BBC-15-155,155,15,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-15-156,156,15,ARM B,2,ARM B,2,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,85,72-99 Days
+BBC,BBC-15-156,156,15,ARM B,2,ARM B,2,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,479,
+BBC,BBC-15-156,156,15,ARM B,2,ARM B,2,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,72,72-99
+BBC,BBC-15-156,156,15,ARM B,2,ARM B,2,Y,Y,Y,N,Percent Compliance,COMPLNC,4,84.7,61.0-84.9
+BBC,BBC-16-045,045,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-16-045,045,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,927,
+BBC,BBC-16-045,045,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-16-045,045,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-16-046,046,16,ARM D,4,ARM D,4,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,31,23-36 Days
+BBC,BBC-16-046,046,16,ARM D,4,ARM D,4,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,18,
+BBC,BBC-16-046,046,16,ARM D,4,ARM D,4,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,31,23-36
+BBC,BBC-16-046,046,16,ARM D,4,ARM D,4,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-16-047,047,16,ARM A,1,ARM A,1,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,30,23-36 Days
+BBC,BBC-16-047,047,16,ARM A,1,ARM A,1,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,56,
+BBC,BBC-16-047,047,16,ARM A,1,ARM A,1,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,30,23-36
+BBC,BBC-16-047,047,16,ARM A,1,ARM A,1,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-16-157,157,16,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-16-157,157,16,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,83,
+BBC,BBC-16-157,157,16,ARM A,1,ARM A,1,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-16-157,157,16,ARM A,1,ARM A,1,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-16-158,158,16,ARM B,2,ARM B,2,Y,Y,Y,N,Total Duration of Treatment,TRTDUR,1,92,72-99 Days
+BBC,BBC-16-158,158,16,ARM B,2,ARM B,2,Y,Y,Y,N,Total Weight of Study Medication Used (grams),STMEDWGT,2,606,
+BBC,BBC-16-158,158,16,ARM B,2,ARM B,2,Y,Y,Y,N,Total Number of Applications,NUMAPP,3,92,72-99
+BBC,BBC-16-158,158,16,ARM B,2,ARM B,2,Y,Y,Y,N,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-16-159,159,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,84,72-99 Days
+BBC,BBC-16-159,159,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,40,
+BBC,BBC-16-159,159,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,84,72-99
+BBC,BBC-16-159,159,16,ARM C,3,ARM C,3,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
+BBC,BBC-16-160,160,16,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Duration of Treatment,TRTDUR,1,82,72-99 Days
+BBC,BBC-16-160,160,16,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Weight of Study Medication Used (grams),STMEDWGT,2,632,
+BBC,BBC-16-160,160,16,ARM D,4,ARM D,4,Y,Y,Y,Y,Total Number of Applications,NUMAPP,3,82,72-99
+BBC,BBC-16-160,160,16,ARM D,4,ARM D,4,Y,Y,Y,Y,Percent Compliance,COMPLNC,4,100,85.0-100.0
