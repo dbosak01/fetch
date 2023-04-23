@@ -12,9 +12,9 @@
 
 Many R programs require multiple input datasets.  The purpose of the 
 **fetch** package is to make it easier to access multiple datasets from
-an R program.  The package allows you to load function pointers to all the 
+an R program.  The package allows you to load a catalog of all the 
 datasets in a directory, and then load each desired dataset as needed in
-your program.  The method minimizes the memory used for the data.
+your program.  The method minimizes the memory used for the data. 
 
 
 ### Installation

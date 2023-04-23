@@ -3,6 +3,11 @@
 # Enumerations ------------------------------------------------------------
 
 #' @title A list of engine types
+#' @encoding UTF-8
+#' @description The engines enumeration contains all possible options
+#' for the "engine" parameter of the \code{\link{catalog}} function.  Use
+#' this enumeration to specify what kind of data you would like to load.
+#' Options are: csv, dbf, rda, rds, rdata, sas7bdat, xls, xlsx, and xpt.
 #' @export
 engines <- list()
 
@@ -19,7 +24,6 @@ engines$xls <- "xls"
 engines$xlsx <- "xlsx"
 engines$dbf <- "dbf"
 engines$rda <- "rda"
-
 
 
 

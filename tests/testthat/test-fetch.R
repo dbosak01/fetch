@@ -322,5 +322,8 @@ test_that("fetch10: fetch() function works as expected with xpt", {
   
   expect_equal(nrow(res4), 4)
   
+
 })
+
+
 

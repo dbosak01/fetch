@@ -1,12 +1,15 @@
 
-# Accessor Functions ------------------------------------------------------
-
-
+# Catalog Functions ------------------------------------------------------
 
 
 #' @title Create a data source catalog
+#' @encoding UTF-8
 #' @description The \code{catalog} function returns a data catalog
-#' for a data source. 
+#' for a data source. A data catalog is like collection of data dictionaries
+#' for all the datasets in the data source.  The catalog allows you to 
+#' examine the datasets in the data source without yet loading anything
+#' into memory.  Once you decide which data items you want to load, 
+#' use the \code{\link{fetch}} function to load that item into memory.
 #' @param source The source for the data.  This parameter is required.
 #' @param engine The data engine to use for this data source. This parameter
 #' is required.
@@ -19,8 +22,49 @@
 #' @return The loaded data catalog.
 #' @seealso The \code{\link{fetch}} function to retrieve data from the catalog.
 #' @examples 
-#' # Create temp directory
-#' tmp <- tempdir()
+#' # Get data directory
+#' pkg <- system.file("extdata", package = "fetch")
+#' 
+#' # Create catalog
+#' ct <- catalog(pkg, engines$csv)
+#' 
+#' # View catalog
+#' ct
+#' # data catalog: 6 items
+#' # - Source: C:/packages/fetch/inst/extdata
+#' # - Engine: csv
+#' # - Items:
+#'   # data item 'ADAE': 56 cols 150 rows
+#'   # data item 'ADEX': 17 cols 348 rows
+#'   # data item 'ADPR': 37 cols 552 rows
+#'   # data item 'ADPSGA': 42 cols 695 rows
+#'   # data item 'ADSL': 56 cols 87 rows
+#'   # data item 'ADVS': 37 cols 3617 rows
+#' 
+#' # View catalog item
+#' ct$ADEX
+#' # data item 'ADEX': 17 cols 348 rows
+#' # - Engine: csv
+#' # - Size: 70.7 Kb
+#' # - Last Modified: 2020-09-18 14:30:22
+#' #    Name   Column     Class Label Format NAs MaxChar
+#' # 1  ADEX  STUDYID character  <NA>     NA   0       3
+#' # 2  ADEX  USUBJID character  <NA>     NA   0      10
+#' # 3  ADEX   SUBJID character  <NA>     NA   0       3
+#' # 4  ADEX   SITEID character  <NA>     NA   0       2
+#' # 5  ADEX     TRTP character  <NA>     NA   8       5
+#' # 6  ADEX    TRTPN   numeric  <NA>     NA   8       1
+#' # 7  ADEX     TRTA character  <NA>     NA   8       5
+#' # 8  ADEX    TRTAN   numeric  <NA>     NA   8       1
+#' # 9  ADEX   RANDFL character  <NA>     NA   0       1
+#' # 10 ADEX    SAFFL character  <NA>     NA   0       1
+#' # 11 ADEX   MITTFL character  <NA>     NA   0       1
+#' # 12 ADEX  PPROTFL character  <NA>     NA   0       1
+#' # 13 ADEX    PARAM character  <NA>     NA   0      45
+#' # 14 ADEX  PARAMCD character  <NA>     NA   0       8
+#' # 15 ADEX   PARAMN   numeric  <NA>     NA   0       1
+#' # 16 ADEX     AVAL   numeric  <NA>     NA  16       4
+#' # 17 ADEX AVALCAT1 character  <NA>     NA  87      10
 #' 
 #' @export
 catalog <- function(source, engine, 
@@ -143,17 +187,34 @@ load_catalog <- function(ret, source, engine, pattern  = NULL,
 
 
 #' @title Print a data catalog
+#' @encoding UTF-8
 #' @description A class-specific instance of the \code{print} function for 
-#' data accessors.  The function prints the accessor in a summary manner.  
-#' Use \code{verbose = TRUE} to print the accessor as a list.
-#' @param x The library to print.
+#' a data catalog.  The function prints the catalog in a summary manner.  
+#' Use \code{verbose = TRUE} option to print the catalog as a list.
+#' @param x The catalog to print.
 #' @param ... Any follow-on parameters.
-#' @param verbose Whether or not to print the accessor in verbose style.
+#' @param verbose Whether or not to print the catalog in verbose style.
 #' By default, the parameter is FALSE, meaning to print in summary style.
 #' @return The object, invisibly.
 #' @examples 
-#' # Create temp directory
-#' tmp <- tempdir()
+#' # Get data directory
+#' pkg <- system.file("extdata", package = "fetch")
+#' 
+#' # Create catalog
+#' ct <- catalog(pkg, engines$csv)
+#' 
+#' # View catalog
+#' print(ct)
+#' # data catalog: 6 items
+#' # - Source: C:/packages/fetch/inst/extdata
+#' # - Engine: csv
+#' # - Items:
+#'   # data item 'ADAE': 56 cols 150 rows
+#'   # data item 'ADEX': 17 cols 348 rows
+#'   # data item 'ADPR': 37 cols 552 rows
+#'   # data item 'ADPSGA': 42 cols 695 rows
+#'   # data item 'ADSL': 56 cols 87 rows
+#'   # data item 'ADVS': 37 cols 3617 rows
 #' 
 #' @import crayon
 #' @export

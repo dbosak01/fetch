@@ -1,0 +1,10 @@
+pandoc: '2.18'
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  fetch: fetch.html
+last_built: 2023-04-23T05:13Z
+urls:
+  reference: https://fetch.r-sassy.org/reference
+  article: https://fetch.r-sassy.org/articles
+

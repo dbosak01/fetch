@@ -66,6 +66,7 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 }
 
 #' @title Create an Import Specification
+#' @encoding UTF-8
 #' @description A function to create the import specifications for a 
 #' particular data file.  This information can be used on the 
 #' \code{\link{fetch}} function to correctly assign the data types for 
@@ -118,6 +119,7 @@ import_spec <- function(..., na = NULL, trim_ws = NULL) {
 
 
 #' @title Read import specs from the file system
+#' @encoding UTF-8
 #' @description A function to read import specifications from the file system.
 #' The function accepts a full or relative path to the spec file, and returns
 #' the specs as an object.  If the \code{file_path} parameter is passed
@@ -168,6 +170,7 @@ read.specs <- function(file_path = getwd()) {
 }
 
 #' @title Write import specs to the file system
+#' @encoding UTF-8
 #' @description A function to write import specifications to the file system.
 #' The function accepts a specifications object and a full or relative
 #' path.  The function returns the full file path.  This function is 
@@ -204,6 +207,7 @@ write.specs <- function(x, dir_path = getwd(), file_name = NULL) {
 }
 
 #' @title Print import specifications
+#' @encoding UTF-8
 #' @description A function to print the import specification collection.
 #' @param x The specifications to print.
 #' @param ... Any follow-on parameters to the print function.

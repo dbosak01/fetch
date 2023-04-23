@@ -2,3 +2,25 @@ url:  https://fetch.r-sassy.org
 template:
   bootstrap: 5
 
+reference:
+- title: Data Retrieval Functions
+  desc: Functions to load data.
+  contents:
+  - catalog
+  - fetch
+  - engines
+  
+- title: Import Spec Functions
+  desc: Functions to create, save, and read an import specification.
+  contents:
+  - import_spec
+  - specs
+  - write.specs
+  - read.specs
+
+- title: Print Functions
+  desc: Functions to print objects in the package.
+  contents:
+  - print.dcat
+  - print.dinfo
+  - print.specs
