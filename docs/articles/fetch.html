@@ -77,9 +77,179 @@
 
     
     
+<p>In 2020 I wrote a package called <a href="https://libr.r-sassy.org" class="external-link">libr</a> to deal with the problem of
+managing multiple related datasets. This package allows you to manage
+data from several different types of files: SAS, Excel, CSV, and R.
+While the package received generally positive feedback, users requested
+some features that the package did not support:</p>
+<ul>
+<li>Users wanted to examine the data <em>before</em> loading it into
+memory.</li>
+<li>Users wanted to pick only some datasets to load into memory, and not
+load all of them at once.</li>
+<li>Users wanted to filter all datasets in the library based on some
+condition.</li>
+</ul>
+<p>After consideration of these requests, I determined that these
+features would be most easily satisfied by creating a new package. That
+package is <strong>fetch</strong>.</p>
+<div class="section level2">
+<h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
+</h2>
+<p>The <strong>fetch</strong> package allows you to retrieve data from
+any of several different data sources in an easy way. There are only two
+steps to retrieve data:</p>
+<ul>
+<li>Create a data catalog</li>
+<li>Fetch data from the catalog</li>
+</ul>
+<p>The above two steps are accomplished by the following functions:</p>
+<ul>
+<li>
+<code>catalog</code>: Defines a data catalog for a particular data
+source</li>
+<li>
+<code>fetch</code>: Pull a data item from the catalog and load it
+into memory</li>
+</ul>
+<p>The package has the following key features:</p>
+<ul>
+<li>The <strong>fetch</strong> package minimize memory usage, and loads
+only the data you need for your analysis.</li>
+<li>The <code>catalog</code> function allows you to examine the data
+before loading it into memory.</li>
+<li>The “filter” parameter on the <code>catalog</code> function allows
+you to filter across all datasets in the catalog.</li>
+<li>The <code>fetch</code> function loads data into memory, allowing
+additional filters if you wish.</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="how-to-use-fetch">How to use <strong>fetch</strong><a class="anchor" aria-label="anchor" href="#how-to-use-fetch"></a>
+</h2>
+<p>Let’s see a simple example. In this example we will create a data
+catalog, examine it’s contents, and fetch a dataset from the catalog.
+First let’s create a data catalog:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://fetch.r-sassy.org">fetch</a></span><span class="op">)</span></span></code></pre></div>
-  </main>
+<code class="sourceCode R"><span><span class="co"># Get data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Create catalog</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View catalog</span></span>
+<span><span class="va">ct</span></span>
+<span><span class="co"># data catalog: 6 items</span></span>
+<span><span class="co"># - Source: C:/packages/fetch/inst/extdata</span></span>
+<span><span class="co"># - Engine: csv</span></span>
+<span><span class="co"># - Items:</span></span>
+<span>    <span class="co"># data item 'ADAE': 56 cols 150 rows</span></span>
+<span>    <span class="co"># data item 'ADEX': 17 cols 348 rows</span></span>
+<span>    <span class="co"># data item 'ADPR': 37 cols 552 rows</span></span>
+<span>    <span class="co"># data item 'ADPSGA': 42 cols 695 rows</span></span>
+<span>    <span class="co"># data item 'ADSL': 56 cols 87 rows</span></span>
+<span>    <span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span></code></pre></div>
+<p>As can be seen above, this catalog has 6 csv files in it. The number
+of columns and rows are displayed for each file. Information about each
+file is contained in the catalog. This information can be accessed using
+list notion, like so:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># View info for catalog item </span></span>
+<span><span class="va">ct</span><span class="op">$</span><span class="va">ADEX</span></span>
+<span><span class="co"># data item 'ADEX': 17 cols 348 rows</span></span>
+<span><span class="co"># - Engine: csv</span></span>
+<span><span class="co"># - Size: 70.7 Kb</span></span>
+<span><span class="co"># - Last Modified: 2020-09-18 14:30:22</span></span>
+<span><span class="co">#    Name   Column     Class Label Format NAs MaxChar</span></span>
+<span><span class="co"># 1  ADEX  STUDYID character  &lt;NA&gt;     NA   0       3</span></span>
+<span><span class="co"># 2  ADEX  USUBJID character  &lt;NA&gt;     NA   0      10</span></span>
+<span><span class="co"># 3  ADEX   SUBJID character  &lt;NA&gt;     NA   0       3</span></span>
+<span><span class="co"># 4  ADEX   SITEID character  &lt;NA&gt;     NA   0       2</span></span>
+<span><span class="co"># 5  ADEX     TRTP character  &lt;NA&gt;     NA   8       5</span></span>
+<span><span class="co"># 6  ADEX    TRTPN   numeric  &lt;NA&gt;     NA   8       1</span></span>
+<span><span class="co"># 7  ADEX     TRTA character  &lt;NA&gt;     NA   8       5</span></span>
+<span><span class="co"># 8  ADEX    TRTAN   numeric  &lt;NA&gt;     NA   8       1</span></span>
+<span><span class="co"># 9  ADEX   RANDFL character  &lt;NA&gt;     NA   0       1</span></span>
+<span><span class="co"># 10 ADEX    SAFFL character  &lt;NA&gt;     NA   0       1</span></span>
+<span><span class="co"># 11 ADEX   MITTFL character  &lt;NA&gt;     NA   0       1</span></span>
+<span><span class="co"># 12 ADEX  PPROTFL character  &lt;NA&gt;     NA   0       1</span></span>
+<span><span class="co"># 13 ADEX    PARAM character  &lt;NA&gt;     NA   0      45</span></span>
+<span><span class="co"># 14 ADEX  PARAMCD character  &lt;NA&gt;     NA   0       8</span></span>
+<span><span class="co"># 15 ADEX   PARAMN   numeric  &lt;NA&gt;     NA   0       1</span></span>
+<span><span class="co"># 16 ADEX     AVAL   numeric  &lt;NA&gt;     NA  16       4</span></span>
+<span><span class="co"># 17 ADEX AVALCAT1 character  &lt;NA&gt;     NA  87      10</span></span></code></pre></div>
+<p>When the catalog item is printed, it shows a data dictionary for the
+specified dataset. Column names and data types are displayed, along with
+some other useful attributes of you data.</p>
+<p>Once the catalog is created, you are ready to fetch data from the
+catalog:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Fetch data from a catalog</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct</span><span class="op">$</span><span class="va">ADEX</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View data</span></span>
+<span><span class="va">dt</span></span>
+<span><span class="co"># A tibble: 348 × 17</span></span>
+<span><span class="co">#    STUDYID USUBJID    SUBJID SITEID TRTP  TRTPN TRTA  TRTAN RANDFL SAFFL MITTFL PPROTFL</span></span>
+<span><span class="co">#    &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  </span></span>
+<span><span class="co">#  1 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  2 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  3 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  4 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  5 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  6 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  7 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  8 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  9 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y     Y      Y      </span></span>
+<span><span class="co"># 10 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y     Y      Y      </span></span>
+<span><span class="co">#  338 more rows</span></span>
+<span><span class="co">#  5 more variables: PARAM &lt;chr&gt;, PARAMCD &lt;chr&gt;, PARAMN &lt;dbl&gt;, AVAL &lt;dbl&gt;,</span></span>
+<span><span class="co">#   AVALCAT1 &lt;chr&gt;</span></span>
+<span><span class="co">#  Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<p>At this point, you can proceede with your analysis, or fetch
+additional datasets from the catalog if needed.</p>
+</div>
+<div class="section level2">
+<h2 id="more-examples">More Examples<a class="anchor" aria-label="anchor" href="#more-examples"></a>
+</h2>
+<p>Now let’s look at some more useful features of the
+<strong>fetch</strong> package.</p>
+<div class="section level3">
+<h3 id="example-1-apply-a-filter-to-fetch-operation">Example 1: Apply a Filter to Fetch Operation<a class="anchor" aria-label="anchor" href="#example-1-apply-a-filter-to-fetch-operation"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="example-2-get-top-n-rows">Example 2: Get Top N Rows<a class="anchor" aria-label="anchor" href="#example-2-get-top-n-rows"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="example-3-apply-a-pattern-to-a-catalog">Example 3: Apply a Pattern to a Catalog<a class="anchor" aria-label="anchor" href="#example-3-apply-a-pattern-to-a-catalog"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="example-4-apply-a-filter-to-a-catalog">Example 4: Apply a Filter to a Catalog<a class="anchor" aria-label="anchor" href="#example-4-apply-a-filter-to-a-catalog"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="example-5-add-import-specifications-to-a-fetch">Example 5: Add Import Specifications to a Fetch<a class="anchor" aria-label="anchor" href="#example-5-add-import-specifications-to-a-fetch"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="example-6-add-import-specifications-to-a-catalog">Example 6: Add Import Specifications to a Catalog<a class="anchor" aria-label="anchor" href="#example-6-add-import-specifications-to-a-catalog"></a>
+</h3>
+</div>
+<div class="section level3">
+<h3 id="example-7-mixing-it-up">Example 7: Mixing It UP<a class="anchor" aria-label="anchor" href="#example-7-mixing-it-up"></a>
+</h3>
+</div>
+</div>
+<div class="section level2">
+<h2 id="next-steps">Next Steps<a class="anchor" aria-label="anchor" href="#next-steps"></a>
+</h2>
+</div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 

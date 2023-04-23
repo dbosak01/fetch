@@ -14,6 +14,166 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(fetch)
+
+In 2020 I wrote a package called [libr](https://libr.r-sassy.org) to deal 
+with the problem of managing multiple related datasets.  This package allows
+you to manage data from several different types of files:
+SAS, Excel, CSV, and R. While the package received generally positive feedback, 
+users requested some features that the package did not support:  
+
+* Users wanted to examine the data *before* loading it into memory.
+* Users wanted to pick only *some* datasets to load into memory.
+* Users wanted to filter all datasets in the library based on a condition.
+
+After consideration of these requests, I determined that these features would
+be most easily satisfied by creating a new package.  That package is **fetch**.
+
+## Key Features
+
+The **fetch** package allows you to retrieve data from any of several different 
+data sources while minimizing memory usage. 
+There are only two steps to retrieve data:
+
+* Create a data catalog
+* Fetch data from the catalog
+
+The above two steps are accomplished by the following functions:
+
+* `catalog`: Defines a data catalog for a particular data source
+* `fetch`: Pulls a data item from the catalog and loads it into memory
+
+The package has the following key features:
+
+* The **fetch** package loads only the data you need for your analysis.
+* The `catalog` function allows you to examine the data before loading it.
+* The "filter" parameter on the `catalog` function allows you to filter across 
+all datasets in the catalog.
+* The `fetch` function loads data, allowing additional subsets if 
+you wish.
+
+## How to use **fetch**
+
+Let's see a simple example.  In this example we will create a data catalog,
+examine it's contents, and fetch a dataset from the catalog.  First let's create
+a data catalog:
+
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create catalog
+ct <- catalog(pkg, engines$csv)
+
+# View catalog
+ct
+# data catalog: 6 items
+# - Source: C:/packages/fetch/inst/extdata
+# - Engine: csv
+# - Items:
+    # data item 'ADAE': 56 cols 150 rows
+    # data item 'ADEX': 17 cols 348 rows
+    # data item 'ADPR': 37 cols 552 rows
+    # data item 'ADPSGA': 42 cols 695 rows
+    # data item 'ADSL': 56 cols 87 rows
+    # data item 'ADVS': 37 cols 3617 rows
 ```
+As can be seen above, this catalog has 6 csv files in it.  The number of columns
+and rows are displayed for each file. Information about each file is contained
+in the catalog.  This information can be accessed using list notion, like so:
+
+```{r eval=FALSE, echo=TRUE}
+# View info for catalog item 
+ct$ADEX
+# data item 'ADEX': 17 cols 348 rows
+# - Engine: csv
+# - Size: 70.7 Kb
+# - Last Modified: 2020-09-18 14:30:22
+#    Name   Column     Class Label Format NAs MaxChar
+# 1  ADEX  STUDYID character  <NA>     NA   0       3
+# 2  ADEX  USUBJID character  <NA>     NA   0      10
+# 3  ADEX   SUBJID character  <NA>     NA   0       3
+# 4  ADEX   SITEID character  <NA>     NA   0       2
+# 5  ADEX     TRTP character  <NA>     NA   8       5
+# 6  ADEX    TRTPN   numeric  <NA>     NA   8       1
+# 7  ADEX     TRTA character  <NA>     NA   8       5
+# 8  ADEX    TRTAN   numeric  <NA>     NA   8       1
+# 9  ADEX   RANDFL character  <NA>     NA   0       1
+# 10 ADEX    SAFFL character  <NA>     NA   0       1
+# 11 ADEX   MITTFL character  <NA>     NA   0       1
+# 12 ADEX  PPROTFL character  <NA>     NA   0       1
+# 13 ADEX    PARAM character  <NA>     NA   0      45
+# 14 ADEX  PARAMCD character  <NA>     NA   0       8
+# 15 ADEX   PARAMN   numeric  <NA>     NA   0       1
+# 16 ADEX     AVAL   numeric  <NA>     NA  16       4
+# 17 ADEX AVALCAT1 character  <NA>     NA  87      10
+
+```
+When the catalog item is printed, it shows a data dictionary for the 
+specified dataset.  Column names and data types are displayed, along with
+some other useful attributes of your data.
+
+Once the catalog is created, you are ready to fetch data from the catalog:
+
+```{r eval=FALSE, echo=TRUE}
+
+# Fetch data from a catalog
+dt <- fetch(ct$ADEX)
+
+# View data
+dt
+# A tibble: 348 × 17
+#    STUDYID USUBJID    SUBJID SITEID TRTP  TRTPN TRTA  TRTAN RANDFL SAFFL MITTFL PPROTFL
+#    <chr>   <chr>      <chr>  <chr>  <chr> <dbl> <chr> <dbl> <chr>  <chr> <chr>  <chr>  
+#  1 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      
+#  2 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      
+#  3 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      
+#  4 ABC     ABC-01-049 049    01     ARM D     4 ARM D     4 Y      Y     Y      Y      
+#  5 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      
+#  6 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      
+#  7 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      
+#  8 ABC     ABC-01-050 050    01     ARM B     2 ARM B     2 Y      Y     Y      Y      
+#  9 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y     Y      Y      
+# 10 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y     Y      Y      
+#  338 more rows
+#  5 more variables: PARAM <chr>, PARAMCD <chr>, PARAMN <dbl>, AVAL <dbl>,
+#   AVALCAT1 <chr>
+#  Use `print(n = ...)` to see more rows
+
+```
+
+At this point, you can proceed with your analysis, or fetch additional datasets 
+from the catalog as needed.
+
+
+## More Examples
+
+Now let's look at some more useful features of the **fetch** package.
+
+### Example 1: Apply a Filter to Fetch Operation
+
+
+### Example 2: Get Top N Rows
+
+
+### Example 3: Apply a Pattern to a Catalog
+
+### Example 4: Apply a Filter to a Catalog
+
+### Example 5: Add Import Specifications to a Fetch
+
+
+
+### Example 6: Add Import Specifications to a Catalog
+
+
+
+
+### Example 7: Mixing It Up
+
+
+## Next Steps
+
+
+
+
+
