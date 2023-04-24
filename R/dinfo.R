@@ -45,9 +45,9 @@ print.dinfo <- function(x, ..., verbose = TRUE) {
     cat(paste0("- Top: ", attr(x, "top"), "\n"))
   if (!is.null(attr(x, "filter"))) {
     
-    print(attr(x, "filter"))
-    if (nchar(attr(x, "filter")) > 0)
-      cat(paste0("- Filter: ", attr(x, "filter"), "\n"))
+    #print(attr(x, "filter"))
+    if (nchar(as.character(attr(x, "filter"))) > 0)
+      cat(paste0("- Filter: ", as.character(attr(x, "filter")), "\n"))
     
   }
   

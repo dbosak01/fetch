@@ -85,9 +85,9 @@ some features that the package did not support:</p>
 <ul>
 <li>Users wanted to examine the data <em>before</em> loading it into
 memory.</li>
-<li>Users wanted to pick only some datasets to load into memory, and not
-load all of them at once.</li>
-<li>Users wanted to filter all datasets in the library based on some
+<li>Users wanted to pick only <em>some</em> datasets to load into
+memory.</li>
+<li>Users wanted to filter all datasets in the library based on a
 condition.</li>
 </ul>
 <p>After consideration of these requests, I determined that these
@@ -97,8 +97,8 @@ package is <strong>fetch</strong>.</p>
 <h2 id="key-features">Key Features<a class="anchor" aria-label="anchor" href="#key-features"></a>
 </h2>
 <p>The <strong>fetch</strong> package allows you to retrieve data from
-any of several different data sources in an easy way. There are only two
-steps to retrieve data:</p>
+any of several different data sources while minimizing memory usage.
+There are only two steps to retrieve data:</p>
 <ul>
 <li>Create a data catalog</li>
 <li>Fetch data from the catalog</li>
@@ -109,19 +109,19 @@ steps to retrieve data:</p>
 <code>catalog</code>: Defines a data catalog for a particular data
 source</li>
 <li>
-<code>fetch</code>: Pull a data item from the catalog and load it
+<code>fetch</code>: Pulls a data item from the catalog and loads it
 into memory</li>
 </ul>
 <p>The package has the following key features:</p>
 <ul>
-<li>The <strong>fetch</strong> package minimize memory usage, and loads
-only the data you need for your analysis.</li>
+<li>The <strong>fetch</strong> package loads only the data you need for
+your analysis.</li>
 <li>The <code>catalog</code> function allows you to examine the data
-before loading it into memory.</li>
+before loading it.</li>
 <li>The “filter” parameter on the <code>catalog</code> function allows
 you to filter across all datasets in the catalog.</li>
-<li>The <code>fetch</code> function loads data into memory, allowing
-additional filters if you wish.</li>
+<li>The <code>fetch</code> function loads data, allowing additional
+subsets if you wish.</li>
 </ul>
 </div>
 <div class="section level2">
@@ -131,7 +131,7 @@ additional filters if you wish.</li>
 catalog, examine it’s contents, and fetch a dataset from the catalog.
 First let’s create a data catalog:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Get data directory</span></span>
+<code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
 <span> </span>
 <span><span class="co"># Create catalog</span></span>
@@ -180,7 +180,7 @@ list notion, like so:</p>
 <span><span class="co"># 17 ADEX AVALCAT1 character  &lt;NA&gt;     NA  87      10</span></span></code></pre></div>
 <p>When the catalog item is printed, it shows a data dictionary for the
 specified dataset. Column names and data types are displayed, along with
-some other useful attributes of you data.</p>
+some other useful attributes of your data.</p>
 <p>Once the catalog is created, you are ready to fetch data from the
 catalog:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -207,8 +207,8 @@ catalog:</p>
 <span><span class="co">#  5 more variables: PARAM &lt;chr&gt;, PARAMCD &lt;chr&gt;, PARAMN &lt;dbl&gt;, AVAL &lt;dbl&gt;,</span></span>
 <span><span class="co">#   AVALCAT1 &lt;chr&gt;</span></span>
 <span><span class="co">#  Use `print(n = ...)` to see more rows</span></span></code></pre></div>
-<p>At this point, you can proceede with your analysis, or fetch
-additional datasets from the catalog if needed.</p>
+<p>At this point, you can proceed with your analysis, or fetch
+additional datasets from the catalog as needed.</p>
 </div>
 <div class="section level2">
 <h2 id="more-examples">More Examples<a class="anchor" aria-label="anchor" href="#more-examples"></a>
@@ -218,29 +218,295 @@ additional datasets from the catalog if needed.</p>
 <div class="section level3">
 <h3 id="example-1-apply-a-filter-to-fetch-operation">Example 1: Apply a Filter to Fetch Operation<a class="anchor" aria-label="anchor" href="#example-1-apply-a-filter-to-fetch-operation"></a>
 </h3>
+<p>What if you performing an analysis on a subset of data? Is there a
+way to apply a subset when the data is fetched? You can apply subset
+criteria using the “filter” parameter on the <code>fetch</code>
+function. Like this:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Create catalog</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filter data for a specific subject</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View filtered data</span></span>
+<span><span class="va">dt</span></span>
+<span><span class="co"># A tibble: 44 × 37</span></span>
+<span><span class="co">#    STUDYID USUBJID    SUBJID SITEID SRCDOM SRCVAR   SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL</span></span>
+<span><span class="co">#    &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; </span></span>
+<span><span class="co">#  1 ABC     ABC-01-049 049    01     VS     VSSTRESN      9 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  2 ABC     ABC-01-049 049    01     VS     VSSTRESN     41 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  3 ABC     ABC-01-049 049    01     NA     NA           NA ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  4 ABC     ABC-01-049 049    01     VS     VSSTRESN     34 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  5 ABC     ABC-01-049 049    01     VS     VSSTRESN     35 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  6 ABC     ABC-01-049 049    01     VS     VSSTRESN     36 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  7 ABC     ABC-01-049 049    01     VS     VSSTRESN     37 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  8 ABC     ABC-01-049 049    01     VS     VSSTRESN     38 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  9 ABC     ABC-01-049 049    01     VS     VSSTRESN     39 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co"># 10 ABC     ABC-01-049 049    01     VS     VSSTRESN     40 ARM D     4 ARM D     4 Y     </span></span>
+<span><span class="co">#  34 more rows</span></span>
+<span><span class="co">#  25 more variables: SAFFL &lt;chr&gt;, MITTFL &lt;chr&gt;, PPROTFL &lt;chr&gt;, TRTSDT &lt;chr&gt;,</span></span>
+<span><span class="co">#   TRTEDT &lt;chr&gt;, ADT &lt;chr&gt;, ADY &lt;dbl&gt;, ADTF &lt;lgl&gt;, AVISIT &lt;chr&gt;, AVISITN &lt;dbl&gt;,</span></span>
+<span><span class="co">#   PARAM &lt;chr&gt;, PARAMCD &lt;chr&gt;, PARAMN &lt;dbl&gt;, PARAMTYP &lt;chr&gt;, AVAL &lt;dbl&gt;, BASE &lt;dbl&gt;,</span></span>
+<span><span class="co">#   CHG &lt;dbl&gt;, AWRANGE &lt;chr&gt;, AWTARGET &lt;dbl&gt;, AWTDIFF &lt;dbl&gt;, AWLO &lt;dbl&gt;, AWHI &lt;dbl&gt;,</span></span>
+<span><span class="co">#   AWU &lt;chr&gt;, ABLFL &lt;chr&gt;, ANL01FL &lt;chr&gt;</span></span>
+<span><span class="co">#  Use `print(n = ...)` to see more rows</span></span></code></pre></div>
+<p>The <code>expression</code> function can be used to define any R
+expression. This function accepts unquoted variable names, logical
+operators, and R functions like <code><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null()</a></code> and
+<code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code>. You can use the the “filter” parameter with an
+expression to narrow down the data you are working with and reduce the
+memory footprint of your program.</p>
 </div>
 <div class="section level3">
 <h3 id="example-2-get-top-n-rows">Example 2: Get Top N Rows<a class="anchor" aria-label="anchor" href="#example-2-get-top-n-rows"></a>
 </h3>
+<p>Another way to limit the data returned by your program is to use the
+“top” parameter. This parameter allows you to return only the “top N”
+number of row in the target data item. The “top” parameter is useful for
+exploratory purposes. Here is an example:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Create catalog</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filter data for a specific subject</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span>, top <span class="op">=</span> <span class="fl">5</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results</span></span>
+<span><span class="va">dt</span></span>
+<span><span class="co"># A tibble: 5 × 37</span></span>
+<span><span class="co">#   STUDYID USUBJID  SUBJID SITEID SRCDOM SRCVAR SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL SAFFL</span></span>
+<span><span class="co">#   &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co"># 1 ABC     ABC-01-… 049    01     VS     VSSTR…      9 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co"># 2 ABC     ABC-01-… 049    01     VS     VSSTR…     41 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co"># 3 ABC     ABC-01-… 049    01     NA     NA         NA ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co"># 4 ABC     ABC-01-… 049    01     VS     VSSTR…     34 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co"># 5 ABC     ABC-01-… 049    01     VS     VSSTR…     35 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#   24 more variables: MITTFL &lt;chr&gt;, PPROTFL &lt;chr&gt;, TRTSDT &lt;chr&gt;, TRTEDT &lt;chr&gt;,</span></span>
+<span><span class="co">#   ADT &lt;chr&gt;, ADY &lt;dbl&gt;, ADTF &lt;lgl&gt;, AVISIT &lt;chr&gt;, AVISITN &lt;dbl&gt;, PARAM &lt;chr&gt;,</span></span>
+<span><span class="co">#   PARAMCD &lt;chr&gt;, PARAMN &lt;dbl&gt;, PARAMTYP &lt;chr&gt;, AVAL &lt;dbl&gt;, BASE &lt;dbl&gt;, CHG &lt;dbl&gt;,</span></span>
+<span><span class="co">#   AWRANGE &lt;chr&gt;, AWTARGET &lt;dbl&gt;, AWTDIFF &lt;dbl&gt;, AWLO &lt;dbl&gt;, AWHI &lt;dbl&gt;, AWU &lt;chr&gt;,</span></span>
+<span><span class="co">#   ABLFL &lt;chr&gt;, ANL01FL &lt;chr&gt;</span></span></code></pre></div>
+<p>The above fetch returned the top 5 rows of the dataset for subject
+‘049’. Note that the “top” parameter can be used with or without the
+“filter” parameter.</p>
 </div>
 <div class="section level3">
 <h3 id="example-3-apply-a-pattern-to-a-catalog">Example 3: Apply a Pattern to a Catalog<a class="anchor" aria-label="anchor" href="#example-3-apply-a-pattern-to-a-catalog"></a>
 </h3>
+<p>The previous examples loaded all datasets from the data source into
+the data catalog. There may be instances, however, when you have a very
+large number of datasets, and want to limit the data items loaded into
+the catalog. For this use case, you can use the “pattern” parameter on
+the <code><a href="../reference/catalog.html">catalog()</a></code> function, like so:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Create catalog, applying pattern to dataset names</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, pattern <span class="op">=</span> <span class="st">"*S*"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View catalog</span></span>
+<span><span class="va">ct</span></span>
+<span><span class="co"># data catalog: 3 items</span></span>
+<span><span class="co"># - Source: C:/packages/fetch/inst/extdata</span></span>
+<span><span class="co"># - Engine: csv</span></span>
+<span><span class="co"># - Pattern: *S*</span></span>
+<span><span class="co"># - Items:</span></span>
+<span><span class="co"># data item 'ADPSGA': 42 cols 695 rows</span></span>
+<span><span class="co"># data item 'ADSL': 56 cols 87 rows</span></span>
+<span><span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span></code></pre></div>
+<p>The above example limits the items in the catalog to those with an
+“S” in the name. While this is not a realistic example, it nevertheless
+demonstrates how the “pattern” parameter can be used to reduce the
+datasets loaded into the catalog.</p>
 </div>
 <div class="section level3">
-<h3 id="example-4-apply-a-filter-to-a-catalog">Example 4: Apply a Filter to a Catalog<a class="anchor" aria-label="anchor" href="#example-4-apply-a-filter-to-a-catalog"></a>
+<h3 id="example-4-apply-a-filter-to-an-entire-catalog">Example 4: Apply a Filter to an Entire Catalog<a class="anchor" aria-label="anchor" href="#example-4-apply-a-filter-to-an-entire-catalog"></a>
 </h3>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="va">ct1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View catalog</span></span>
+<span><span class="va">ct1</span></span>
+<span><span class="co"># data catalog: 6 items</span></span>
+<span><span class="co"># - Source: C:/packages/fetch/inst/extdata</span></span>
+<span><span class="co"># - Engine: csv</span></span>
+<span><span class="co"># - Items:</span></span>
+<span><span class="co"># data item 'ADAE': 56 cols 150 rows</span></span>
+<span><span class="co"># data item 'ADEX': 17 cols 348 rows</span></span>
+<span><span class="co"># data item 'ADPR': 37 cols 552 rows</span></span>
+<span><span class="co"># data item 'ADPSGA': 42 cols 695 rows</span></span>
+<span><span class="co"># data item 'ADSL': 56 cols 87 rows</span></span>
+<span><span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span>
+<span></span>
+<span><span class="co"># Create catalog with filter</span></span>
+<span><span class="va">ct2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View catalog</span></span>
+<span><span class="va">ct2</span></span>
+<span><span class="co"># data catalog: 6 items</span></span>
+<span><span class="co"># - Source: C:/packages/fetch/inst/extdata</span></span>
+<span><span class="co"># - Engine: csv</span></span>
+<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># - Items:</span></span>
+<span><span class="co"># # data item 'ADAE': 56 cols 5 rows</span></span>
+<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># # data item 'ADEX': 17 cols 4 rows</span></span>
+<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># # data item 'ADPR': 37 cols 7 rows</span></span>
+<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># # data item 'ADPSGA': 42 cols 10 rows</span></span>
+<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># # data item 'ADSL': 56 cols 1 rows</span></span>
+<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># # data item 'ADVS': 37 cols 44 rows</span></span>
+<span><span class="co"># - Filter: SUBJID == "049"</span></span></code></pre></div>
+<p>Notice that the row counts for the filtered catalog have been
+reduced. Now let’s fetch some data from this catalog:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Filter data for a specific subject</span></span>
+<span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct2</span><span class="op">$</span><span class="va">ADVS</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View results of ADVS fetch</span></span>
+<span><span class="va">dt1</span></span>
+<span><span class="co"># A tibble: 44 × 37</span></span>
+<span><span class="co">#    STUDYID USUBJID    SUBJID SITEID SRCDOM SRCVAR   SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL SAFFL</span></span>
+<span><span class="co">#    &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;</span></span>
+<span><span class="co">#  1 ABC     ABC-01-049 049    01     VS     VSSTRESN      9 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  2 ABC     ABC-01-049 049    01     VS     VSSTRESN     41 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  3 ABC     ABC-01-049 049    01     NA     NA           NA ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  4 ABC     ABC-01-049 049    01     VS     VSSTRESN     34 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  5 ABC     ABC-01-049 049    01     VS     VSSTRESN     35 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  6 ABC     ABC-01-049 049    01     VS     VSSTRESN     36 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  7 ABC     ABC-01-049 049    01     VS     VSSTRESN     37 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  8 ABC     ABC-01-049 049    01     VS     VSSTRESN     38 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  9 ABC     ABC-01-049 049    01     VS     VSSTRESN     39 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co"># 10 ABC     ABC-01-049 049    01     VS     VSSTRESN     40 ARM D     4 ARM D     4 Y      Y    </span></span>
+<span><span class="co">#  34 more rows</span></span>
+<span><span class="co">#  24 more variables: MITTFL &lt;chr&gt;, PPROTFL &lt;chr&gt;, TRTSDT &lt;chr&gt;, TRTEDT &lt;chr&gt;, ADT &lt;chr&gt;,</span></span>
+<span><span class="co">#   ADY &lt;dbl&gt;, ADTF &lt;lgl&gt;, AVISIT &lt;chr&gt;, AVISITN &lt;dbl&gt;, PARAM &lt;chr&gt;, PARAMCD &lt;chr&gt;,</span></span>
+<span><span class="co">#   PARAMN &lt;dbl&gt;, PARAMTYP &lt;chr&gt;, AVAL &lt;dbl&gt;, BASE &lt;dbl&gt;, CHG &lt;dbl&gt;, AWRANGE &lt;chr&gt;,</span></span>
+<span><span class="co">#   AWTARGET &lt;dbl&gt;, AWTDIFF &lt;dbl&gt;, AWLO &lt;dbl&gt;, AWHI &lt;dbl&gt;, AWU &lt;chr&gt;, ABLFL &lt;chr&gt;,</span></span>
+<span><span class="co">#   ANL01FL &lt;chr&gt;</span></span>
+<span><span class="co">#  Use `print(n = ...)` to see more rows</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># View results of ADSL fetch</span></span>
+<span><span class="va">dt2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct2</span><span class="op">$</span><span class="va">ADSL</span><span class="op">)</span></span>
+<span><span class="co"># A tibble: 1 × 56</span></span>
+<span><span class="co">#   STUDYID USUBJID    SUBJID SITEID   AGE AGEU  AGEGR1   SEX   RACE  RACEN ETHNIC ETHNICN COUNTRY</span></span>
+<span><span class="co">#   &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt;  </span></span>
+<span><span class="co"># 1 ABC     ABC-01-049 049    01        39 YEARS 30-39 y… M     WHITE     5 NOT H…       2 NA     </span></span>
+<span><span class="co">#   43 more variables: ARM &lt;chr&gt;, ACTARM &lt;lgl&gt;, TRT01P &lt;chr&gt;, TRT01PN &lt;dbl&gt;, TRT01A &lt;chr&gt;,</span></span>
+<span><span class="co">#   TRT01AN &lt;dbl&gt;, TRTSDT &lt;chr&gt;, TRTEDT &lt;chr&gt;, TRTDURN &lt;dbl&gt;, TRTDURU &lt;chr&gt;, TR01SDT &lt;chr&gt;,</span></span>
+<span><span class="co">#   TR01EDT &lt;chr&gt;, INCNFL &lt;chr&gt;, RANDFL &lt;chr&gt;, RANDEXC1 &lt;lgl&gt;, RANDEXC2 &lt;chr&gt;, RANDEXC3 &lt;chr&gt;,</span></span>
+<span><span class="co">#   RANDEXC4 &lt;chr&gt;, SAFFL &lt;chr&gt;, SAFEXC1 &lt;chr&gt;, SAFEXC2 &lt;chr&gt;, MITTFL &lt;chr&gt;, MITTEXC1 &lt;chr&gt;,</span></span>
+<span><span class="co">#   MITTEXC2 &lt;chr&gt;, PPROTFL &lt;chr&gt;, PPROTEX1 &lt;chr&gt;, PPROTEX2 &lt;chr&gt;, PPROTEX3 &lt;chr&gt;,</span></span>
+<span><span class="co">#   PPROTEX4 &lt;chr&gt;, COMPLFL &lt;chr&gt;, STDYDISP &lt;chr&gt;, STDYREAS &lt;chr&gt;, INCNDT &lt;chr&gt;, RANDDT &lt;chr&gt;,</span></span>
+<span><span class="co">#   DTHDT &lt;lgl&gt;, DTHFL &lt;chr&gt;, MISSDOSE &lt;dbl&gt;, TP1TRTR &lt;chr&gt;, TP2TRTR &lt;chr&gt;, TP3TRTR &lt;chr&gt;,...</span></span></code></pre></div>
+<p>AS you can see, both the ADVS and ADSL datasets have been filtered
+for subject ‘049’. This feature of the <em>fetch</em> package makes it
+easy to target just the rows you are looking for.</p>
 </div>
 <div class="section level3">
-<h3 id="example-5-add-import-specifications-to-a-fetch">Example 5: Add Import Specifications to a Fetch<a class="anchor" aria-label="anchor" href="#example-5-add-import-specifications-to-a-fetch"></a>
+<h3 id="example-5-add-import-specifications-to-a-catalog">Example 5: Add Import Specifications to a Catalog<a class="anchor" aria-label="anchor" href="#example-5-add-import-specifications-to-a-catalog"></a>
 </h3>
+<p>Some data files contain accurate data type information within them,
+and others do not. For example, CSV files do not contain data type
+information, but SAS transport files do. If the data type information is
+not available, the data engine will try to guess the data types.
+However, it does not alway guess accurately. Sometimes you need to help
+the data engine determine what the data type of a column is supposed to
+be. Import specs allow to to specify the correct data type for a
+column.</p>
+<p>Examine the dictionary for the ADVS dataset:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># View dictionary for ADVS</span></span>
+<span><span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span></span>
+<span><span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span>
+<span><span class="co"># - Engine: csv</span></span>
+<span><span class="co"># - Size: 1.1 Mb</span></span>
+<span><span class="co"># - Last Modified: 2020-09-18 14:30:22</span></span>
+<span><span class="co">#    Name   Column     Class Label Format  NAs MaxChar</span></span>
+<span><span class="co"># 1  ADVS  STUDYID character  &lt;NA&gt;     NA    0       3</span></span>
+<span><span class="co"># 2  ADVS  USUBJID character  &lt;NA&gt;     NA    0      10</span></span>
+<span><span class="co"># 3  ADVS   SUBJID character  &lt;NA&gt;     NA    0       3</span></span>
+<span><span class="co"># 4  ADVS   SITEID character  &lt;NA&gt;     NA    0       2</span></span>
+<span><span class="co"># 5  ADVS   SRCDOM character  &lt;NA&gt;     NA   85       2</span></span>
+<span><span class="co"># 6  ADVS   SRCVAR character  &lt;NA&gt;     NA   85       8</span></span>
+<span><span class="co"># 7  ADVS   SRCSEQ   numeric  &lt;NA&gt;     NA   85       2</span></span>
+<span><span class="co"># 8  ADVS     TRTP character  &lt;NA&gt;     NA   85       5</span></span>
+<span><span class="co"># 9  ADVS    TRTPN   numeric  &lt;NA&gt;     NA   85       1</span></span>
+<span><span class="co"># 10 ADVS     TRTA character  &lt;NA&gt;     NA   85       5</span></span>
+<span><span class="co"># 11 ADVS    TRTAN   numeric  &lt;NA&gt;     NA   85       1</span></span>
+<span><span class="co"># 12 ADVS   RANDFL character  &lt;NA&gt;     NA    0       1</span></span>
+<span><span class="co"># 13 ADVS    SAFFL character  &lt;NA&gt;     NA    0       1</span></span>
+<span><span class="co"># 14 ADVS   MITTFL character  &lt;NA&gt;     NA    0       1</span></span>
+<span><span class="co"># 15 ADVS  PPROTFL character  &lt;NA&gt;     NA    0       1</span></span>
+<span><span class="co"># 16 ADVS   TRTSDT character  &lt;NA&gt;     NA   54       9</span></span>
+<span><span class="co"># 17 ADVS   TRTEDT character  &lt;NA&gt;     NA  119       9</span></span>
+<span><span class="co"># 18 ADVS      ADT character  &lt;NA&gt;     NA    0       9</span></span>
+<span><span class="co"># 19 ADVS      ADY   numeric  &lt;NA&gt;     NA   54       4</span></span>
+<span><span class="co"># 20 ADVS     ADTF   logical  &lt;NA&gt;     NA 3617       0</span></span>
+<span><span class="co"># 21 ADVS   AVISIT character  &lt;NA&gt;     NA   50      14</span></span>
+<span><span class="co"># 22 ADVS  AVISITN   numeric  &lt;NA&gt;     NA   50       2</span></span>
+<span><span class="co"># 23 ADVS    PARAM character  &lt;NA&gt;     NA    0      35</span></span>
+<span><span class="co"># 24 ADVS  PARAMCD character  &lt;NA&gt;     NA    0       6</span></span>
+<span><span class="co"># 25 ADVS   PARAMN   numeric  &lt;NA&gt;     NA    0       1</span></span>
+<span><span class="co"># 26 ADVS PARAMTYP character  &lt;NA&gt;     NA 3532       7</span></span>
+<span><span class="co"># 27 ADVS     AVAL   numeric  &lt;NA&gt;     NA    0       5</span></span>
+<span><span class="co"># 28 ADVS     BASE   numeric  &lt;NA&gt;     NA   70       5</span></span>
+<span><span class="co"># 29 ADVS      CHG   numeric  &lt;NA&gt;     NA 1312       4</span></span>
+<span><span class="co"># 30 ADVS  AWRANGE character  &lt;NA&gt;     NA 1331      25</span></span>
+<span><span class="co"># 31 ADVS AWTARGET   numeric  &lt;NA&gt;     NA 1331       3</span></span>
+<span><span class="co"># 32 ADVS  AWTDIFF   numeric  &lt;NA&gt;     NA 1331       2</span></span>
+<span><span class="co"># 33 ADVS     AWLO   numeric  &lt;NA&gt;     NA 1331       3</span></span>
+<span><span class="co"># 34 ADVS     AWHI   numeric  &lt;NA&gt;     NA 1331       3</span></span>
+<span><span class="co"># 35 ADVS      AWU character  &lt;NA&gt;     NA 1331       4</span></span>
+<span><span class="co"># 36 ADVS    ABLFL character  &lt;NA&gt;     NA 2869       1</span></span>
+<span><span class="co"># 37 ADVS  ANL01FL character  &lt;NA&gt;     NA  448       1</span></span></code></pre></div>
+<p>Note that the data type of the “TRTSDT” and “TRTEDT” as listed as
+character. In fact, these columns are supposed to be a date. You can
+force the date data type assignment with an import spec, as follows:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span> </span>
+<span><span class="co"># Create import spec</span></span>
+<span><span class="va">spc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specs.html">specs</a></span><span class="op">(</span>ADVS <span class="op">=</span> <span class="fu"><a href="../reference/import_spec.html">import_spec</a></span><span class="op">(</span>TRTSDT <span class="op">=</span> <span class="st">"date:%m/%d/%Y"</span>,</span>
+<span>                    TRTEDT <span class="op">=</span> <span class="st">"date:%m/%d/%Y"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="co">#ct &lt;- catalog(pkg, engines$csv, import_specs = spc)</span></span>
+<span></span>
+<span></span>
+<span></span>
+<span><span class="co"># View dictionary for ADVS</span></span>
+<span><span class="va">ct</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="example-6-add-import-specifications-to-a-catalog">Example 6: Add Import Specifications to a Catalog<a class="anchor" aria-label="anchor" href="#example-6-add-import-specifications-to-a-catalog"></a>
 </h3>
 </div>
 <div class="section level3">
-<h3 id="example-7-mixing-it-up">Example 7: Mixing It UP<a class="anchor" aria-label="anchor" href="#example-7-mixing-it-up"></a>
+<h3 id="example-7-mixing-it-up">Example 7: Mixing It Up<a class="anchor" aria-label="anchor" href="#example-7-mixing-it-up"></a>
 </h3>
 </div>
 </div>

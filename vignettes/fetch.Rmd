@@ -151,15 +151,310 @@ Now let's look at some more useful features of the **fetch** package.
 
 ### Example 1: Apply a Filter to Fetch Operation
 
+What if you performing an analysis on a subset of data? Is there a way 
+to apply a subset when the data is fetched?  You can apply subset criteria 
+using the "filter" parameter on the `fetch` function.  Like this:
+
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create catalog
+ct <- catalog(pkg, engines$csv)
+
+# Filter data for a specific subject
+dt <- fetch(ct$ADVS, filter = expression(SUBJID == '049'))
+
+# View filtered data
+dt
+# A tibble: 44 × 37
+#    STUDYID USUBJID    SUBJID SITEID SRCDOM SRCVAR   SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL
+#    <chr>   <chr>      <chr>  <chr>  <chr>  <chr>     <dbl> <chr> <dbl> <chr> <dbl> <chr> 
+#  1 ABC     ABC-01-049 049    01     VS     VSSTRESN      9 ARM D     4 ARM D     4 Y     
+#  2 ABC     ABC-01-049 049    01     VS     VSSTRESN     41 ARM D     4 ARM D     4 Y     
+#  3 ABC     ABC-01-049 049    01     NA     NA           NA ARM D     4 ARM D     4 Y     
+#  4 ABC     ABC-01-049 049    01     VS     VSSTRESN     34 ARM D     4 ARM D     4 Y     
+#  5 ABC     ABC-01-049 049    01     VS     VSSTRESN     35 ARM D     4 ARM D     4 Y     
+#  6 ABC     ABC-01-049 049    01     VS     VSSTRESN     36 ARM D     4 ARM D     4 Y     
+#  7 ABC     ABC-01-049 049    01     VS     VSSTRESN     37 ARM D     4 ARM D     4 Y     
+#  8 ABC     ABC-01-049 049    01     VS     VSSTRESN     38 ARM D     4 ARM D     4 Y     
+#  9 ABC     ABC-01-049 049    01     VS     VSSTRESN     39 ARM D     4 ARM D     4 Y     
+# 10 ABC     ABC-01-049 049    01     VS     VSSTRESN     40 ARM D     4 ARM D     4 Y     
+#  34 more rows
+#  25 more variables: SAFFL <chr>, MITTFL <chr>, PPROTFL <chr>, TRTSDT <chr>,
+#   TRTEDT <chr>, ADT <chr>, ADY <dbl>, ADTF <lgl>, AVISIT <chr>, AVISITN <dbl>,
+#   PARAM <chr>, PARAMCD <chr>, PARAMN <dbl>, PARAMTYP <chr>, AVAL <dbl>, BASE <dbl>,
+#   CHG <dbl>, AWRANGE <chr>, AWTARGET <dbl>, AWTDIFF <dbl>, AWLO <dbl>, AWHI <dbl>,
+#   AWU <chr>, ABLFL <chr>, ANL01FL <chr>
+#  Use `print(n = ...)` to see more rows
+
+
+```
+
+The `expression` function can be used to define any R expression.  This function 
+accepts unquoted variable names, logical operators, and R functions like
+`is.null()` and `is.na()`.  You can use the the "filter" parameter with an
+expression to narrow down the data you are working with and reduce
+the memory footprint of your program.
+
 
 ### Example 2: Get Top N Rows
 
+Another way to limit the data returned by your program is to use the "top"
+parameter.  This parameter allows you to return only the "top N" number of row
+in the target data item.  The "top" parameter is useful for exploratory purposes.
+Here is an example:
+
+
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create catalog
+ct <- catalog(pkg, engines$csv)
+
+# Filter data for a specific subject
+dt <- fetch(ct$ADVS, top = 5, filter = expression(SUBJID == '049'))
+
+# View results
+dt
+# A tibble: 5 × 37
+#   STUDYID USUBJID  SUBJID SITEID SRCDOM SRCVAR SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL SAFFL
+#   <chr>   <chr>    <chr>  <chr>  <chr>  <chr>   <dbl> <chr> <dbl> <chr> <dbl> <chr>  <chr>
+# 1 ABC     ABC-01-… 049    01     VS     VSSTR…      9 ARM D     4 ARM D     4 Y      Y    
+# 2 ABC     ABC-01-… 049    01     VS     VSSTR…     41 ARM D     4 ARM D     4 Y      Y    
+# 3 ABC     ABC-01-… 049    01     NA     NA         NA ARM D     4 ARM D     4 Y      Y    
+# 4 ABC     ABC-01-… 049    01     VS     VSSTR…     34 ARM D     4 ARM D     4 Y      Y    
+# 5 ABC     ABC-01-… 049    01     VS     VSSTR…     35 ARM D     4 ARM D     4 Y      Y    
+#   24 more variables: MITTFL <chr>, PPROTFL <chr>, TRTSDT <chr>, TRTEDT <chr>,
+#   ADT <chr>, ADY <dbl>, ADTF <lgl>, AVISIT <chr>, AVISITN <dbl>, PARAM <chr>,
+#   PARAMCD <chr>, PARAMN <dbl>, PARAMTYP <chr>, AVAL <dbl>, BASE <dbl>, CHG <dbl>,
+#   AWRANGE <chr>, AWTARGET <dbl>, AWTDIFF <dbl>, AWLO <dbl>, AWHI <dbl>, AWU <chr>,
+#   ABLFL <chr>, ANL01FL <chr>
+
+
+```
+
+The above fetch returned the top 5 rows of the dataset for subject '049'.  Note 
+that the "top" parameter can be used with or without the "filter" parameter.
 
 ### Example 3: Apply a Pattern to a Catalog
 
-### Example 4: Apply a Filter to a Catalog
+The previous examples loaded all datasets from the data source into the data
+catalog.  There may be instances, however, when you have a very large number
+of datasets, and want to limit the data items loaded into the catalog.  For
+this use case, you can use the "pattern" parameter on the `catalog()` function,
+like so:
 
-### Example 5: Add Import Specifications to a Fetch
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create catalog, applying pattern to dataset names
+ct <- catalog(pkg, engines$csv, pattern = "*S*")
+
+# View catalog
+ct
+# data catalog: 3 items
+# - Source: C:/packages/fetch/inst/extdata
+# - Engine: csv
+# - Pattern: *S*
+# - Items:
+# data item 'ADPSGA': 42 cols 695 rows
+# data item 'ADSL': 56 cols 87 rows
+# data item 'ADVS': 37 cols 3617 rows
+
+```
+The above example limits the items in the catalog to those with an "S" in the 
+name.  While this is not a realistic example, it nevertheless demonstrates
+how the "pattern" parameter can be used to reduce the datasets loaded into
+the catalog.
+
+### Example 4: Apply a Filter to an Entire Catalog
+
+
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create catalog without filter
+ct1 <- catalog(pkg, engines$csv)
+
+# View catalog
+ct1
+# data catalog: 6 items
+# - Source: C:/packages/fetch/inst/extdata
+# - Engine: csv
+# - Items:
+# data item 'ADAE': 56 cols 150 rows
+# data item 'ADEX': 17 cols 348 rows
+# data item 'ADPR': 37 cols 552 rows
+# data item 'ADPSGA': 42 cols 695 rows
+# data item 'ADSL': 56 cols 87 rows
+# data item 'ADVS': 37 cols 3617 rows
+
+# Create catalog with filter
+ct2 <- catalog(pkg, engines$csv, filter = expression(SUBJID == '049'))
+
+# View catalog
+ct2
+# data catalog: 6 items
+# - Source: C:/packages/fetch/inst/extdata
+# - Engine: csv
+# - Filter: SUBJID == "049"
+# - Items:
+# # data item 'ADAE': 56 cols 5 rows
+# - Filter: SUBJID == "049"
+# # data item 'ADEX': 17 cols 4 rows
+# - Filter: SUBJID == "049"
+# # data item 'ADPR': 37 cols 7 rows
+# - Filter: SUBJID == "049"
+# # data item 'ADPSGA': 42 cols 10 rows
+# - Filter: SUBJID == "049"
+# # data item 'ADSL': 56 cols 1 rows
+# - Filter: SUBJID == "049"
+# # data item 'ADVS': 37 cols 44 rows
+# - Filter: SUBJID == "049"
+```
+
+Notice that the row counts for the filtered catalog have been reduced.  Now
+let's fetch some data from this catalog:
+
+
+```{r eval=FALSE, echo=TRUE}
+# Filter data for a specific subject
+dt1 <- fetch(ct2$ADVS)
+
+# View results of ADVS fetch
+dt1
+# A tibble: 44 × 37
+#    STUDYID USUBJID    SUBJID SITEID SRCDOM SRCVAR   SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL SAFFL
+#    <chr>   <chr>      <chr>  <chr>  <chr>  <chr>     <dbl> <chr> <dbl> <chr> <dbl> <chr>  <chr>
+#  1 ABC     ABC-01-049 049    01     VS     VSSTRESN      9 ARM D     4 ARM D     4 Y      Y    
+#  2 ABC     ABC-01-049 049    01     VS     VSSTRESN     41 ARM D     4 ARM D     4 Y      Y    
+#  3 ABC     ABC-01-049 049    01     NA     NA           NA ARM D     4 ARM D     4 Y      Y    
+#  4 ABC     ABC-01-049 049    01     VS     VSSTRESN     34 ARM D     4 ARM D     4 Y      Y    
+#  5 ABC     ABC-01-049 049    01     VS     VSSTRESN     35 ARM D     4 ARM D     4 Y      Y    
+#  6 ABC     ABC-01-049 049    01     VS     VSSTRESN     36 ARM D     4 ARM D     4 Y      Y    
+#  7 ABC     ABC-01-049 049    01     VS     VSSTRESN     37 ARM D     4 ARM D     4 Y      Y    
+#  8 ABC     ABC-01-049 049    01     VS     VSSTRESN     38 ARM D     4 ARM D     4 Y      Y    
+#  9 ABC     ABC-01-049 049    01     VS     VSSTRESN     39 ARM D     4 ARM D     4 Y      Y    
+# 10 ABC     ABC-01-049 049    01     VS     VSSTRESN     40 ARM D     4 ARM D     4 Y      Y    
+#  34 more rows
+#  24 more variables: MITTFL <chr>, PPROTFL <chr>, TRTSDT <chr>, TRTEDT <chr>, ADT <chr>,
+#   ADY <dbl>, ADTF <lgl>, AVISIT <chr>, AVISITN <dbl>, PARAM <chr>, PARAMCD <chr>,
+#   PARAMN <dbl>, PARAMTYP <chr>, AVAL <dbl>, BASE <dbl>, CHG <dbl>, AWRANGE <chr>,
+#   AWTARGET <dbl>, AWTDIFF <dbl>, AWLO <dbl>, AWHI <dbl>, AWU <chr>, ABLFL <chr>,
+#   ANL01FL <chr>
+#  Use `print(n = ...)` to see more rows
+
+
+# View results of ADSL fetch
+dt2 <- fetch(ct2$ADSL)
+# A tibble: 1 × 56
+#   STUDYID USUBJID    SUBJID SITEID   AGE AGEU  AGEGR1   SEX   RACE  RACEN ETHNIC ETHNICN COUNTRY
+#   <chr>   <chr>      <chr>  <chr>  <dbl> <chr> <chr>    <chr> <chr> <dbl> <chr>    <dbl> <lgl>  
+# 1 ABC     ABC-01-049 049    01        39 YEARS 30-39 y… M     WHITE     5 NOT H…       2 NA     
+#   43 more variables: ARM <chr>, ACTARM <lgl>, TRT01P <chr>, TRT01PN <dbl>, TRT01A <chr>,
+#   TRT01AN <dbl>, TRTSDT <chr>, TRTEDT <chr>, TRTDURN <dbl>, TRTDURU <chr>, TR01SDT <chr>,
+#   TR01EDT <chr>, INCNFL <chr>, RANDFL <chr>, RANDEXC1 <lgl>, RANDEXC2 <chr>, RANDEXC3 <chr>,
+#   RANDEXC4 <chr>, SAFFL <chr>, SAFEXC1 <chr>, SAFEXC2 <chr>, MITTFL <chr>, MITTEXC1 <chr>,
+#   MITTEXC2 <chr>, PPROTFL <chr>, PPROTEX1 <chr>, PPROTEX2 <chr>, PPROTEX3 <chr>,
+#   PPROTEX4 <chr>, COMPLFL <chr>, STDYDISP <chr>, STDYREAS <chr>, INCNDT <chr>, RANDDT <chr>,
+#   DTHDT <lgl>, DTHFL <chr>, MISSDOSE <dbl>, TP1TRTR <chr>, TP2TRTR <chr>, TP3TRTR <chr>,...
+
+```
+AS you can see, both the ADVS and ADSL datasets have been filtered for subject '049'.
+This feature of the *fetch* package makes it easy to target just the rows 
+you are looking for.
+
+### Example 5: Add Import Specifications to a Catalog
+
+Some data files contain accurate data type information within them, and others
+do not.  For example, CSV files do not contain data type information, but 
+SAS transport files do.  If the data type information is not available, 
+the data engine will try to guess the data types.  However, it does not 
+alway guess accurately. Sometimes you need to help the data engine determine
+what the data type of a column is supposed to be.  Import specs allow to 
+to specify the correct data type for a column.
+
+Examine the dictionary for the ADVS dataset:
+
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create catalog without filter
+ct <- catalog(pkg, engines$csv)
+
+# View dictionary for ADVS
+ct$ADVS
+# data item 'ADVS': 37 cols 3617 rows
+# - Engine: csv
+# - Size: 1.1 Mb
+# - Last Modified: 2020-09-18 14:30:22
+#    Name   Column     Class Label Format  NAs MaxChar
+# 1  ADVS  STUDYID character  <NA>     NA    0       3
+# 2  ADVS  USUBJID character  <NA>     NA    0      10
+# 3  ADVS   SUBJID character  <NA>     NA    0       3
+# 4  ADVS   SITEID character  <NA>     NA    0       2
+# 5  ADVS   SRCDOM character  <NA>     NA   85       2
+# 6  ADVS   SRCVAR character  <NA>     NA   85       8
+# 7  ADVS   SRCSEQ   numeric  <NA>     NA   85       2
+# 8  ADVS     TRTP character  <NA>     NA   85       5
+# 9  ADVS    TRTPN   numeric  <NA>     NA   85       1
+# 10 ADVS     TRTA character  <NA>     NA   85       5
+# 11 ADVS    TRTAN   numeric  <NA>     NA   85       1
+# 12 ADVS   RANDFL character  <NA>     NA    0       1
+# 13 ADVS    SAFFL character  <NA>     NA    0       1
+# 14 ADVS   MITTFL character  <NA>     NA    0       1
+# 15 ADVS  PPROTFL character  <NA>     NA    0       1
+# 16 ADVS   TRTSDT character  <NA>     NA   54       9
+# 17 ADVS   TRTEDT character  <NA>     NA  119       9
+# 18 ADVS      ADT character  <NA>     NA    0       9
+# 19 ADVS      ADY   numeric  <NA>     NA   54       4
+# 20 ADVS     ADTF   logical  <NA>     NA 3617       0
+# 21 ADVS   AVISIT character  <NA>     NA   50      14
+# 22 ADVS  AVISITN   numeric  <NA>     NA   50       2
+# 23 ADVS    PARAM character  <NA>     NA    0      35
+# 24 ADVS  PARAMCD character  <NA>     NA    0       6
+# 25 ADVS   PARAMN   numeric  <NA>     NA    0       1
+# 26 ADVS PARAMTYP character  <NA>     NA 3532       7
+# 27 ADVS     AVAL   numeric  <NA>     NA    0       5
+# 28 ADVS     BASE   numeric  <NA>     NA   70       5
+# 29 ADVS      CHG   numeric  <NA>     NA 1312       4
+# 30 ADVS  AWRANGE character  <NA>     NA 1331      25
+# 31 ADVS AWTARGET   numeric  <NA>     NA 1331       3
+# 32 ADVS  AWTDIFF   numeric  <NA>     NA 1331       2
+# 33 ADVS     AWLO   numeric  <NA>     NA 1331       3
+# 34 ADVS     AWHI   numeric  <NA>     NA 1331       3
+# 35 ADVS      AWU character  <NA>     NA 1331       4
+# 36 ADVS    ABLFL character  <NA>     NA 2869       1
+# 37 ADVS  ANL01FL character  <NA>     NA  448       1
+
+```
+Note that the data type of the "TRTSDT" and "TRTEDT" as listed as character.
+In fact, these columns are supposed to be a date.  You can force 
+the date data type assignment with an import spec, as follows:
+
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create import spec
+spc <- specs(ADVS = import_spec(TRTSDT = "date:%m/%d/%Y",
+                    TRTEDT = "date:%m/%d/%Y"))
+
+# Create catalog without filter
+#ct <- catalog(pkg, engines$csv, import_specs = spc)
+
+
+
+# View dictionary for ADVS
+ct
+
+
+```
 
 
 

@@ -116,8 +116,14 @@ load_catalog <- function(ret, source, engine, pattern  = NULL,
   lst <- list.files(source, pattern = paste0("\\.", engine, "$"), 
                     ignore.case = TRUE)
   
-  # if (!is.null(pattern))
-  #   lst <- dofilter(pattern, lst, engine)
+  if (!is.null(pattern)) {
+    
+    mlst <- gsub(paste0("\\.", engine, "$"), "", lst)
+    
+    pos <- grep(glob2rx(pattern), mlst)
+    
+    lst <- lst[pos]
+  }
   
   for (fl in lst) {
     fp <- file.path(source, fl)
@@ -247,7 +253,7 @@ print.dcat <- function(x, ..., verbose = FALSE) {
     cat(paste0("- Pattern: ", attr(x, "pattern"), "\n"))
   
   if (!is.null(attr(x, "filter"))) 
-    cat(paste0("- Filter: ", attr(x, "filter"), "\n"))
+    cat(paste0("- Filter: ", as.character(attr(x, "filter")), "\n"))
   
   
   if (length(x) > 0) {

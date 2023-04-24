@@ -40,7 +40,23 @@ test_that("catalog2: catalog() function works as expected with filters", {
   
   expect_equal(nrow(res2), 3)
   
+
+})
+
+test_that("catalog3: catalog() function pattern parameter works as expected", {
+  
+  
+  res <- catalog(base_path, engines$rds, pattern = "*a")
+  
+  
+  expect_equal(length(res), 1)
+  expect_equal(names(res), "demo_studya")
+  
+  res <- catalog(base_path, engines$rds, pattern = "*b")
+  
+  
+  expect_equal(length(res), 1)
+  expect_equal(names(res), "demo_studyb")
   
   
 })
-

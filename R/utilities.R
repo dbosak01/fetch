@@ -14,41 +14,6 @@ getFileName <- function(file){
   return(ex[1])
 }
 
-#' @description Filter file list based on a pattern
-#' @noRd
-dofilter <- function(str, vect, extension = NULL) {
-  
-  # Remove base path and file extension
-  if (is.null(extension))
-    lst <- vect
-  else 
-    lst <- gsub(paste0(".", extension), "", basename(vect))
-  
-  # Generate regular expressions
-  flt <-  paste0("^", gsub("*", ".*", str, fixed = TRUE), "$")
-  
-  # Create return list
-  ret <- c()
-  
-  # Perform filter 
-  for (f in flt) {
-    tmp <- vect[grepl(f, lst, ignore.case = TRUE, useBytes = TRUE)]
-    #tmp <- vect[grepl(f, lst)]
-    
-    # Add results to return vector
-    if (length(tmp) > 0) {
-      for (t in tmp)
-        ret[length(ret) + 1] <- t
-    }
-  }
-  
-  # Dedupe
-  ret <- unique(ret)
-  
-  return(ret)
-  
-}
-
 
 
 #' @description Apply import specs to any data frame
