@@ -47,8 +47,44 @@
 #' import spec.
 #' @family specs
 #' @examples 
-#' # Create temp path
-#' tmp <- file.path(tempdir(), "mtcars.csv")
+#' # Get sample data directory
+#' pkg <- system.file("extdata", package = "fetch")
+#' 
+#' # Create import spec
+#' spc <- specs(ADAE = import_spec(TRTSDT = "date=%d%b%Y",
+#'                                 TRTEDT = "date=%d%b%Y"),
+#'              ADVS = import_spec(TRTSDT = "character",
+#'                                 TRTEDT = "character"))
+#' 
+#' # Create catalog without filter
+#' ct <- catalog(pkg, engines$csv, import_specs = spc)
+#' 
+#' # Get dictionary for ADAE with Import Spec
+#' d1 <- ct$ADAE
+#' 
+#' # Observe data types for TRTSDT and TRTEDT are Dates
+#' d1[d1$Column %in% c("TRTSDT", "TRTEDT"), ]
+#' # data item 'ADAE': 56 cols 150 rows
+#' #- Engine: csv
+#' #- Size: 155 Kb
+#' #- Last Modified: 2020-09-18 14:30:22
+#' #   Name Column Class Label Format NAs MaxChar
+#' #13 ADAE TRTSDT  Date  <NA>     NA   1      10
+#' #14 ADAE TRTEDT  Date  <NA>     NA   4      10
+#' 
+#' # Get dictionary for ADVS with Import Spec
+#' d2 <- ct$ADVS
+#' 
+#' # Observe data types for TRTSDT and TRTEDT are character
+#' d2[d2$Column %in% c("TRTSDT", "TRTEDT"), ]
+#' # data item 'ADVS': 37 cols 3617 rows
+#' #- Engine: csv
+#' #- Size: 1.1 Mb
+#' #- Last Modified: 2020-09-18 14:30:22
+#' #   Name Column     Class Label Format NAs MaxChar
+#' #16 ADVS TRTSDT character  <NA>     NA  54       9
+#' #17 ADVS TRTEDT character  <NA>     NA 119       9
+#' 
 #' @export
 specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
   
@@ -76,12 +112,29 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 #' 'guess', 'logical', 'character', 'integer', 'numeric',
 #' 'date', 'datetime', and 'time'.  See the \code{\link{specs}} function
 #' for an example of using import specs.
+#' @section Date/Time Format Codes:
+#' Below are some common date formatting codes.  For a complete list,
+#' see the documentation for the \code{\link{strptime}} function:
+#' \itemize{
+#'   \item{\%d = day as a number}
+#'   \item{\%a = abbreviated weekday}
+#'   \item{\%A = unabbreviated weekday}
+#'   \item{\%m = month number}
+#'   \item{\%b = abbreviated month name}
+#'   \item{\%B = unabbreviated month name}
+#'   \item{\%y = 2-digit year}
+#'   \item{\%Y = 4-digit year}
+#'   \item{\%H = hour}
+#'   \item{\%M = minute}
+#'   \item{\%S = second}
+#'   \item{\%p = AM/PM indicator}
+#' }
 #' @param ... Named pairs of column names and column data types.
 #' Available types are: 'guess', 'logical', 'character', 'integer', 'numeric',
 #' 'date', 'datetime', and 'time'.  The date/time data types accept an optional
 #' input format.  To supply the input format, append it after the data type
 #' following an equals sign, e.g.: 'date=\%d\%B\%Y' or 
-#' 'datetime=\%d\%m\%Y \%H:\%M:\%S'. Default is NULL, meaning no column 
+#' 'datetime=\%d-\%m-\%Y \%H:\%M:\%S'. Default is NULL, meaning no column 
 #' types are specified, and the function should make its best 
 #' guess for each column.
 #' @param na A vector of values to be treated as NA.  For example, the 
@@ -96,6 +149,30 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 #' on the \code{import_spec} function will override the value from the 
 #' \code{specs} function.
 #' @return The import specification object.
+#' @examples 
+#' # Get sample data directory
+#' pkg <- system.file("extdata", package = "fetch")
+#' 
+#' # Create import spec
+#' spc <- import_spec(TRTSDT = "date=%d%b%Y",
+#'                    TRTEDT = "date=%d%b%Y")
+#' 
+#' # Create catalog without filter
+#' ct <- catalog(pkg, engines$csv, import_specs = spc)
+#' 
+#' # Get dictionary for ADVS with Import Spec
+#' d <- ct$ADVS
+#' 
+#' # Observe data types for TRTSDT and TRTEDT are now Dates
+#' d[d$Column %in% c("TRTSDT", "TRTEDT"), ]
+#' # data item 'ADVS': 37 cols 3617 rows
+#' #- Engine: csv
+#' #- Size: 1.1 Mb
+#' #- Last Modified: 2020-09-18 14:30:22
+#' #   Name Column Class Label Format NAs MaxChar
+#' #16 ADVS TRTSDT  Date  <NA>     NA  54      10
+#' #17 ADVS TRTEDT  Date  <NA>     NA 119      10
+#' 
 #' @seealso \code{\link{fetch}} to retrieve data, and 
 #' \code{\link{specs}} for an example using import specs.
 #' @family specs

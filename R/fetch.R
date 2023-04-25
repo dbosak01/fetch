@@ -135,6 +135,13 @@ load_data <- function(dinfo, filter = NULL, top = NULL, import_specs = NULL) {
   nm <- attr(dinfo, "name")
   fl <- attr(dinfo, "filter")
   
+  if (is.null(import_specs)) {
+    spc <- attr(dinfo, "import_specs")
+    if (!is.null(spc))
+      import_specs <- spc
+    
+  }
+  
   # Combine filters if necessary
   if (!is.null(fl)) {
     if (!is.null(filter)) {

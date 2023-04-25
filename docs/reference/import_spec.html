@@ -89,7 +89,7 @@ Available types are: 'guess', 'logical', 'character', 'integer', 'numeric',
 'date', 'datetime', and 'time'.  The date/time data types accept an optional
 input format.  To supply the input format, append it after the data type
 following an equals sign, e.g.: 'date=%d%B%Y' or 
-'datetime=%d%m%Y %H:%M:%S'. Default is NULL, meaning no column 
+'datetime=%d-%m-%Y %H:%M:%S'. Default is NULL, meaning no column 
 types are specified, and the function should make its best 
 guess for each column.</p></dd>
 
@@ -118,6 +118,24 @@ on the <code>import_spec</code> function will override the value from the
 <p>The import specification object.</p>
     </div>
     <div class="section level2">
+    <h2 id="date-time-format-codes">Date/Time Format Codes<a class="anchor" aria-label="anchor" href="#date-time-format-codes"></a></h2>
+    
+
+<p>Below are some common date formatting codes.  For a complete list,
+see the documentation for the <code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime</a></code> function:</p><ul><li><p>%d = day as a number</p></li>
+<li><p>%a = abbreviated weekday</p></li>
+<li><p>%A = unabbreviated weekday</p></li>
+<li><p>%m = month number</p></li>
+<li><p>%b = abbreviated month name</p></li>
+<li><p>%B = unabbreviated month name</p></li>
+<li><p>%y = 2-digit year</p></li>
+<li><p>%Y = 4-digit year</p></li>
+<li><p>%H = hour</p></li>
+<li><p>%M = minute</p></li>
+<li><p>%S = second</p></li>
+<li><p>%p = AM/PM indicator</p></li>
+</ul></div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p><code><a href="fetch.html">fetch</a></code> to retrieve data, and 
 <code><a href="specs.html">specs</a></code> for an example using import specs.</p>
@@ -128,6 +146,32 @@ on the <code>import_spec</code> function will override the value from the
 <code><a href="write.specs.html">write.specs</a>()</code></p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create import spec</span></span>
+<span><span class="va">spc</span> <span class="op">&lt;-</span> <span class="fu">import_spec</span><span class="op">(</span>TRTSDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span>,</span>
+<span>                   TRTEDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, import_specs <span class="op">=</span> <span class="va">spc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get dictionary for ADVS with Import Spec</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span></span>
+<span></span>
+<span><span class="co"># Observe data types for TRTSDT and TRTEDT are now Dates</span></span>
+<span><span class="va">d</span><span class="op">[</span><span class="va">d</span><span class="op">$</span><span class="va">Column</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRTSDT"</span>, <span class="st">"TRTEDT"</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span>
+<span><span class="co">#- Engine: csv</span></span>
+<span><span class="co">#- Size: 1.1 Mb</span></span>
+<span><span class="co">#- Last Modified: 2020-09-18 14:30:22</span></span>
+<span><span class="co">#   Name Column Class Label Format NAs MaxChar</span></span>
+<span><span class="co">#16 ADVS TRTSDT  Date  &lt;NA&gt;     NA  54      10</span></span>
+<span><span class="co">#17 ADVS TRTEDT  Date  &lt;NA&gt;     NA 119      10</span></span>
+<span></span></code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

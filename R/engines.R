@@ -253,32 +253,53 @@ get_data_csv <- function(fp, nm, filter = NULL, top = NULL,
     
   } else {
     
-
-    # spcs <- get_colspec_csv(import_specs$specs[[nm]]$col_types)
-    # # print(spcs)
-    # na <- import_specs$specs[[nm]]$na
-    # if (is.null(na))
-    #   na = import_specs$na
-    # tws <- import_specs$specs[[nm]]$trim_ws
-    # if (is.null(tws))
-    #   tws <- import_specs$trim_ws
-    # 
-    # dat <- suppressWarnings(read_csv(fp, 
-    #                                  col_types = spcs,
-    #                                  na = na,
-    #                                  trim_ws = tws))
-    # 
-    # pb <- problems(dat)
-    # 
-    # if (nrow(pb) > 0) {
-    #   pbmsg <- paste0("There were problems encountered reading in the '", 
-    #                   nm, "' data file. Run 'problems(", name_c, "$", 
-    #                   nm, ") to get ",
-    #                   "a table of these problems.")
-    #   
-    #   warning(pbmsg) 
-    #   
-    # }
+    
+    tspec <- NULL
+    if ("specs" %in% class(import_specs)) {
+      tspec <- import_specs$specs[[nm]]
+    } else if ("import_spec" %in% class(import_specs)) {
+      
+      tspec <- import_specs 
+    }
+    
+    # if (is.null(tspec))
+    #   dat <- read_xlsx(fp)
+    # else {
+      
+    spcs <- get_colspec_csv(tspec$col_types)
+    
+    # print(spcs)
+    na <- tspec$na
+    if (is.null(na))
+      na <- import_specs$na
+    
+    if (is.null(na)) 
+      na <- c("", " ")
+      
+    tws <- tspec$trim_ws
+    if (is.null(tws))
+      tws <- import_specs$trim_ws
+    
+    if (is.null(tws)) {
+      tws <- TRUE 
+    }
+    
+    dat <- suppressWarnings(read_csv(fp,
+                                     col_types = spcs,
+                                     na = na,
+                                     trim_ws = tws))
+    
+    pb <- problems(dat)
+    
+    if (nrow(pb) > 0) {
+      pbmsg <- paste0("There were problems encountered reading in the '",
+                      nm, "' data file. Run 'problems(", "$",
+                      nm, ") to get ",
+                      "a table of these problems.")
+    
+      warning(pbmsg)
+    
+    }
       
     
   }
@@ -416,39 +437,62 @@ get_data_xlsx <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL
     
   } else {
     
-    # if (is.null(import_specs$specs[[nm]]))
-    #   dat <- read_xlsx(fp)
-    # else {
-    #   typs <- import_specs$specs[[nm]]$col_types
-    #   tmp <- read_xlsx(fp,
-    #                    col_types = c("text"))
-    #   nms <- names(tmp)
-    #   spcs <- get_colspec_xlsx(typs, length(nms), nms)
-    #   na <- import_specs$specs[[nm]]$na
-    #   if (is.null(na))
-    #     na = import_specs$na
-    #   tws <- import_specs$specs[[nm]]$trim_ws
-    #   if (is.null(tws))
-    #     tws <- import_specs$trim_ws
-    #   
-    #   dat <- suppressWarnings(read_xlsx(fp, 
-    #                                     col_types = spcs, 
-    #                                     na = na, 
-    #                                     trim_ws = tws))
-    #   
-    #   pb <- problems(dat)
-    #   
-    #   if (nrow(pb) > 0) {
-    #     pbmsg <- paste0("There were problems encountered reading in the '", 
-    #                     nm, "' data file. Run 'problems(", name_c, "$", 
-    #                     nm, ") to get ",
-    #                     "a table of these problems.")
-    #     
-    #     warning(pbmsg) 
-    #     
-    #   }
-    # } 
+    tspec <- NULL
+    if ("specs" %in% class(import_specs)) {
+      tspec <- import_specs$specs[[nm]]
+    } else if ("import_spec" %in% class(import_specs)) {
+      
+      tspec <- import_specs 
+    }
     
+    if (is.null(tspec))
+      dat <- read_xlsx(fp)
+    else {
+      
+      typs <- tspec$col_types
+      tmp <- read_xlsx(fp,
+                      col_types = c("text"))
+      nms <- names(tmp)
+      spcs <- get_colspec_xlsx(typs, length(nms), nms)
+      na <- tspec$na
+      if (is.null(na))
+        na <- import_specs$na
+      
+      if (is.null(na))
+        na <- c('', ' ')
+      
+      tws <- tspec$trim_ws
+      if (is.null(tws))
+        tws <- import_specs$trim_ws
+      
+      if (is.null(tws))
+        tws <- TRUE
+      
+      dat <- suppressWarnings(read_xlsx(fp,
+                                       col_types = spcs,
+                                       na = na,
+                                       trim_ws = tws))
+      
+      pb <- problems(dat)
+      
+      if (nrow(pb) > 0) {
+        pbmsg <- paste0("There were problems encountered reading in the '",
+                        nm, "' data file. Run 'problems(", "$",
+                        nm, ") to get ",
+                        "a table of these problems.")
+        
+        warning(pbmsg)
+        
+      }
+    }
+    
+
+    
+  }
+  
+  if (!is.null(dat)) {
+    
+    dat <- exec_spec(dat, import_specs, nm) 
   }
   
   if (!is.null(filter)) {
@@ -481,41 +525,61 @@ get_data_xls <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
     
   } else {
     
-    # if (is.null(import_specs$specs[[nm]]))
-    #   dat <- read_xls(fp)
-    # else {
-    #   
-    #   typs <- import_specs$specs[[nm]]$col_types
-    #   tmp <- read_xls(fp,
-    #                   col_types = c("text"))
-    #   nms <- names(tmp)
-    #   spcs <- get_colspec_xlsx(typs, length(nms), nms)
-    #   na <- import_specs$specs[[nm]]$na
-    #   if (is.null(na))
-    #     na = import_specs$na
-    #   tws <- import_specs$specs[[nm]]$trim_ws
-    #   if (is.null(tws))
-    #     tws <- import_specs$trim_ws
-    #   
-    #   dat <- suppressWarnings(read_xls(fp, 
-    #                                    col_types = spcs, 
-    #                                    na = na, 
-    #                                    trim_ws = tws))
-    #   
-    #   pb <- problems(dat)
-    #   
-    #   if (nrow(pb) > 0) {
-    #     pbmsg <- paste0("There were problems encountered reading in the '", 
-    #                     nm, "' data file. Run 'problems(", name_c, "$", 
-    #                     nm, ") to get ",
-    #                     "a table of these problems.")
-    #     
-    #     warning(pbmsg) 
-    #     
-    #   }
-    # }
+    tspec <- NULL
+    if ("specs" %in% class(import_specs)) {
+      tspec <- import_specs$specs[[nm]]
+    } else if ("import_spec" %in% class(import_specs)) {
+      
+      tspec <- import_specs 
+    }
     
-  } 
+    if (is.null(tspec))
+      dat <- read_xls(fp)
+    else {
+
+      typs <- tspec$col_types
+      tmp <- read_xls(fp,
+                      col_types = c("text"))
+      nms <- names(tmp)
+      spcs <- get_colspec_xlsx(typs, length(nms), nms)
+      na <- tspec$na
+      if (is.null(na))
+        na <- import_specs$na
+      
+      if (is.null(na))
+        na <- c('', ' ')
+      
+      tws <- tspec$trim_ws
+      if (is.null(tws))
+        tws <- import_specs$trim_ws
+      
+      if (is.null(tws))
+        tws <- TRUE
+
+      dat <- suppressWarnings(read_xls(fp,
+                                       col_types = spcs,
+                                       na = na,
+                                       trim_ws = tws))
+
+      pb <- problems(dat)
+
+      if (nrow(pb) > 0) {
+        pbmsg <- paste0("There were problems encountered reading in the '",
+                        nm, "' data file. Run 'problems(", "$",
+                        nm, ") to get ",
+                        "a table of these problems.")
+
+        warning(pbmsg)
+
+      }
+    }
+    
+  }
+  
+  if (!is.null(dat)) {
+    
+    dat <- exec_spec(dat, import_specs, nm) 
+  }
   
   if (!is.null(filter)) {
     

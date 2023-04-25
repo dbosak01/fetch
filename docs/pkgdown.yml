@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   fetch: fetch.html
-last_built: 2023-04-24T01:27Z
+last_built: 2023-04-25T02:26Z
 urls:
   reference: https://fetch.r-sassy.org/reference
   article: https://fetch.r-sassy.org/articles

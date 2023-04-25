@@ -39,23 +39,25 @@ There are only two steps to retrieve data:
 
 The above two steps are accomplished by the following functions:
 
-* `catalog`: Defines a data catalog for a particular data source
-* `fetch`: Pulls a data item from the catalog and loads it into memory
+* `catalog()`: Defines a data catalog for a particular data source
+* `fetch()`: Pulls a data item from the catalog and loads it into memory
 
 The package has the following key features:
 
 * The **fetch** package loads only the data you need for your analysis.
-* The `catalog` function allows you to examine the data before loading it.
-* The "filter" parameter on the `catalog` function allows you to filter across 
+* The `catalog()` function allows you to explore the data before reading from the source.
+* The "filter" parameter on the `catalog()` function allows you to filter across 
 all datasets in the catalog.
-* The `fetch` function loads data, allowing additional subsets if 
-you wish.
+* The "top" parameter on the `fetch()` function lets you preview the 
+data.
+* The "import_spec" parameters on the `catalog()` and `fetch()` functions
+give you control over the column data types.
 
 ## How to use **fetch**
 
-Let's see a simple example.  In this example we will create a data catalog,
-examine it's contents, and fetch a dataset from the catalog.  First let's create
-a data catalog:
+Let's start with a simple example.  In this example we will create a data catalog,
+examine it's contents, and fetch a dataset from the catalog.  First, create
+and view the data catalog:
 
 ```{r eval=FALSE, echo=TRUE}
 # Get sample data directory
@@ -142,18 +144,19 @@ dt
 ```
 
 At this point, you can proceed with your analysis, or fetch additional datasets 
-from the catalog as needed.
+from the catalog as needed.  So easy!
 
 
-## More Examples
+## Additional Features
 
-Now let's look at some more useful features of the **fetch** package.
+The above example covers the very basics.  Now let's look at some more useful 
+features of the **fetch** package.
 
-### Example 1: Apply a Filter to Fetch Operation
+### Apply a Filter to Fetch Operation
 
-What if you performing an analysis on a subset of data? Is there a way 
+What if you are performing an analysis on a subset of data? Is there a way 
 to apply a subset when the data is fetched?  You can apply subset criteria 
-using the "filter" parameter on the `fetch` function.  Like this:
+using the "filter" parameter on the `fetch()` function.  Like this:
 
 ```{r eval=FALSE, echo=TRUE}
 # Get sample data directory
@@ -198,10 +201,10 @@ expression to narrow down the data you are working with and reduce
 the memory footprint of your program.
 
 
-### Example 2: Get Top N Rows
+### Get Top N Rows
 
 Another way to limit the data returned by your program is to use the "top"
-parameter.  This parameter allows you to return only the "top N" number of row
+parameter.  This parameter allows you to return only the "top N" number of rows
 in the target data item.  The "top" parameter is useful for exploratory purposes.
 Here is an example:
 
@@ -238,12 +241,12 @@ dt
 The above fetch returned the top 5 rows of the dataset for subject '049'.  Note 
 that the "top" parameter can be used with or without the "filter" parameter.
 
-### Example 3: Apply a Pattern to a Catalog
+### Apply a Pattern to a Catalog
 
 The previous examples loaded all datasets from the data source into the data
 catalog.  There may be instances, however, when you have a very large number
 of datasets, and want to limit the data items loaded into the catalog.  For
-this use case, you can use the "pattern" parameter on the `catalog()` function,
+this situation, you can use the "pattern" parameter on the `catalog()` function,
 like so:
 
 ```{r eval=FALSE, echo=TRUE}
@@ -270,8 +273,11 @@ name.  While this is not a realistic example, it nevertheless demonstrates
 how the "pattern" parameter can be used to reduce the datasets loaded into
 the catalog.
 
-### Example 4: Apply a Filter to an Entire Catalog
+### Apply a Filter to an Entire Catalog
 
+Sometimes you want to subset all the datasets in your catalog.  This subset
+can be accomplished with the "filter" parameter on the `catalog()` function.
+Observe:
 
 ```{r eval=FALSE, echo=TRUE}
 # Get sample data directory
@@ -317,7 +323,8 @@ ct2
 # - Filter: SUBJID == "049"
 ```
 
-Notice that the row counts for the filtered catalog have been reduced.  Now
+Notice that a filter has been added to each data item in the catalog, 
+the row counts for each item have been reduced.  Now
 let's fetch some data from this catalog:
 
 
@@ -368,14 +375,14 @@ AS you can see, both the ADVS and ADSL datasets have been filtered for subject '
 This feature of the *fetch* package makes it easy to target just the rows 
 you are looking for.
 
-### Example 5: Add Import Specifications to a Catalog
+### Add Import Specifications to a Catalog
 
 Some data files contain accurate data type information within them, and others
 do not.  For example, CSV files do not contain data type information, but 
-SAS transport files do.  If the data type information is not available, 
+RDATA files do.  If the data type information is not available, 
 the data engine will try to guess the data types.  However, it does not 
-alway guess accurately. Sometimes you need to help the data engine determine
-what the data type of a column is supposed to be.  Import specs allow to 
+always guess accurately. Sometimes you need to help the data engine determine
+what the data type of a column is supposed to be.  Import specs allow you to 
 to specify the correct data type for a column.
 
 Examine the dictionary for the ADVS dataset:
@@ -409,8 +416,8 @@ ct$ADVS
 # 13 ADVS    SAFFL character  <NA>     NA    0       1
 # 14 ADVS   MITTFL character  <NA>     NA    0       1
 # 15 ADVS  PPROTFL character  <NA>     NA    0       1
-# 16 ADVS   TRTSDT character  <NA>     NA   54       9
-# 17 ADVS   TRTEDT character  <NA>     NA  119       9
+# 16 ADVS   TRTSDT character  <NA>     NA   54       9 # Character by default
+# 17 ADVS   TRTEDT character  <NA>     NA  119       9 # Character by default
 # 18 ADVS      ADT character  <NA>     NA    0       9
 # 19 ADVS      ADY   numeric  <NA>     NA   54       4
 # 20 ADVS     ADTF   logical  <NA>     NA 3617       0
@@ -433,7 +440,7 @@ ct$ADVS
 # 37 ADVS  ANL01FL character  <NA>     NA  448       1
 
 ```
-Note that the data type of the "TRTSDT" and "TRTEDT" as listed as character.
+Note that the data types of the "TRTSDT" and "TRTEDT" are listed as character.
 In fact, these columns are supposed to be a date.  You can force 
 the date data type assignment with an import spec, as follows:
 
@@ -442,33 +449,141 @@ the date data type assignment with an import spec, as follows:
 pkg <- system.file("extdata", package = "fetch")
  
 # Create import spec
-spc <- specs(ADVS = import_spec(TRTSDT = "date:%m/%d/%Y",
-                    TRTEDT = "date:%m/%d/%Y"))
+spc <- import_spec(TRTSDT = "date=%d%b%Y",
+                   TRTEDT = "date=%d%b%Y")
 
 # Create catalog without filter
-#ct <- catalog(pkg, engines$csv, import_specs = spc)
+ct <- catalog(pkg, engines$csv, import_specs = spc)
 
-
-
-# View dictionary for ADVS
-ct
-
+# View dictionary for ADVS with Import Spec
+ct$ADVS
+# data item 'ADVS': 37 cols 3617 rows
+# - Engine: csv
+# - Size: 1.1 Mb
+# - Last Modified: 2020-09-18 14:30:22
+#    Name   Column     Class Label Format  NAs MaxChar
+# 1  ADVS  STUDYID character  <NA>     NA    0       3
+# 2  ADVS  USUBJID character  <NA>     NA    0      10
+# 3  ADVS   SUBJID character  <NA>     NA    0       3
+# 4  ADVS   SITEID character  <NA>     NA    0       2
+# 5  ADVS   SRCDOM character  <NA>     NA   85       2
+# 6  ADVS   SRCVAR character  <NA>     NA   85       8
+# 7  ADVS   SRCSEQ   numeric  <NA>     NA   85       2
+# 8  ADVS     TRTP character  <NA>     NA   85       5
+# 9  ADVS    TRTPN   numeric  <NA>     NA   85       1
+# 10 ADVS     TRTA character  <NA>     NA   85       5
+# 11 ADVS    TRTAN   numeric  <NA>     NA   85       1
+# 12 ADVS   RANDFL character  <NA>     NA    0       1
+# 13 ADVS    SAFFL character  <NA>     NA    0       1
+# 14 ADVS   MITTFL character  <NA>     NA    0       1
+# 15 ADVS  PPROTFL character  <NA>     NA    0       1
+# 16 ADVS   TRTSDT      Date  <NA>     NA   54      10 # Converted to Date 
+# 17 ADVS   TRTEDT      Date  <NA>     NA  119      10 # Converted to Date
+# 18 ADVS      ADT character  <NA>     NA    0       9
+# 19 ADVS      ADY   numeric  <NA>     NA   54       4
+# 20 ADVS     ADTF   logical  <NA>     NA 3617       0
+# 21 ADVS   AVISIT character  <NA>     NA   50      14
+# 22 ADVS  AVISITN   numeric  <NA>     NA   50       2
+# 23 ADVS    PARAM character  <NA>     NA    0      35
+# 24 ADVS  PARAMCD character  <NA>     NA    0       6
+# 25 ADVS   PARAMN   numeric  <NA>     NA    0       1
+# 26 ADVS PARAMTYP character  <NA>     NA 3532       7
+# 27 ADVS     AVAL   numeric  <NA>     NA    0       5
+# 28 ADVS     BASE   numeric  <NA>     NA   70       5
+# 29 ADVS      CHG   numeric  <NA>     NA 1312       4
+# 30 ADVS  AWRANGE character  <NA>     NA 1331      25
+# 31 ADVS AWTARGET   numeric  <NA>     NA 1331       3
+# 32 ADVS  AWTDIFF   numeric  <NA>     NA 1331       2
+# 33 ADVS     AWLO   numeric  <NA>     NA 1331       3
+# 34 ADVS     AWHI   numeric  <NA>     NA 1331       3
+# 35 ADVS      AWU character  <NA>     NA 1331       4
+# 36 ADVS    ABLFL character  <NA>     NA 2869       1
+# 37 ADVS  ANL01FL character  <NA>     NA  448       1
 
 ```
 
+Observe that the columns "TRTSDT" and "TRTEDT" are now converted to 
+Date columns.  The format "%d%b%Y" was written specifically to read in the 
+data value this files uses.  See the `import_spec()` documentation for 
+more information on these data formats, and for other possible data type
+specifications.  Also see the `specs()` documentation if you want to 
+assign a unique import specifications to each data item in the catalog.
 
+### Add Import Specifications to a Fetch
 
-### Example 6: Add Import Specifications to a Catalog
+You may also add an import specification to the fetch operation.
+The import specification is defined with the `import_spec()` function
+as with the catalog operation:
 
+```{r eval=FALSE, echo=TRUE}
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+ 
+# Create import spec
+spc <- import_spec(TRTSDT = "date=%d%b%Y",
+                   TRTEDT = "date=%d%b%Y")
 
+# Create catalog without filter
+ct <- catalog(pkg, engines$csv, import_specs = spc)
 
-
-### Example 7: Mixing It Up
+# View dictionary for ADVS with Import Spec
+ct$ADVS
+# data item 'ADVS': 37 cols 3617 rows
+# - Engine: csv
+# - Size: 1.1 Mb
+# - Last Modified: 2020-09-18 14:30:22
+#    Name   Column     Class Label Format  NAs MaxChar
+# 1  ADVS  STUDYID character  <NA>     NA    0       3
+# 2  ADVS  USUBJID character  <NA>     NA    0      10
+# 3  ADVS   SUBJID character  <NA>     NA    0       3
+# 4  ADVS   SITEID character  <NA>     NA    0       2
+# 5  ADVS   SRCDOM character  <NA>     NA   85       2
+# 6  ADVS   SRCVAR character  <NA>     NA   85       8
+# 7  ADVS   SRCSEQ   numeric  <NA>     NA   85       2
+# 8  ADVS     TRTP character  <NA>     NA   85       5
+# 9  ADVS    TRTPN   numeric  <NA>     NA   85       1
+# 10 ADVS     TRTA character  <NA>     NA   85       5
+# 11 ADVS    TRTAN   numeric  <NA>     NA   85       1
+# 12 ADVS   RANDFL character  <NA>     NA    0       1
+# 13 ADVS    SAFFL character  <NA>     NA    0       1
+# 14 ADVS   MITTFL character  <NA>     NA    0       1
+# 15 ADVS  PPROTFL character  <NA>     NA    0       1
+# 16 ADVS   TRTSDT      Date  <NA>     NA   54      10
+# 17 ADVS   TRTEDT      Date  <NA>     NA  119      10
+# 18 ADVS      ADT character  <NA>     NA    0       9
+# 19 ADVS      ADY   numeric  <NA>     NA   54       4
+# 20 ADVS     ADTF   logical  <NA>     NA 3617       0
+# 21 ADVS   AVISIT character  <NA>     NA   50      14
+# 22 ADVS  AVISITN   numeric  <NA>     NA   50       2
+# 23 ADVS    PARAM character  <NA>     NA    0      35
+# 24 ADVS  PARAMCD character  <NA>     NA    0       6
+# 25 ADVS   PARAMN   numeric  <NA>     NA    0       1
+# 26 ADVS PARAMTYP character  <NA>     NA 3532       7
+# 27 ADVS     AVAL   numeric  <NA>     NA    0       5
+# 28 ADVS     BASE   numeric  <NA>     NA   70       5
+# 29 ADVS      CHG   numeric  <NA>     NA 1312       4
+# 30 ADVS  AWRANGE character  <NA>     NA 1331      25
+# 31 ADVS AWTARGET   numeric  <NA>     NA 1331       3
+# 32 ADVS  AWTDIFF   numeric  <NA>     NA 1331       2
+# 33 ADVS     AWLO   numeric  <NA>     NA 1331       3
+# 34 ADVS     AWHI   numeric  <NA>     NA 1331       3
+# 35 ADVS      AWU character  <NA>     NA 1331       4
+# 36 ADVS    ABLFL character  <NA>     NA 2869       1
+# 37 ADVS  ANL01FL character  <NA>     NA  448       1
+```
+The results of this operation are similar to the previous example, when
+we applied the import spec to the catalog.  The difference is that now
+the import spec applies only to this specific fetch operation, as is 
+not retained on the catalog.
 
 
 ## Next Steps
 
-
+For next steps, it is suggested to play around with the **fetch** functions, and
+note how easy these functions are to use.  You may also wish to review the 
+documentation for the `catalog()`, `fetch()`, `import_spec()` functions.  
+The documentation contains some additional examples and descriptions 
+of all parameters.
 
 
 

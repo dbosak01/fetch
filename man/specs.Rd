@@ -52,8 +52,44 @@ See the \code{\link{write.specs}} and \code{\link{read.specs}} functions
 for additional information on saving specs.
 }
 \examples{
-# Create temp path
-tmp <- file.path(tempdir(), "mtcars.csv")
+# Get sample data directory
+pkg <- system.file("extdata", package = "fetch")
+
+# Create import spec
+spc <- specs(ADAE = import_spec(TRTSDT = "date=\%d\%b\%Y",
+                                TRTEDT = "date=\%d\%b\%Y"),
+             ADVS = import_spec(TRTSDT = "character",
+                                TRTEDT = "character"))
+
+# Create catalog without filter
+ct <- catalog(pkg, engines$csv, import_specs = spc)
+
+# Get dictionary for ADAE with Import Spec
+d1 <- ct$ADAE
+
+# Observe data types for TRTSDT and TRTEDT are Dates
+d1[d1$Column \%in\% c("TRTSDT", "TRTEDT"), ]
+# data item 'ADAE': 56 cols 150 rows
+#- Engine: csv
+#- Size: 155 Kb
+#- Last Modified: 2020-09-18 14:30:22
+#   Name Column Class Label Format NAs MaxChar
+#13 ADAE TRTSDT  Date  <NA>     NA   1      10
+#14 ADAE TRTEDT  Date  <NA>     NA   4      10
+
+# Get dictionary for ADVS with Import Spec
+d2 <- ct$ADVS
+
+# Observe data types for TRTSDT and TRTEDT are character
+d2[d2$Column \%in\% c("TRTSDT", "TRTEDT"), ]
+# data item 'ADVS': 37 cols 3617 rows
+#- Engine: csv
+#- Size: 1.1 Mb
+#- Last Modified: 2020-09-18 14:30:22
+#   Name Column     Class Label Format NAs MaxChar
+#16 ADVS TRTSDT character  <NA>     NA  54       9
+#17 ADVS TRTEDT character  <NA>     NA 119       9
+
 }
 \seealso{
 \code{\link{catalog}} to create a data catalog, 

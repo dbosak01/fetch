@@ -151,8 +151,44 @@ import spec.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># Create temp path</span></span>
-<span><span class="va">tmp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"mtcars.csv"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># Get sample data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create import spec</span></span>
+<span><span class="va">spc</span> <span class="op">&lt;-</span> <span class="fu">specs</span><span class="op">(</span>ADAE <span class="op">=</span> <span class="fu"><a href="import_spec.html">import_spec</a></span><span class="op">(</span>TRTSDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span>,</span>
+<span>                                TRTEDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span><span class="op">)</span>,</span>
+<span>             ADVS <span class="op">=</span> <span class="fu"><a href="import_spec.html">import_spec</a></span><span class="op">(</span>TRTSDT <span class="op">=</span> <span class="st">"character"</span>,</span>
+<span>                                TRTEDT <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, import_specs <span class="op">=</span> <span class="va">spc</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Get dictionary for ADAE with Import Spec</span></span>
+<span><span class="va">d1</span> <span class="op">&lt;-</span> <span class="va">ct</span><span class="op">$</span><span class="va">ADAE</span></span>
+<span></span>
+<span><span class="co"># Observe data types for TRTSDT and TRTEDT are Dates</span></span>
+<span><span class="va">d1</span><span class="op">[</span><span class="va">d1</span><span class="op">$</span><span class="va">Column</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRTSDT"</span>, <span class="st">"TRTEDT"</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="co"># data item 'ADAE': 56 cols 150 rows</span></span>
+<span><span class="co">#- Engine: csv</span></span>
+<span><span class="co">#- Size: 155 Kb</span></span>
+<span><span class="co">#- Last Modified: 2020-09-18 14:30:22</span></span>
+<span><span class="co">#   Name Column Class Label Format NAs MaxChar</span></span>
+<span><span class="co">#13 ADAE TRTSDT  Date  &lt;NA&gt;     NA   1      10</span></span>
+<span><span class="co">#14 ADAE TRTEDT  Date  &lt;NA&gt;     NA   4      10</span></span>
+<span></span>
+<span><span class="co"># Get dictionary for ADVS with Import Spec</span></span>
+<span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span></span>
+<span></span>
+<span><span class="co"># Observe data types for TRTSDT and TRTEDT are character</span></span>
+<span><span class="va">d2</span><span class="op">[</span><span class="va">d2</span><span class="op">$</span><span class="va">Column</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"TRTSDT"</span>, <span class="st">"TRTEDT"</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span>
+<span><span class="co">#- Engine: csv</span></span>
+<span><span class="co">#- Size: 1.1 Mb</span></span>
+<span><span class="co">#- Last Modified: 2020-09-18 14:30:22</span></span>
+<span><span class="co">#   Name Column     Class Label Format NAs MaxChar</span></span>
+<span><span class="co">#16 ADVS TRTSDT character  &lt;NA&gt;     NA  54       9</span></span>
+<span><span class="co">#17 ADVS TRTEDT character  &lt;NA&gt;     NA 119       9</span></span>
+<span></span></code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>

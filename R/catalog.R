@@ -83,8 +83,9 @@ catalog <- function(source, engine,
       stop(paste0("Invalid engine parameter value: ", engine))
     
     if (!is.null(import_specs)) {
-      if (!"specs" %in% class(import_specs))
-        stop("import_specs parameter value must be of class 'specs'.")
+      if (!("specs" %in% class(import_specs) | 
+            "import_spec" %in% class(import_specs)))
+        stop("import_specs parameter value must be of class 'specs' or 'import_spec'.")
       
     }
   
