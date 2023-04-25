@@ -87,7 +87,7 @@ some features that the package did not support:</p>
 memory.</li>
 <li>Users wanted to pick only <em>some</em> datasets to load into
 memory.</li>
-<li>Users wanted to filter all datasets in the library based on a
+<li>Users wanted to subset all datasets in the library based on a
 condition.</li>
 </ul>
 <p>After consideration of these requests, I determined that these
@@ -116,20 +116,23 @@ it into memory</li>
 <ul>
 <li>The <strong>fetch</strong> package loads only the data you need for
 your analysis.</li>
-<li>The <code><a href="../reference/catalog.html">catalog()</a></code> function allows you to examine the data
-before loading it.</li>
-<li>The “filter” parameter on the <code><a href="../reference/catalog.html">catalog()</a></code> function allows
-you to filter across all datasets in the catalog.</li>
-<li>The <code><a href="../reference/fetch.html">fetch()</a></code> function loads data, allowing additional
-subsets if you wish.</li>
+<li>The <code><a href="../reference/catalog.html">catalog()</a></code> function allows you to explore the data
+before reading from the source.</li>
+<li>The “where” parameter on the <code><a href="../reference/catalog.html">catalog()</a></code> function allows
+you to subset across all datasets in the catalog.</li>
+<li>The “top” parameter on the <code><a href="../reference/fetch.html">fetch()</a></code> function lets you
+preview the data.</li>
+<li>The “import_spec” parameters on the <code><a href="../reference/catalog.html">catalog()</a></code> and
+<code><a href="../reference/fetch.html">fetch()</a></code> functions give you control over the column data
+types.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="how-to-use-fetch">How to use <strong>fetch</strong><a class="anchor" aria-label="anchor" href="#how-to-use-fetch"></a>
 </h2>
-<p>Let’s see a simple example. In this example we will create a data
-catalog, examine it’s contents, and fetch a dataset from the catalog.
-First, create and view the data catalog:</p>
+<p>Let’s start with a simple example. In this example we will create a
+data catalog, examine it’s contents, and fetch a dataset from the
+catalog. First, create and view the data catalog:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
@@ -208,19 +211,19 @@ catalog:</p>
 <span><span class="co">#   AVALCAT1 &lt;chr&gt;</span></span>
 <span><span class="co">#  Use `print(n = ...)` to see more rows</span></span></code></pre></div>
 <p>At this point, you can proceed with your analysis, or fetch
-additional datasets from the catalog as needed.</p>
+additional datasets from the catalog as needed. So easy!</p>
 </div>
 <div class="section level2">
 <h2 id="additional-features">Additional Features<a class="anchor" aria-label="anchor" href="#additional-features"></a>
 </h2>
-<p>The above example covers the basics. Now let’s look at some more
+<p>The above example covers the very basics. Now let’s look at some more
 useful features of the <strong>fetch</strong> package.</p>
 <div class="section level3">
-<h3 id="apply-a-filter-to-fetch-operation">Apply a Filter to Fetch Operation<a class="anchor" aria-label="anchor" href="#apply-a-filter-to-fetch-operation"></a>
+<h3 id="apply-a-where-expression-to-a-fetch-operation">Apply a Where Expression to a Fetch Operation<a class="anchor" aria-label="anchor" href="#apply-a-where-expression-to-a-fetch-operation"></a>
 </h3>
 <p>What if you are performing an analysis on a subset of data? Is there
 a way to apply a subset when the data is fetched? You can apply subset
-criteria using the “filter” parameter on the <code>fetch</code>
+criteria using the “where” parameter on the <code><a href="../reference/fetch.html">fetch()</a></code>
 function. Like this:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
@@ -229,10 +232,10 @@ function. Like this:</p>
 <span><span class="co"># Create catalog</span></span>
 <span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Filter data for a specific subject</span></span>
-<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Subset data for a specific subject</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># View filtered data</span></span>
+<span><span class="co"># View data subset</span></span>
 <span><span class="va">dt</span></span>
 <span><span class="co"># A tibble: 44 × 37</span></span>
 <span><span class="co">#    STUDYID USUBJID    SUBJID SITEID SRCDOM SRCVAR   SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL</span></span>
@@ -257,7 +260,7 @@ function. Like this:</p>
 <p>The <code>expression</code> function can be used to define any R
 expression. This function accepts unquoted variable names, logical
 operators, and R functions like <code><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null()</a></code> and
-<code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code>. You can use the the “filter” parameter with an
+<code><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na()</a></code>. You can use the the “where” parameter with an
 expression to narrow down the data you are working with and reduce the
 memory footprint of your program.</p>
 </div>
@@ -275,8 +278,8 @@ for exploratory purposes. Here is an example:</p>
 <span><span class="co"># Create catalog</span></span>
 <span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Filter data for a specific subject</span></span>
-<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span>, top <span class="op">=</span> <span class="fl">5</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Subset data for a specific subject</span></span>
+<span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct</span><span class="op">$</span><span class="va">ADVS</span>, top <span class="op">=</span> <span class="fl">5</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View results</span></span>
 <span><span class="va">dt</span></span>
@@ -295,7 +298,7 @@ for exploratory purposes. Here is an example:</p>
 <span><span class="co">#   ABLFL &lt;chr&gt;, ANL01FL &lt;chr&gt;</span></span></code></pre></div>
 <p>The above fetch returned the top 5 rows of the dataset for subject
 ‘049’. Note that the “top” parameter can be used with or without the
-“filter” parameter.</p>
+“where” parameter.</p>
 </div>
 <div class="section level3">
 <h3 id="apply-a-pattern-to-a-catalog">Apply a Pattern to a Catalog<a class="anchor" aria-label="anchor" href="#apply-a-pattern-to-a-catalog"></a>
@@ -328,16 +331,16 @@ demonstrates how the “pattern” parameter can be used to reduce the
 datasets loaded into the catalog.</p>
 </div>
 <div class="section level3">
-<h3 id="apply-a-filter-to-an-entire-catalog">Apply a Filter to an Entire Catalog<a class="anchor" aria-label="anchor" href="#apply-a-filter-to-an-entire-catalog"></a>
+<h3 id="apply-a-where-expression-to-an-entire-catalog">Apply a Where Expression to an Entire Catalog<a class="anchor" aria-label="anchor" href="#apply-a-where-expression-to-an-entire-catalog"></a>
 </h3>
 <p>Sometimes you want to subset all the datasets in your catalog. This
-subset can be accomplished with the “filter” parameter on the
+subset can be accomplished with the “where” parameter on the
 <code><a href="../reference/catalog.html">catalog()</a></code> function. Observe:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
 <span> </span>
-<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="co"># Create catalog without where expression</span></span>
 <span><span class="va">ct1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View catalog</span></span>
@@ -353,33 +356,33 @@ subset can be accomplished with the “filter” parameter on the
 <span><span class="co"># data item 'ADSL': 56 cols 87 rows</span></span>
 <span><span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span>
 <span></span>
-<span><span class="co"># Create catalog with filter</span></span>
-<span><span class="va">ct2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, filter <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># Create catalog with where expression</span></span>
+<span><span class="va">ct2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">SUBJID</span> <span class="op">==</span> <span class="st">'049'</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View catalog</span></span>
 <span><span class="va">ct2</span></span>
 <span><span class="co"># data catalog: 6 items</span></span>
 <span><span class="co"># - Source: C:/packages/fetch/inst/extdata</span></span>
 <span><span class="co"># - Engine: csv</span></span>
-<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># - Where: SUBJID == "049"</span></span>
 <span><span class="co"># - Items:</span></span>
 <span><span class="co"># # data item 'ADAE': 56 cols 5 rows</span></span>
-<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># - Where: SUBJID == "049"</span></span>
 <span><span class="co"># # data item 'ADEX': 17 cols 4 rows</span></span>
-<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># - Where: SUBJID == "049"</span></span>
 <span><span class="co"># # data item 'ADPR': 37 cols 7 rows</span></span>
-<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># - Where: SUBJID == "049"</span></span>
 <span><span class="co"># # data item 'ADPSGA': 42 cols 10 rows</span></span>
-<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># - Where: SUBJID == "049"</span></span>
 <span><span class="co"># # data item 'ADSL': 56 cols 1 rows</span></span>
-<span><span class="co"># - Filter: SUBJID == "049"</span></span>
+<span><span class="co"># - Where: SUBJID == "049"</span></span>
 <span><span class="co"># # data item 'ADVS': 37 cols 44 rows</span></span>
-<span><span class="co"># - Filter: SUBJID == "049"</span></span></code></pre></div>
-<p>Notice that a filter has been added to each data item in the catalog,
-the row counts for each item have been reduced. Now let’s fetch some
-data from this catalog:</p>
+<span><span class="co"># - Where: SUBJID == "049"</span></span></code></pre></div>
+<p>Notice that a where expression has been added to each data item in
+the catalog, the row counts for each item have been reduced. Now let’s
+fetch some data from this catalog:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Filter data for a specific subject</span></span>
+<code class="sourceCode R"><span><span class="co"># Subset data for a specific subject</span></span>
 <span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct2</span><span class="op">$</span><span class="va">ADVS</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View results of ADVS fetch</span></span>
@@ -419,9 +422,9 @@ data from this catalog:</p>
 <span><span class="co">#   MITTEXC2 &lt;chr&gt;, PPROTFL &lt;chr&gt;, PPROTEX1 &lt;chr&gt;, PPROTEX2 &lt;chr&gt;, PPROTEX3 &lt;chr&gt;,</span></span>
 <span><span class="co">#   PPROTEX4 &lt;chr&gt;, COMPLFL &lt;chr&gt;, STDYDISP &lt;chr&gt;, STDYREAS &lt;chr&gt;, INCNDT &lt;chr&gt;, RANDDT &lt;chr&gt;,</span></span>
 <span><span class="co">#   DTHDT &lt;lgl&gt;, DTHFL &lt;chr&gt;, MISSDOSE &lt;dbl&gt;, TP1TRTR &lt;chr&gt;, TP2TRTR &lt;chr&gt;, TP3TRTR &lt;chr&gt;,...</span></span></code></pre></div>
-<p>AS you can see, both the ADVS and ADSL datasets have been filtered
-for subject ‘049’. This feature of the <em>fetch</em> package makes it
-easy to target just the rows you are looking for.</p>
+<p>AS you can see, both the ADVS and ADSL datasets have been subset for
+subject ‘049’. This feature of the <em>fetch</em> package makes it easy
+to target just the rows you are looking for.</p>
 </div>
 <div class="section level3">
 <h3 id="add-import-specifications-to-a-catalog">Add Import Specifications to a Catalog<a class="anchor" aria-label="anchor" href="#add-import-specifications-to-a-catalog"></a>
@@ -439,7 +442,7 @@ column.</p>
 <code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
 <span> </span>
-<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="co"># Create catalog without import spec</span></span>
 <span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View dictionary for ADVS</span></span>
@@ -497,7 +500,7 @@ force the date data type assignment with an import spec, as follows:</p>
 <span><span class="va">spc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_spec.html">import_spec</a></span><span class="op">(</span>TRTSDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span>,</span>
 <span>                   TRTEDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="co"># Create catalog with import spec</span></span>
 <span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, import_specs <span class="op">=</span> <span class="va">spc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View dictionary for ADVS with Import Spec</span></span>
@@ -545,12 +548,13 @@ force the date data type assignment with an import spec, as follows:</p>
 <span><span class="co"># 36 ADVS    ABLFL character  &lt;NA&gt;     NA 2869       1</span></span>
 <span><span class="co"># 37 ADVS  ANL01FL character  &lt;NA&gt;     NA  448       1</span></span></code></pre></div>
 <p>Observe that the columns “TRTSDT” and “TRTEDT” are now converted to
-Date columns. The format “%d%b%Y” was written specifically to read in
-the data value this files uses. See the <code><a href="../reference/import_spec.html">import_spec()</a></code>
-documentation for more information on these data formats, and for other
-possible data type specifications. Also see the <code><a href="../reference/specs.html">specs()</a></code>
-documentation if you want to assign a unique import specifications to
-each data item in the catalog.</p>
+Date columns. This import spec will apply to all “TRTSDT” and “TRTEDT”
+columns in all datasets. The format “%d%b%Y” was written specifically to
+read in the data value this files uses. See the
+<code><a href="../reference/import_spec.html">import_spec()</a></code> documentation for more information on these
+data formats, and for other possible data type specifications. Also see
+the <code><a href="../reference/specs.html">specs()</a></code> documentation if you want to assign a unique
+import specifications to each data item in the catalog.</p>
 </div>
 <div class="section level3">
 <h3 id="add-import-specifications-to-a-fetch">Add Import Specifications to a Fetch<a class="anchor" aria-label="anchor" href="#add-import-specifications-to-a-fetch"></a>
@@ -566,7 +570,7 @@ function as with the catalog operation:</p>
 <span><span class="va">spc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/import_spec.html">import_spec</a></span><span class="op">(</span>TRTSDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span>,</span>
 <span>                   TRTEDT <span class="op">=</span> <span class="st">"date=%d%b%Y"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Create catalog without filter</span></span>
+<span><span class="co"># Create catalog with import spec</span></span>
 <span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span>, import_specs <span class="op">=</span> <span class="va">spc</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># View dictionary for ADVS with Import Spec</span></span>
