@@ -20,10 +20,10 @@ test_that("catalog1: load_catalog() function works as expected with rds.", {
 })
 
 
-test_that("catalog2: catalog() function works as expected with filters", {
+test_that("catalog2: catalog() function works as expected with where expression", {
   
   
-  res <- catalog(base_path, engines$rds, filter = expression(inv == 1000))
+  res <- catalog(base_path, engines$rds, where = expression(inv == 1000))
   
   res
   res$demo_studya
@@ -34,7 +34,7 @@ test_that("catalog2: catalog() function works as expected with filters", {
   
   expect_equal(nrow(res1), 5)
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == 'Active'))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == 'Active'))
   
   res2
   

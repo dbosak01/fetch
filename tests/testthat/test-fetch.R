@@ -20,7 +20,7 @@ test_that("fetch1: load_data() function works as expected with rds.", {
   expect_equal(nrow(res1), 10)
 
   
-  res2 <- load_data(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- load_data(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -30,7 +30,7 @@ test_that("fetch1: load_data() function works as expected with rds.", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- load_data(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- load_data(res$demo_studya,  where = expression(treatment == "Active"),  
                     top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -52,7 +52,7 @@ test_that("fetch2: fetch() function works as expected with rds.", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -62,7 +62,7 @@ test_that("fetch2: fetch() function works as expected with rds.", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                     top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -84,7 +84,7 @@ test_that("fetch3: fetch() function works as expected with rda.", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -94,7 +94,7 @@ test_that("fetch3: fetch() function works as expected with rda.", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -116,7 +116,7 @@ test_that("fetch4: fetch() function works as expected with rdata.", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -126,7 +126,7 @@ test_that("fetch4: fetch() function works as expected with rdata.", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -148,7 +148,7 @@ test_that("fetch5: fetch() function works as expected with sas7bdat.", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -158,7 +158,7 @@ test_that("fetch5: fetch() function works as expected with sas7bdat.", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -181,7 +181,7 @@ test_that("fetch6: fetch() function works as expected with csv", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -191,7 +191,7 @@ test_that("fetch6: fetch() function works as expected with csv", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -213,7 +213,7 @@ test_that("fetch7: fetch() function works as expected with xls", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -223,7 +223,7 @@ test_that("fetch7: fetch() function works as expected with xls", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -245,7 +245,7 @@ test_that("fetch8: fetch() function works as expected with xlsx", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -255,7 +255,7 @@ test_that("fetch8: fetch() function works as expected with xlsx", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -276,7 +276,7 @@ test_that("fetch9: fetch() function works as expected with dbf", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -286,7 +286,7 @@ test_that("fetch9: fetch() function works as expected with dbf", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)
@@ -307,7 +307,7 @@ test_that("fetch10: fetch() function works as expected with xpt", {
   expect_equal(nrow(res1), 10)
   
   
-  res2 <- fetch(res$demo_studya, filter = expression(treatment == "Active"))
+  res2 <- fetch(res$demo_studya, where = expression(treatment == "Active"))
   
   expect_equal(nrow(res2), 6)
   
@@ -317,7 +317,7 @@ test_that("fetch10: fetch() function works as expected with xpt", {
   expect_equal(nrow(res3), 4)
   
   
-  res4 <- fetch(res$demo_studya,  filter = expression(treatment == "Active"),  
+  res4 <- fetch(res$demo_studya,  where = expression(treatment == "Active"),  
                 top = 4)
   
   expect_equal(nrow(res4), 4)

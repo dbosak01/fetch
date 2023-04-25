@@ -15,7 +15,7 @@
 #' is required.
 #' @param pattern A pattern to use when loading the data source.  The pattern
 #' can be a name or a vector of names.  Names also accept wildcards.
-#' @param filter One or more filter expressions to use when fetching 
+#' @param where One or more filter expressions to use when fetching 
 #' the data. This filter will apply to all fetch operations on this catalog.
 #' @param import_specs The import specs to use for any fetch operation on 
 #' this catalog.
@@ -68,7 +68,7 @@
 #' 
 #' @export
 catalog <- function(source, engine, 
-                    pattern = NULL, filter = NULL, import_specs = NULL) {
+                    pattern = NULL, where = NULL, import_specs = NULL) {
   
     if (is.null(engine))
       stop("engine parameter cannot be null")
@@ -97,10 +97,10 @@ catalog <- function(source, engine,
   attr(ret, "source") <- source
   attr(ret, "engine") <- engine
   attr(ret, "pattern") <- pattern
-  attr(ret, "filter") <- filter
+  attr(ret, "where") <- where
   attr(ret, "import_specs") <- import_specs
   
-  ret <- load_catalog(ret, source, engine, pattern, filter, import_specs)
+  ret <- load_catalog(ret, source, engine, pattern, where, import_specs)
 
   
   return(ret)
@@ -110,7 +110,7 @@ catalog <- function(source, engine,
 
 #' @import tibble
 load_catalog <- function(ret, source, engine, pattern  = NULL, 
-                         filter = NULL, import_specs = NULL) {
+                         where = NULL, import_specs = NULL) {
   
   
   # Get the file list according to the engine type
@@ -137,40 +137,40 @@ load_catalog <- function(ret, source, engine, pattern  = NULL,
       
       if (tolower(ext) == "csv") {
         
-        dat <- get_dinfo_csv(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_csv(fp, nm, where = where, import_specs = import_specs)
         
       } else if (tolower(ext) == "rds") {
         
-        dat <- get_dinfo_rds(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_rds(fp, nm, where = where, import_specs = import_specs)
         
       } else if (tolower(ext) == "rda") {
         
-        dat <- get_dinfo_rda(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_rda(fp, nm, where = where, import_specs = import_specs)
         
       } else if (tolower(ext) == "rdata") {
         
-        dat <- get_dinfo_rdata(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_rdata(fp, nm, where = where, import_specs = import_specs)
         
       } else if (ext == "sas7bdat") {
         
-        dat <- get_dinfo_sas7bdat(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_sas7bdat(fp, nm, where = where, import_specs = import_specs)
         
       } else if (tolower(ext) == "dbf") {
         
-        dat <- get_dinfo_dbf(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_dbf(fp, nm, where = where, import_specs = import_specs)
         
       } else if (tolower(ext) == "xpt") {
         
-        dat <- get_dinfo_xpt(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_xpt(fp, nm, where = where, import_specs = import_specs)
         
       } else if (tolower(ext) == "xlsx") {
         
-        dat <- get_dinfo_xlsx(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_xlsx(fp, nm, where = where, import_specs = import_specs)
         
         
       } else if (tolower(ext) == "xls") {
         
-        dat <- get_dinfo_xls(fp, nm, filter = filter, import_specs = import_specs)
+        dat <- get_dinfo_xls(fp, nm, where = where, import_specs = import_specs)
       } 
       
       if (any(class(dat) == "data.frame")) {
@@ -234,7 +234,7 @@ print.dcat <- function(x, ..., verbose = FALSE) {
   
   # attr(ret, "name") <- nm
   # attr(ret, "path") <- fp
-  # attr(ret, "filter") <- as.character(filter)
+  # attr(ret, "where") <- as.character(where)
   # attr(ret, "top") <- top
   # attr(ret, "import_specs") <- import_specs
   # attr(ret, "nrow") <- nrow(dat)
@@ -253,8 +253,8 @@ print.dcat <- function(x, ..., verbose = FALSE) {
   if (!is.null(attr(x, "pattern")))
     cat(paste0("- Pattern: ", attr(x, "pattern"), "\n"))
   
-  if (!is.null(attr(x, "filter"))) 
-    cat(paste0("- Filter: ", as.character(attr(x, "filter")), "\n"))
+  if (!is.null(attr(x, "where"))) 
+    cat(paste0("- Where: ", as.character(attr(x, "where")), "\n"))
   
   
   if (length(x) > 0) {

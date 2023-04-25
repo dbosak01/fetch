@@ -43,11 +43,11 @@ print.dinfo <- function(x, ..., verbose = TRUE) {
   
   if (!is.null(attr(x, "top")))
     cat(paste0("- Top: ", attr(x, "top"), "\n"))
-  if (!is.null(attr(x, "filter"))) {
+  if (!is.null(attr(x, "where"))) {
     
-    #print(attr(x, "filter"))
-    if (nchar(as.character(attr(x, "filter"))) > 0)
-      cat(paste0("- Filter: ", as.character(attr(x, "filter")), "\n"))
+    #print(attr(x, "where"))
+    if (nchar(as.character(attr(x, "where"))) > 0)
+      cat(paste0("- Where: ", as.character(attr(x, "where")), "\n"))
     
   }
   

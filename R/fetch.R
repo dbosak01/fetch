@@ -25,12 +25,12 @@ NULL
 #' @encoding UTF-8
 #' @description The \code{fetch} function retrieves a dataset from a data
 #' catalog.  The function accepts a catalog item as the first parameter.  The
-#' data item is the only required parameter. The "filter" and "top" parameters
+#' data item is the only required parameter. The "where" and "top" parameters
 #' may be used to define a subset of the data to retrieve.  The "import_specs"
 #' parameter accepts an \code{\link{import_spec}} object, which can be used
 #' to control how data is read into the data frame.
 #' @param catalog The catalog item to fetch data from.
-#' @param filter An optional expression to be used to filter the fetched data.  
+#' @param where An optional expression to be used to filter the fetched data.  
 #' Use the base R \code{expression} function to define the expression.  The
 #' expression allows logical operators and Base R functions. Column names
 #' can be unquoted.
@@ -86,8 +86,8 @@ NULL
 #'
 #' # Example 2: Fetch a Subset
 #' 
-#' # Get data with filter expression
-#' dat2 <- fetch(ct$ADEX, filter = expression(SUBJID == '051'))
+#' # Get data with where expression
+#' dat2 <- fetch(ct$ADEX, where = expression(SUBJID == '051'))
 #' 
 #' # View Data
 #' dat2
@@ -102,13 +102,13 @@ NULL
 #' #  PARAMCD <chr>, PARAMN <dbl>, AVAL <dbl>, AVALCAT1 <chr>
 #'
 #' @export
-fetch <- function(catalog, filter = NULL, top = NULL, import_specs = NULL) {
+fetch <- function(catalog, where = NULL, top = NULL, import_specs = NULL) {
   
   ret <- NULL
   
   if ("dinfo" %in% class(catalog)) {
     
-    ret <- load_data(catalog, filter, top, import_specs)
+    ret <- load_data(catalog, where, top, import_specs)
     
   } else {
     
@@ -122,7 +122,7 @@ fetch <- function(catalog, filter = NULL, top = NULL, import_specs = NULL) {
 
 
 #' @import tibble
-load_data <- function(dinfo, filter = NULL, top = NULL, import_specs = NULL) {
+load_data <- function(dinfo, where = NULL, top = NULL, import_specs = NULL) {
   
   
   # Get the file list according to the engine type
@@ -133,7 +133,7 @@ load_data <- function(dinfo, filter = NULL, top = NULL, import_specs = NULL) {
   eng <- attr(dinfo, "engine")
   pth <- attr(dinfo, "path")
   nm <- attr(dinfo, "name")
-  fl <- attr(dinfo, "filter")
+  fl <- attr(dinfo, "where")
   
   if (is.null(import_specs)) {
     spc <- attr(dinfo, "import_specs")
@@ -144,61 +144,61 @@ load_data <- function(dinfo, filter = NULL, top = NULL, import_specs = NULL) {
   
   # Combine filters if necessary
   if (!is.null(fl)) {
-    if (!is.null(filter)) {
+    if (!is.null(where)) {
       
-      filter <- str2expression(paste(fl, "&", 
-                                     as.character(filter), collapse = ""))
+      where <- str2expression(paste(fl, "&", 
+                                     as.character(where), collapse = ""))
     } else {
       
-      filter <- str2expression(fl) 
+      where <- str2expression(fl) 
     }
   }
   
   if (eng == engines$csv) {
     
     
-    dat <- get_data_csv(pth, nm, filter = filter, top = top, 
+    dat <- get_data_csv(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
     
   } else if (eng == engines$rds) {
     
-    dat <- get_data_rds(pth, nm, filter = filter, top = top, 
+    dat <- get_data_rds(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
     
   } else if (eng  %in% c(engines$rdata, engines$rda)) {
     
-    dat <- get_data_rda(pth, nm, filter = filter, top = top, 
+    dat <- get_data_rda(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
     
     
   } else if (eng  == engines$sas7bdat) {
     
-    dat <- get_data_sas7bdat(pth, nm, filter = filter, top = top, 
+    dat <- get_data_sas7bdat(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
     
   } else if (eng  == engines$dbf) {
     
     
-    dat <- get_data_dbf(pth, nm, filter = filter, top = top, 
+    dat <- get_data_dbf(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
     
   } else if (eng == engines$xpt) {
     
     
-    dat <- get_data_xpt(pth, nm, filter = filter, top = top, 
+    dat <- get_data_xpt(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
     
   } else if (eng  == engines$xlsx) {
     
     
     
-    dat <- get_data_xlsx(pth, nm, filter = filter, top = top, 
+    dat <- get_data_xlsx(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
     
   } else if (eng == engines$xls) {
     
     
-    dat <- get_data_xls(pth, nm, filter = filter, top = top, 
+    dat <- get_data_xls(pth, nm, where = where, top = top, 
                         import_specs = import_specs)
   } 
       

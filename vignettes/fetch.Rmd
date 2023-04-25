@@ -23,7 +23,7 @@ users requested some features that the package did not support:
 
 * Users wanted to examine the data *before* loading it into memory.
 * Users wanted to pick only *some* datasets to load into memory.
-* Users wanted to filter all datasets in the library based on a condition.
+* Users wanted to subset all datasets in the library based on a condition.
 
 After consideration of these requests, I determined that these features would
 be most easily satisfied by creating a new package.  That package is **fetch**.
@@ -46,7 +46,7 @@ The package has the following key features:
 
 * The **fetch** package loads only the data you need for your analysis.
 * The `catalog()` function allows you to explore the data before reading from the source.
-* The "filter" parameter on the `catalog()` function allows you to filter across 
+* The "where" parameter on the `catalog()` function allows you to subset across 
 all datasets in the catalog.
 * The "top" parameter on the `fetch()` function lets you preview the 
 data.
@@ -152,11 +152,11 @@ from the catalog as needed.  So easy!
 The above example covers the very basics.  Now let's look at some more useful 
 features of the **fetch** package.
 
-### Apply a Filter to Fetch Operation
+### Apply a Where Expression to a Fetch Operation
 
 What if you are performing an analysis on a subset of data? Is there a way 
 to apply a subset when the data is fetched?  You can apply subset criteria 
-using the "filter" parameter on the `fetch()` function.  Like this:
+using the "where" parameter on the `fetch()` function.  Like this:
 
 ```{r eval=FALSE, echo=TRUE}
 # Get sample data directory
@@ -165,10 +165,10 @@ pkg <- system.file("extdata", package = "fetch")
 # Create catalog
 ct <- catalog(pkg, engines$csv)
 
-# Filter data for a specific subject
-dt <- fetch(ct$ADVS, filter = expression(SUBJID == '049'))
+# Subset data for a specific subject
+dt <- fetch(ct$ADVS, where = expression(SUBJID == '049'))
 
-# View filtered data
+# View data subset
 dt
 # A tibble: 44 × 37
 #    STUDYID USUBJID    SUBJID SITEID SRCDOM SRCVAR   SRCSEQ TRTP  TRTPN TRTA  TRTAN RANDFL
@@ -196,7 +196,7 @@ dt
 
 The `expression` function can be used to define any R expression.  This function 
 accepts unquoted variable names, logical operators, and R functions like
-`is.null()` and `is.na()`.  You can use the the "filter" parameter with an
+`is.null()` and `is.na()`.  You can use the the "where" parameter with an
 expression to narrow down the data you are working with and reduce
 the memory footprint of your program.
 
@@ -216,8 +216,8 @@ pkg <- system.file("extdata", package = "fetch")
 # Create catalog
 ct <- catalog(pkg, engines$csv)
 
-# Filter data for a specific subject
-dt <- fetch(ct$ADVS, top = 5, filter = expression(SUBJID == '049'))
+# Subset data for a specific subject
+dt <- fetch(ct$ADVS, top = 5, where = expression(SUBJID == '049'))
 
 # View results
 dt
@@ -239,7 +239,7 @@ dt
 ```
 
 The above fetch returned the top 5 rows of the dataset for subject '049'.  Note 
-that the "top" parameter can be used with or without the "filter" parameter.
+that the "top" parameter can be used with or without the "where" parameter.
 
 ### Apply a Pattern to a Catalog
 
@@ -273,17 +273,17 @@ name.  While this is not a realistic example, it nevertheless demonstrates
 how the "pattern" parameter can be used to reduce the datasets loaded into
 the catalog.
 
-### Apply a Filter to an Entire Catalog
+### Apply a Where Expression to an Entire Catalog
 
 Sometimes you want to subset all the datasets in your catalog.  This subset
-can be accomplished with the "filter" parameter on the `catalog()` function.
+can be accomplished with the "where" parameter on the `catalog()` function.
 Observe:
 
 ```{r eval=FALSE, echo=TRUE}
 # Get sample data directory
 pkg <- system.file("extdata", package = "fetch")
  
-# Create catalog without filter
+# Create catalog without where expression
 ct1 <- catalog(pkg, engines$csv)
 
 # View catalog
@@ -299,37 +299,37 @@ ct1
 # data item 'ADSL': 56 cols 87 rows
 # data item 'ADVS': 37 cols 3617 rows
 
-# Create catalog with filter
-ct2 <- catalog(pkg, engines$csv, filter = expression(SUBJID == '049'))
+# Create catalog with where expression
+ct2 <- catalog(pkg, engines$csv, where = expression(SUBJID == '049'))
 
 # View catalog
 ct2
 # data catalog: 6 items
 # - Source: C:/packages/fetch/inst/extdata
 # - Engine: csv
-# - Filter: SUBJID == "049"
+# - Where: SUBJID == "049"
 # - Items:
 # # data item 'ADAE': 56 cols 5 rows
-# - Filter: SUBJID == "049"
+# - Where: SUBJID == "049"
 # # data item 'ADEX': 17 cols 4 rows
-# - Filter: SUBJID == "049"
+# - Where: SUBJID == "049"
 # # data item 'ADPR': 37 cols 7 rows
-# - Filter: SUBJID == "049"
+# - Where: SUBJID == "049"
 # # data item 'ADPSGA': 42 cols 10 rows
-# - Filter: SUBJID == "049"
+# - Where: SUBJID == "049"
 # # data item 'ADSL': 56 cols 1 rows
-# - Filter: SUBJID == "049"
+# - Where: SUBJID == "049"
 # # data item 'ADVS': 37 cols 44 rows
-# - Filter: SUBJID == "049"
+# - Where: SUBJID == "049"
 ```
 
-Notice that a filter has been added to each data item in the catalog, 
+Notice that a where expression has been added to each data item in the catalog, 
 the row counts for each item have been reduced.  Now
 let's fetch some data from this catalog:
 
 
 ```{r eval=FALSE, echo=TRUE}
-# Filter data for a specific subject
+# Subset data for a specific subject
 dt1 <- fetch(ct2$ADVS)
 
 # View results of ADVS fetch
@@ -371,7 +371,7 @@ dt2 <- fetch(ct2$ADSL)
 #   DTHDT <lgl>, DTHFL <chr>, MISSDOSE <dbl>, TP1TRTR <chr>, TP2TRTR <chr>, TP3TRTR <chr>,...
 
 ```
-AS you can see, both the ADVS and ADSL datasets have been filtered for subject '049'.
+AS you can see, both the ADVS and ADSL datasets have been subset for subject '049'.
 This feature of the *fetch* package makes it easy to target just the rows 
 you are looking for.
 
@@ -391,7 +391,7 @@ Examine the dictionary for the ADVS dataset:
 # Get sample data directory
 pkg <- system.file("extdata", package = "fetch")
  
-# Create catalog without filter
+# Create catalog without import spec
 ct <- catalog(pkg, engines$csv)
 
 # View dictionary for ADVS
@@ -452,7 +452,7 @@ pkg <- system.file("extdata", package = "fetch")
 spc <- import_spec(TRTSDT = "date=%d%b%Y",
                    TRTEDT = "date=%d%b%Y")
 
-# Create catalog without filter
+# Create catalog with import spec
 ct <- catalog(pkg, engines$csv, import_specs = spc)
 
 # View dictionary for ADVS with Import Spec
@@ -503,7 +503,8 @@ ct$ADVS
 ```
 
 Observe that the columns "TRTSDT" and "TRTEDT" are now converted to 
-Date columns.  The format "%d%b%Y" was written specifically to read in the 
+Date columns.  This import spec will apply to all "TRTSDT" and "TRTEDT" 
+columns in all datasets. The format "%d%b%Y" was written specifically to read in the 
 data value this files uses.  See the `import_spec()` documentation for 
 more information on these data formats, and for other possible data type
 specifications.  Also see the `specs()` documentation if you want to 
@@ -523,7 +524,7 @@ pkg <- system.file("extdata", package = "fetch")
 spc <- import_spec(TRTSDT = "date=%d%b%Y",
                    TRTEDT = "date=%d%b%Y")
 
-# Create catalog without filter
+# Create catalog with import spec
 ct <- catalog(pkg, engines$csv, import_specs = spc)
 
 # View dictionary for ADVS with Import Spec

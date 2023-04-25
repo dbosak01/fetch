@@ -30,15 +30,15 @@ engines$rda <- "rda"
 # Get Data Info -----------------------------------------------------------
 
 #' @import utils
-get_dinfo_attributes <- function(dat, fp, nm, filter = NULL, top = NULL, 
+get_dinfo_attributes <- function(dat, fp, nm, where = NULL, top = NULL, 
                                  import_specs = NULL) {
   
   ret <- get_dictionary(dat, nm)
   
   attr(ret, "name") <- nm
   attr(ret, "path") <- fp
-  if (!is.null(filter))
-    attr(ret, "filter") <- as.character(filter)
+  if (!is.null(where))
+    attr(ret, "where") <- as.character(where)
   attr(ret, "top") <- top
   attr(ret, "import_specs") <- import_specs
   attr(ret, "nrow") <- nrow(dat)
@@ -55,13 +55,13 @@ get_dinfo_attributes <- function(dat, fp, nm, filter = NULL, top = NULL,
 }
 
 
-get_dinfo_rds <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_rds <- function(fp, nm, where = NULL, top = NULL, 
                              import_specs = NULL) {
   
-  dat <- get_data_rds(fp, nm, filter, top, import_specs)
+  dat <- get_data_rds(fp, nm, where, top, import_specs)
 
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$rds
   
@@ -69,12 +69,12 @@ get_dinfo_rds <- function(fp, nm, filter = NULL, top = NULL,
 }
 
 
-get_dinfo_rda <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_rda <- function(fp, nm, where = NULL, top = NULL, 
                           import_specs = NULL) {
   
-  dat <- get_data_rda(fp, nm, filter, top, import_specs)
+  dat <- get_data_rda(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$rda
   
@@ -83,12 +83,12 @@ get_dinfo_rda <- function(fp, nm, filter = NULL, top = NULL,
 }
 
 
-get_dinfo_rdata <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_rdata <- function(fp, nm, where = NULL, top = NULL, 
                           import_specs = NULL) {
   
-  dat <- get_data_rda(fp, nm, filter, top, import_specs)
+  dat <- get_data_rda(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$rdata
   
@@ -96,12 +96,12 @@ get_dinfo_rdata <- function(fp, nm, filter = NULL, top = NULL,
   
 }
 
-get_dinfo_csv <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_csv <- function(fp, nm, where = NULL, top = NULL, 
                           import_specs = NULL) {
   
-  dat <- get_data_csv(fp, nm, filter, top, import_specs)
+  dat <- get_data_csv(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$csv
   
@@ -110,12 +110,12 @@ get_dinfo_csv <- function(fp, nm, filter = NULL, top = NULL,
 }
 
 
-get_dinfo_sas7bdat <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_sas7bdat <- function(fp, nm, where = NULL, top = NULL, 
                                import_specs = NULL) {
   
-  dat <- get_data_sas7bdat(fp, nm, filter, top, import_specs)
+  dat <- get_data_sas7bdat(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$sas7bdat
   
@@ -123,12 +123,12 @@ get_dinfo_sas7bdat <- function(fp, nm, filter = NULL, top = NULL,
 
 }
 
-get_dinfo_dbf <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_dbf <- function(fp, nm, where = NULL, top = NULL, 
                           import_specs = NULL) {
   
-  dat <- get_data_dbf(fp, nm, filter, top, import_specs)
+  dat <- get_data_dbf(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$dbf
   
@@ -136,12 +136,12 @@ get_dinfo_dbf <- function(fp, nm, filter = NULL, top = NULL,
   
 }
 
-get_dinfo_xpt <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_xpt <- function(fp, nm, where = NULL, top = NULL, 
                           import_specs = NULL) {
   
-  dat <- get_data_xpt(fp, nm, filter, top, import_specs)
+  dat <- get_data_xpt(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$xpt
   
@@ -149,12 +149,12 @@ get_dinfo_xpt <- function(fp, nm, filter = NULL, top = NULL,
 }
 
 
-get_dinfo_xlsx <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_xlsx <- function(fp, nm, where = NULL, top = NULL, 
                            import_specs = NULL) {
   
-  dat <- get_data_xlsx(fp, nm, filter, top, import_specs)
+  dat <- get_data_xlsx(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$xlsx
   
@@ -162,12 +162,12 @@ get_dinfo_xlsx <- function(fp, nm, filter = NULL, top = NULL,
   
 }
 
-get_dinfo_xls <- function(fp, nm, filter = NULL, top = NULL, 
+get_dinfo_xls <- function(fp, nm, where = NULL, top = NULL, 
                           import_specs = NULL) {
   
-  dat <- get_data_xls(fp, nm, filter, top, import_specs)
+  dat <- get_data_xls(fp, nm, where, top, import_specs)
   
-  ret <- get_dinfo_attributes(dat, fp, nm, filter, top, import_specs)
+  ret <- get_dinfo_attributes(dat, fp, nm, where, top, import_specs)
   
   attr(ret, "engine") <- engines$xls
   
@@ -179,16 +179,16 @@ get_dinfo_xls <- function(fp, nm, filter = NULL, top = NULL,
 # Get data --------------------------------------------------------------
 
 
-get_data_rds <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL) {
+get_data_rds <- function(fp, nm, where = NULL, top = NULL, import_specs = NULL) {
   
   dat <- read_rds(fp)
   
   if (!is.null(import_specs))
     dat <- exec_spec(dat, import_specs, nm) 
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
 
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                      error = function(cond){dat}) 
     
   }
@@ -204,7 +204,7 @@ get_data_rds <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
 }
 
 
-get_data_rda <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL) {
+get_data_rda <- function(fp, nm, where = NULL, top = NULL, import_specs = NULL) {
   
   # Create new environment
   erdata <- new.env()
@@ -218,9 +218,9 @@ get_data_rda <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
   if (!is.null(import_specs))
     dat <- exec_spec(dat, import_specs, nm) 
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
     
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                     error = function(cond){dat}) 
     
   }
@@ -235,14 +235,14 @@ get_data_rda <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
 }
 
 #' @import readr
-get_data_csv <- function(fp, nm, filter = NULL, top = NULL, 
+get_data_csv <- function(fp, nm, where = NULL, top = NULL, 
                           import_specs = NULL) {
   
   
   
   if (is.null(import_specs)) {
     
-    if (!is.null(top) & is.null(filter)) {
+    if (!is.null(top) & is.null(where)) {
       
       dat <- read_csv(fp, col_types = cols(), n_max = top)
     
@@ -305,14 +305,14 @@ get_data_csv <- function(fp, nm, filter = NULL, top = NULL,
   }
   
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
     
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                     error = function(cond){dat}) 
     
   }
   
-  if (!is.null(top) & !is.null(filter)) {
+  if (!is.null(top) & !is.null(where)) {
     if (nrow(dat) > top)
       dat <- dat[seq(1, top), ]
     
@@ -324,9 +324,9 @@ get_data_csv <- function(fp, nm, filter = NULL, top = NULL,
 
 
 #' @import haven
-get_data_sas7bdat <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL) {
+get_data_sas7bdat <- function(fp, nm, where = NULL, top = NULL, import_specs = NULL) {
   
-  if (!is.null(top) & is.null(filter)) {
+  if (!is.null(top) & is.null(where)) {
     
     dat <- read_sas(fp, n_max = top)
     
@@ -344,14 +344,14 @@ get_data_sas7bdat <- function(fp, nm, filter = NULL, top = NULL, import_specs = 
     
   } 
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
     
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                     error = function(cond){dat}) 
     
   }
   
-  if (!is.null(top) & !is.null(filter)) {
+  if (!is.null(top) & !is.null(where)) {
     if (nrow(dat) > top)
       dat <- dat[seq(1, top), ]
     
@@ -361,7 +361,7 @@ get_data_sas7bdat <- function(fp, nm, filter = NULL, top = NULL, import_specs = 
 }
 
 #' @import foreign
-get_data_dbf <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL) {
+get_data_dbf <- function(fp, nm, where = NULL, top = NULL, import_specs = NULL) {
   
   
   dat <- read.dbf(fp)
@@ -371,9 +371,9 @@ get_data_dbf <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
   if (!is.null(import_specs))
     dat <- exec_spec(dat, import_specs, nm) 
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
     
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                     error = function(cond){dat}) 
     
   }
@@ -390,9 +390,9 @@ get_data_dbf <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
 }
 
 #' @import haven
-get_data_xpt <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL) {
+get_data_xpt <- function(fp, nm, where = NULL, top = NULL, import_specs = NULL) {
   
-  if (!is.null(top) & is.null(filter)) {
+  if (!is.null(top) & is.null(where)) {
     
     dat <- read_xpt(fp, n_max = top)
 
@@ -409,14 +409,14 @@ get_data_xpt <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
     
   } 
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
     
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                     error = function(cond){dat}) 
     
   }
   
-  if (!is.null(top) & !is.null(filter)) {
+  if (!is.null(top) & !is.null(where)) {
     if (nrow(dat) > top)
       dat <- dat[seq(1, top), ]
     
@@ -426,11 +426,11 @@ get_data_xpt <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
 }
 
 #' @import readxl
-get_data_xlsx <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL) {
+get_data_xlsx <- function(fp, nm, where = NULL, top = NULL, import_specs = NULL) {
   
   
   if (is.null(import_specs)) {
-    if (!is.null(top) & is.null(filter))
+    if (!is.null(top) & is.null(where))
       dat <- read_xlsx(fp, n_max = top)
     else
       dat <- read_xlsx(fp)
@@ -495,14 +495,14 @@ get_data_xlsx <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL
     dat <- exec_spec(dat, import_specs, nm) 
   }
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
     
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                     error = function(cond){dat}) 
     
   }
   
-  if (!is.null(top) & !is.null(filter)) {
+  if (!is.null(top) & !is.null(where)) {
     if (nrow(dat) > top)
       dat <- dat[seq(1, top), ]
     
@@ -513,12 +513,12 @@ get_data_xlsx <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL
 }
 
 #' @import readxl
-get_data_xls <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL) {
+get_data_xls <- function(fp, nm, where = NULL, top = NULL, import_specs = NULL) {
   
   
   if (is.null(import_specs)) {
     
-    if (!is.null(top) & is.null(filter))
+    if (!is.null(top) & is.null(where))
       dat <- read_xls(fp, n_max = top)
     else
       dat <- read_xls(fp)
@@ -581,14 +581,14 @@ get_data_xls <- function(fp, nm, filter = NULL, top = NULL, import_specs = NULL)
     dat <- exec_spec(dat, import_specs, nm) 
   }
   
-  if (!is.null(filter)) {
+  if (!is.null(where)) {
     
-    dat <- tryCatch({subset(dat, eval(filter))},
+    dat <- tryCatch({subset(dat, eval(where))},
                     error = function(cond){dat}) 
     
   }
   
-  if (!is.null(top) & !is.null(filter)) {
+  if (!is.null(top) & !is.null(where)) {
     if (nrow(dat) > top)
       dat <- dat[seq(1, top), ]
     

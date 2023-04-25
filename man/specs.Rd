@@ -61,7 +61,7 @@ spc <- specs(ADAE = import_spec(TRTSDT = "date=\%d\%b\%Y",
              ADVS = import_spec(TRTSDT = "character",
                                 TRTEDT = "character"))
 
-# Create catalog without filter
+# Create catalog with specs collection
 ct <- catalog(pkg, engines$csv, import_specs = spc)
 
 # Get dictionary for ADAE with Import Spec

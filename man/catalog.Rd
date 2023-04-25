@@ -5,7 +5,7 @@
 \alias{catalog}
 \title{Create a data source catalog}
 \usage{
-catalog(source, engine, pattern = NULL, filter = NULL, import_specs = NULL)
+catalog(source, engine, pattern = NULL, where = NULL, import_specs = NULL)
 }
 \arguments{
 \item{source}{The source for the data.  This parameter is required.}
@@ -16,7 +16,7 @@ is required.}
 \item{pattern}{A pattern to use when loading the data source.  The pattern
 can be a name or a vector of names.  Names also accept wildcards.}
 
-\item{filter}{One or more filter expressions to use when fetching 
+\item{where}{One or more filter expressions to use when fetching 
 the data. This filter will apply to all fetch operations on this catalog.}
 
 \item{import_specs}{The import specs to use for any fetch operation on 

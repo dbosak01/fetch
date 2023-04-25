@@ -5,12 +5,12 @@
 \alias{fetch}
 \title{Gets a dataset from a data catalog}
 \usage{
-fetch(catalog, filter = NULL, top = NULL, import_specs = NULL)
+fetch(catalog, where = NULL, top = NULL, import_specs = NULL)
 }
 \arguments{
 \item{catalog}{The catalog item to fetch data from.}
 
-\item{filter}{An optional expression to be used to filter the fetched data.
+\item{where}{An optional expression to be used to filter the fetched data.
 Use the base R \code{expression} function to define the expression.  The
 expression allows logical operators and Base R functions. Column names
 can be unquoted.}
@@ -24,7 +24,7 @@ specs can be used to control the data types.}
 \description{
 The \code{fetch} function retrieves a dataset from a data
 catalog.  The function accepts a catalog item as the first parameter.  The
-data item is the only required parameter. The "filter" and "top" parameters
+data item is the only required parameter. The "where" and "top" parameters
 may be used to define a subset of the data to retrieve.  The "import_specs"
 parameter accepts an \code{\link{import_spec}} object, which can be used
 to control how data is read into the data frame.
@@ -76,8 +76,8 @@ dat1
 
 # Example 2: Fetch a Subset
 
-# Get data with filter expression
-dat2 <- fetch(ct$ADEX, filter = expression(SUBJID == '051'))
+# Get data with where expression
+dat2 <- fetch(ct$ADEX, where = expression(SUBJID == '051'))
 
 # View Data
 dat2
