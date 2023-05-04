@@ -8,26 +8,35 @@
 catalog(source, engine, pattern = NULL, where = NULL, import_specs = NULL)
 }
 \arguments{
-\item{source}{The source for the data.  This parameter is required.}
+\item{source}{The source for the data.  This parameter is required. Normally
+the source is passed as a full or relative path.}
 
 \item{engine}{The data engine to use for this data source. This parameter
-is required.}
+is required. The available data engines are available on the \code{\link{engines}}
+enumeration.  For example, \code{engines$csv} will specify the CSV engine, 
+and \code{engines$rdata} will specify the RDATA engine.}
 
 \item{pattern}{A pattern to use when loading the data source.  The pattern
 can be a name or a vector of names.  Names also accept wildcards.}
 
-\item{where}{One or more filter expressions to use when fetching 
-the data. This filter will apply to all fetch operations on this catalog.}
+\item{where}{A where expression to use when fetching 
+the data. This expression will apply to all fetch operations on this catalog.
+The where expression should be defined with the Base R \code{\link{expression}}
+function.}
 
 \item{import_specs}{The import specs to use for any fetch operation on 
-this catalog.}
+this catalog.  The import spec can be used to control the data types
+on the incoming columns. You can create separate import specs for each 
+dataset, or one import spec to use for all datasets. 
+See the \code{\link{import_spec}} and 
+\code{\link{specs}} functions for more information about this capability.}
 }
 \value{
 The loaded data catalog.
 }
 \description{
 The \code{catalog} function returns a data catalog
-for a data source. A data catalog is like collection of data dictionaries
+for a data source. A data catalog is like a collection of data dictionaries
 for all the datasets in the data source.  The catalog allows you to 
 examine the datasets in the data source without yet loading anything
 into memory.  Once you decide which data items you want to load, 
@@ -39,6 +48,8 @@ pkg <- system.file("extdata", package = "fetch")
 
 # Create catalog
 ct <- catalog(pkg, engines$csv)
+
+# Example 1: Catalog all rows
 
 # View catalog
 ct
@@ -78,7 +89,38 @@ ct$ADEX
 # 16 ADEX     AVAL   numeric  <NA>     NA  16       4
 # 17 ADEX AVALCAT1 character  <NA>     NA  87      10
 
+
+# Example 2: Catalog with where expression
+ct <- catalog(pkg, engines$csv, where = expression(SUBJID == '049'))
+
+# View catalog item - Now only 4 rows
+ct$ADEX
+# data item 'ADEX': 17 cols 4 rows
+#- Where: SUBJID == "049"
+#- Engine: csv
+#- Size: 4.5 Kb
+#- Last Modified: 2020-09-18 14:30:22
+#Name   Column     Class Label Format NAs MaxChar
+#1  ADEX  STUDYID character  <NA>     NA   0       3
+#2  ADEX  USUBJID character  <NA>     NA   0      10
+#3  ADEX   SUBJID character  <NA>     NA   0       3
+#4  ADEX   SITEID character  <NA>     NA   0       2
+#5  ADEX     TRTP character  <NA>     NA   0       5
+#6  ADEX    TRTPN   numeric  <NA>     NA   0       1
+#7  ADEX     TRTA character  <NA>     NA   0       5
+#8  ADEX    TRTAN   numeric  <NA>     NA   0       1
+#9  ADEX   RANDFL character  <NA>     NA   0       1
+#10 ADEX    SAFFL character  <NA>     NA   0       1
+#11 ADEX   MITTFL character  <NA>     NA   0       1
+#12 ADEX  PPROTFL character  <NA>     NA   0       1
+#13 ADEX    PARAM character  <NA>     NA   0      45
+#14 ADEX  PARAMCD character  <NA>     NA   0       8
+#15 ADEX   PARAMN   numeric  <NA>     NA   0       1
+#16 ADEX     AVAL   numeric  <NA>     NA   0       4
+#17 ADEX AVALCAT1 character  <NA>     NA   1      10
+
 }
 \seealso{
 The \code{\link{fetch}} function to retrieve data from the catalog.
+Also see the \code{\link{import_spec}} function to create import specifications.
 }

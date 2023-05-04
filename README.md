@@ -13,7 +13,7 @@
 Many R programs require multiple input datasets.  The purpose of the 
 **fetch** package is to make it easier to access multiple datasets from
 an R program.  The package allows you to load a catalog of all the 
-datasets in a directory, and then load each desired dataset as needed in
+datasets in a directory, and then load each desired dataset as needed into
 your program.  The method minimizes the memory used for the data. 
 
 
@@ -35,7 +35,7 @@ Then put the following line at the top of your program or script:
     library(fetch)
 
 The **fetch** package will give you access to a number of functions
-to help create an Analysis Results Dataset (fetch). 
+to import data into your programs more easily and efficiently. 
 For examples and usage information, visit the **fetch** documentation
 site [here](https://fetch.r-sassy.org/articles/fetch.html).
 

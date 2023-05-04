@@ -6,12 +6,17 @@
 #' @title Create an Import Spec Collection
 #' @encoding UTF-8
 #' @description A function to capture a set of import specifications for a 
-#' directory of data files.  These specs can be used on the 
-#' \code{\link{fetch}} function to correctly assign the data types for 
-#' imported data files. The 
+#' data source.  These specs can be used on the 
+#' \code{\link{catalog}} function to correctly assign the data types for 
+#' imported data files. The spec collection is a set of \code{\link{import_spec}}
+#' objects identified by name/value pairs.  The name corresponds to the name of
+#' the input dataset, without file extension. The value is the \code{\link{import_spec}}
+#' object to use for that dataset.  In this way, you may define different
+#' specs for each dataset in your catalog.  
+#' 
+#' The 
 #' import engines will guess at the data types for any columns that
-#' are not explicitly defined in the import specifications. Import
-#' specifications are defined with the \code{\link{import_spec}} function.
+#' are not explicitly defined in the import specifications. 
 #' The import spec syntax is the same for all data engines.
 #' 
 #' Note that the \code{na} and \code{trim_ws} parameters on the \code{specs} 
@@ -22,7 +27,7 @@
 #' Also note that the \code{specs} collection is defined as an object 
 #' so it can be stored and reused.
 #' See the \code{\link{write.specs}} and \code{\link{read.specs}} functions
-#' for additional information on saving specs.
+#' for additional information on saving and restoring specs.
 #' @param ... Named input specs.  The name should correspond to the file name,
 #' without the file extension.
 #' The spec is defined as an \code{import_spec} object.  See the 
@@ -40,7 +45,7 @@
 #' Valid values are TRUE, and FALSE.  Default is TRUE.  The value of the 
 #' \code{trim_ws} parameter on the \code{specs} function can be overridden
 #' by the \code{trim_ws} parameter on the \code{import_spec} function.
-#' @return The import specifications object.
+#' @return The specifications collection object.
 #' @seealso \code{\link{catalog}} to create a data catalog, 
 #' \code{\link{fetch}} for retrieving data, and 
 #' \code{\link{import_spec}} for additional information on defining an 
@@ -110,8 +115,12 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 #' name/value pairs, where the name is the column name and the value is the
 #' data type indicator.  Available data type indicators are 
 #' 'guess', 'logical', 'character', 'integer', 'numeric',
-#' 'date', 'datetime', and 'time'.  See the \code{\link{specs}} function
-#' for an example of using import specs.
+#' 'date', 'datetime', and 'time'.  
+#' 
+#' Also note that multiple import specifications
+#' can be combined into a collection, and assigned to an entire catalog. 
+#' See the \code{\link{specs}} function
+#' for an example of using a specs collection.
 #' @section Date/Time Format Codes:
 #' Below are some common date formatting codes.  For a complete list,
 #' see the documentation for the \code{\link{strptime}} function:
@@ -174,7 +183,7 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 #' #17 ADVS TRTEDT  Date  <NA>     NA 119      10
 #' 
 #' @seealso \code{\link{fetch}} to retrieve data, and 
-#' \code{\link{specs}} for an example using import specs.
+#' \code{\link{specs}} for creating a collection of import specs.
 #' @family specs
 #' @export
 import_spec <- function(..., na = NULL, trim_ws = NULL) {

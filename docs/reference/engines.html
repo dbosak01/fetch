@@ -70,7 +70,41 @@ Options are: csv, dbf, rda, rds, rdata, sas7bdat, xls, xlsx, and xpt.</p>
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
     <p>An object of class <code>etype</code> of length 9.</p>
     </div>
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    
 
+<p>The engine parameter string.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>The <code>engines</code> enumeration is used on the <code><a href="catalog.html">catalog</a></code>
+function.  See that function documentation for additional details.</p></div>
+    </div>
+
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co">#' # Get data directory</span></span>
+<span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create catalog</span></span>
+<span><span class="va">ct</span> <span class="op">&lt;-</span> <span class="fu"><a href="catalog.html">catalog</a></span><span class="op">(</span><span class="va">pkg</span>, <span class="va">engines</span><span class="op">$</span><span class="va">csv</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Example 1: Catalog all rows</span></span>
+<span></span>
+<span><span class="co"># View catalog</span></span>
+<span><span class="va">ct</span></span>
+<span><span class="co"># data catalog: 6 items</span></span>
+<span><span class="co"># - Source: C:/packages/fetch/inst/extdata</span></span>
+<span><span class="co"># - Engine: csv</span></span>
+<span><span class="co"># - Items:</span></span>
+<span>  <span class="co"># data item 'ADAE': 56 cols 150 rows</span></span>
+<span>  <span class="co"># data item 'ADEX': 17 cols 348 rows</span></span>
+<span>  <span class="co"># data item 'ADPR': 37 cols 552 rows</span></span>
+<span>  <span class="co"># data item 'ADPSGA': 42 cols 695 rows</span></span>
+<span>  <span class="co"># data item 'ADSL': 56 cols 87 rows</span></span>
+<span>  <span class="co"># data item 'ADVS': 37 cols 3617 rows</span></span></code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 

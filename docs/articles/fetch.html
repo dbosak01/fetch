@@ -79,9 +79,9 @@
     
 <p>In 2020 I wrote a package called <a href="https://libr.r-sassy.org" class="external-link">libr</a> to deal with the problem of
 managing multiple related datasets. This package allows you to manage
-data from several different types of files: SAS, Excel, CSV, and R.
-While the package received generally positive feedback, users requested
-some features that the package did not support:</p>
+data from several popular data sources: SAS, Excel, CSV, and R. While
+the package received generally positive feedback, users requested some
+features that the package did not support:</p>
 <ul>
 <li>Users wanted to examine the data <em>before</em> loading it into
 memory.</li>
@@ -114,14 +114,14 @@ it into memory</li>
 </ul>
 <p>The package has the following key features:</p>
 <ul>
-<li>The <strong>fetch</strong> package loads only the data you need for
-your analysis.</li>
 <li>The <code><a href="../reference/catalog.html">catalog()</a></code> function allows you to explore the data
 before reading from the source.</li>
+<li>The <code><a href="../reference/fetch.html">fetch()</a></code> function loads only the data you need for
+your analysis.</li>
 <li>The “where” parameter on the <code><a href="../reference/catalog.html">catalog()</a></code> function allows
 you to subset across all datasets in the catalog.</li>
-<li>The “top” parameter on the <code><a href="../reference/fetch.html">fetch()</a></code> function lets you
-preview the data.</li>
+<li>The “select” and “top” parameters on the <code><a href="../reference/fetch.html">fetch()</a></code>
+function let you further limit the data returned.</li>
 <li>The “import_spec” parameters on the <code><a href="../reference/catalog.html">catalog()</a></code> and
 <code><a href="../reference/fetch.html">fetch()</a></code> functions give you control over the column data
 types.</li>
@@ -131,7 +131,7 @@ types.</li>
 <h2 id="how-to-use-fetch">How to use <strong>fetch</strong><a class="anchor" aria-label="anchor" href="#how-to-use-fetch"></a>
 </h2>
 <p>Let’s start with a simple example. In this example we will create a
-data catalog, examine it’s contents, and fetch a dataset from the
+data catalog, examine its contents, and fetch a dataset from the
 catalog. First, create and view the data catalog:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
@@ -379,8 +379,8 @@ subset can be accomplished with the “where” parameter on the
 <span><span class="co"># # data item 'ADVS': 37 cols 44 rows</span></span>
 <span><span class="co"># - Where: SUBJID == "049"</span></span></code></pre></div>
 <p>Notice that a where expression has been added to each data item in
-the catalog, the row counts for each item have been reduced. Now let’s
-fetch some data from this catalog:</p>
+the catalog, and the row counts for each item have been reduced. Now
+let’s fetch some data from this catalog:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Subset data for a specific subject</span></span>
 <span><span class="va">dt1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fetch.html">fetch</a></span><span class="op">(</span><span class="va">ct2</span><span class="op">$</span><span class="va">ADVS</span><span class="op">)</span></span>
@@ -422,7 +422,7 @@ fetch some data from this catalog:</p>
 <span><span class="co">#   MITTEXC2 &lt;chr&gt;, PPROTFL &lt;chr&gt;, PPROTEX1 &lt;chr&gt;, PPROTEX2 &lt;chr&gt;, PPROTEX3 &lt;chr&gt;,</span></span>
 <span><span class="co">#   PPROTEX4 &lt;chr&gt;, COMPLFL &lt;chr&gt;, STDYDISP &lt;chr&gt;, STDYREAS &lt;chr&gt;, INCNDT &lt;chr&gt;, RANDDT &lt;chr&gt;,</span></span>
 <span><span class="co">#   DTHDT &lt;lgl&gt;, DTHFL &lt;chr&gt;, MISSDOSE &lt;dbl&gt;, TP1TRTR &lt;chr&gt;, TP2TRTR &lt;chr&gt;, TP3TRTR &lt;chr&gt;,...</span></span></code></pre></div>
-<p>AS you can see, both the ADVS and ADSL datasets have been subset for
+<p>As you can see, both the ADVS and ADSL datasets have been subset for
 subject ‘049’. This feature of the <em>fetch</em> package makes it easy
 to target just the rows you are looking for.</p>
 </div>
@@ -561,7 +561,7 @@ import specifications to each data item in the catalog.</p>
 </h3>
 <p>You may also add an import specification to the fetch operation. The
 import specification is defined with the <code><a href="../reference/import_spec.html">import_spec()</a></code>
-function as with the catalog operation:</p>
+function in the same way as the catalog operation:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Get sample data directory</span></span>
 <span><span class="va">pkg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, package <span class="op">=</span> <span class="st">"fetch"</span><span class="op">)</span></span>
@@ -619,8 +619,8 @@ function as with the catalog operation:</p>
 <span><span class="co"># 37 ADVS  ANL01FL character  &lt;NA&gt;     NA  448       1</span></span></code></pre></div>
 <p>The results of this operation are similar to the previous example,
 when we applied the import spec to the catalog. The difference is that
-now the import spec applies only to this specific fetch operation, as is
-not retained on the catalog.</p>
+now the import spec applies only to this specific fetch operation, not
+the entire catalog.</p>
 </div>
 </div>
 <div class="section level2">
@@ -630,9 +630,8 @@ not retained on the catalog.</p>
 <strong>fetch</strong> functions, and note how easy these functions are
 to use. You may also wish to review the documentation for the
 <code><a href="../reference/catalog.html">catalog()</a></code>, <code><a href="../reference/fetch.html">fetch()</a></code>, <code><a href="../reference/import_spec.html">import_spec()</a></code>
-functions.<br>
-The documentation contains some additional examples and descriptions of
-all parameters.</p>
+functions. The documentation contains some additional examples and
+descriptions of all parameters.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>

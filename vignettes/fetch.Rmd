@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 In 2020 I wrote a package called [libr](https://libr.r-sassy.org) to deal 
 with the problem of managing multiple related datasets.  This package allows
-you to manage data from several different types of files:
+you to manage data from several popular data sources:
 SAS, Excel, CSV, and R. While the package received generally positive feedback, 
 users requested some features that the package did not support:  
 
@@ -44,19 +44,19 @@ The above two steps are accomplished by the following functions:
 
 The package has the following key features:
 
-* The **fetch** package loads only the data you need for your analysis.
 * The `catalog()` function allows you to explore the data before reading from the source.
+* The `fetch()` function loads only the data you need for your analysis.
 * The "where" parameter on the `catalog()` function allows you to subset across 
 all datasets in the catalog.
-* The "top" parameter on the `fetch()` function lets you preview the 
-data.
+* The "select" and "top" parameters on the `fetch()` function let you further
+limit the data returned.
 * The "import_spec" parameters on the `catalog()` and `fetch()` functions
 give you control over the column data types.
 
 ## How to use **fetch**
 
 Let's start with a simple example.  In this example we will create a data catalog,
-examine it's contents, and fetch a dataset from the catalog.  First, create
+examine its contents, and fetch a dataset from the catalog.  First, create
 and view the data catalog:
 
 ```{r eval=FALSE, echo=TRUE}
@@ -324,7 +324,7 @@ ct2
 ```
 
 Notice that a where expression has been added to each data item in the catalog, 
-the row counts for each item have been reduced.  Now
+and the row counts for each item have been reduced.  Now
 let's fetch some data from this catalog:
 
 
@@ -371,7 +371,7 @@ dt2 <- fetch(ct2$ADSL)
 #   DTHDT <lgl>, DTHFL <chr>, MISSDOSE <dbl>, TP1TRTR <chr>, TP2TRTR <chr>, TP3TRTR <chr>,...
 
 ```
-AS you can see, both the ADVS and ADSL datasets have been subset for subject '049'.
+As you can see, both the ADVS and ADSL datasets have been subset for subject '049'.
 This feature of the *fetch* package makes it easy to target just the rows 
 you are looking for.
 
@@ -513,8 +513,8 @@ assign a unique import specifications to each data item in the catalog.
 ### Add Import Specifications to a Fetch
 
 You may also add an import specification to the fetch operation.
-The import specification is defined with the `import_spec()` function
-as with the catalog operation:
+The import specification is defined with the `import_spec()` function in the
+same way as the catalog operation:
 
 ```{r eval=FALSE, echo=TRUE}
 # Get sample data directory
@@ -574,15 +574,15 @@ ct$ADVS
 ```
 The results of this operation are similar to the previous example, when
 we applied the import spec to the catalog.  The difference is that now
-the import spec applies only to this specific fetch operation, as is 
-not retained on the catalog.
+the import spec applies only to this specific fetch operation, 
+not the entire catalog.
 
 
 ## Next Steps
 
 For next steps, it is suggested to play around with the **fetch** functions, and
 note how easy these functions are to use.  You may also wish to review the 
-documentation for the `catalog()`, `fetch()`, `import_spec()` functions.  
+documentation for the `catalog()`, `fetch()`, `import_spec()` functions. 
 The documentation contains some additional examples and descriptions 
 of all parameters.
 

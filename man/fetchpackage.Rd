@@ -8,8 +8,8 @@
 \description{
 The \strong{fetch} package allows you to retrieve data from many different
 data sources.  The package retrieves data in a memory-efficient manner.
-You first identify the data by defining a data accessor.  Then fetch
-the data from the accessor.  Accessors can be defined for many popular 
+You first identify the data by defining a data catalog.  Then fetch
+the data from the catalog.  Catalogs can be defined for many popular 
 data formats: csv, rds, sas7bdat, excel, etc.
 
 The functions contained in the \strong{fetch} package are as follows:

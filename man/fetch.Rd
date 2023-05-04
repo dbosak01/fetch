@@ -3,15 +3,19 @@
 \encoding{UTF-8}
 \name{fetch}
 \alias{fetch}
-\title{Gets a dataset from a data catalog}
+\title{Fetch a dataset from a data catalog}
 \usage{
-fetch(catalog, where = NULL, top = NULL, import_specs = NULL)
+fetch(catalog, select = NULL, where = NULL, top = NULL, import_specs = NULL)
 }
 \arguments{
 \item{catalog}{The catalog item to fetch data from.}
 
+\item{select}{A vector of column names or column numbers to extract from the
+data item. Note that the column names can be easily obtained as a vector
+from the catalog item, and then manipulated to suit your needs.}
+
 \item{where}{An optional expression to be used to filter the fetched data.
-Use the base R \code{expression} function to define the expression.  The
+Use the base R \code{\link{expression}} function to define the expression.  The
 expression allows logical operators and Base R functions. Column names
 can be unquoted.}
 
@@ -19,12 +23,16 @@ can be unquoted.}
 value is an integer.}
 
 \item{import_specs}{The import specs to use for the fetch operation. Import
-specs can be used to control the data types.}
+specs can be used to control the data types of the fetched dataset.
+An import specification is created with the \code{\link{import_spec}}
+function. See the documentation of this function for additional details
+and an example.}
 }
 \description{
 The \code{fetch} function retrieves a dataset from a data
 catalog.  The function accepts a catalog item as the first parameter.  The
-data item is the only required parameter. The "where" and "top" parameters
+catalog item is the only required parameter. The "select" parameter allows
+you to pull only some of the columns.  The "where" and "top" parameters
 may be used to define a subset of the data to retrieve.  The "import_specs"
 parameter accepts an \code{\link{import_spec}} object, which can be used
 to control how data is read into the data frame.
@@ -76,22 +84,22 @@ dat1
 
 # Example 2: Fetch a Subset
 
-# Get data with where expression
-dat2 <- fetch(ct$ADEX, where = expression(SUBJID == '051'))
+# Get data with selected columns and where expression
+dat2 <- fetch(ct$ADEX, select = c("SUBJID", "TRTA", "RANDFL", "SAFFL"),
+              where = expression(SUBJID == '051'))
 
 # View Data
 dat2
-# A tibble: 4 × 17
-#  STUDYID USUBJID    SUBJID SITEID TRTP  TRTPN TRTA  TRTAN RANDFL SAFFL
-#   <chr>   <chr>      <chr>  <chr>  <chr> <dbl> <chr> <dbl> <chr>  <chr>
-# 1 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y    
-# 2 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y    
-# 3 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y    
-# 4 ABC     ABC-01-051 051    01     ARM A     1 ARM A     1 Y      Y    
-#  7 more variables: MITTFL <chr>, PPROTFL <chr>, PARAM <chr>,
-#  PARAMCD <chr>, PARAMN <dbl>, AVAL <dbl>, AVALCAT1 <chr>
+# A tibble: 4 x 4
+#   SUBJID TRTA  RANDFL SAFFL
+#   <chr>  <chr> <chr>  <chr>
+# 1 051    ARM A Y      Y    
+# 2 051    ARM A Y      Y    
+# 3 051    ARM A Y      Y    
+# 4 051    ARM A Y      Y    
 
 }
 \seealso{
 The \code{\link{catalog}} function to create a data catalog.
+Also see the \code{\link{import_spec}} function to create import specifications.
 }

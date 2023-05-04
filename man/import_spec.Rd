@@ -41,8 +41,12 @@ columns on imported data. The import specifications are defined as
 name/value pairs, where the name is the column name and the value is the
 data type indicator.  Available data type indicators are 
 'guess', 'logical', 'character', 'integer', 'numeric',
-'date', 'datetime', and 'time'.  See the \code{\link{specs}} function
-for an example of using import specs.
+'date', 'datetime', and 'time'.  
+
+Also note that multiple import specifications
+can be combined into a collection, and assigned to an entire catalog. 
+See the \code{\link{specs}} function
+for an example of using a specs collection.
 }
 \section{Date/Time Format Codes}{
 
@@ -91,7 +95,7 @@ d[d$Column \%in\% c("TRTSDT", "TRTEDT"), ]
 }
 \seealso{
 \code{\link{fetch}} to retrieve data, and 
-\code{\link{specs}} for an example using import specs.
+\code{\link{specs}} for creating a collection of import specs.
 
 Other specs: 
 \code{\link{print.specs}()},

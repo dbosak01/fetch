@@ -12,7 +12,9 @@
 \item{...}{Any follow-on parameters.}
 
 \item{verbose}{Whether or not to print the info in verbose style.
-By default, the parameter is FALSE, meaning to print in summary style.}
+By default, the parameter is FALSE, meaning to print in summary style.
+Verbose style includes a full data dictionary and printing of all 
+attributes.}
 }
 \value{
 The object, invisibly.

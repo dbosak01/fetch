@@ -8,6 +8,30 @@
 #' for the "engine" parameter of the \code{\link{catalog}} function.  Use
 #' this enumeration to specify what kind of data you would like to load.
 #' Options are: csv, dbf, rda, rds, rdata, sas7bdat, xls, xlsx, and xpt.
+#' @return The engine parameter string.
+#' @seealso The \code{engines} enumeration is used on the \code{\link{catalog}}
+#' function.  See that function documentation for additional details.
+#' @examples 
+#' #' # Get data directory
+#' pkg <- system.file("extdata", package = "fetch")
+#' 
+#' # Create catalog
+#' ct <- catalog(pkg, engines$csv)
+#' 
+#' # Example 1: Catalog all rows
+#' 
+#' # View catalog
+#' ct
+#' # data catalog: 6 items
+#' # - Source: C:/packages/fetch/inst/extdata
+#' # - Engine: csv
+#' # - Items:
+#'   # data item 'ADAE': 56 cols 150 rows
+#'   # data item 'ADEX': 17 cols 348 rows
+#'   # data item 'ADPR': 37 cols 552 rows
+#'   # data item 'ADPSGA': 42 cols 695 rows
+#'   # data item 'ADSL': 56 cols 87 rows
+#'   # data item 'ADVS': 37 cols 3617 rows
 #' @export
 engines <- list()
 

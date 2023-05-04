@@ -21,10 +21,13 @@ as.dinfo <- function(dat) {
 #' @param ... Any follow-on parameters.
 #' @param verbose Whether or not to print the info in verbose style.
 #' By default, the parameter is FALSE, meaning to print in summary style.
+#' Verbose style includes a full data dictionary and printing of all 
+#' attributes.
 #' @return The object, invisibly.
 #' @import crayon
 #' @export
 print.dinfo <- function(x, ..., verbose = TRUE) {
+  
   
     
   # Prepare color

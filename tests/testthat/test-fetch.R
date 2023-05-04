@@ -613,3 +613,44 @@ test_that("fetch19: fetch() function works with import spec on xlsx", {
   
 })
 
+
+test_that("fetch20: fetch() function works with select parameter", {
+  
+  
+  res <- catalog(base_path, engines$csv)
+  
+  dt <- fetch(res$demo_studya, select = c("patient", "visit", "screendate"))
+  
+  expect_equal(ncol(dt), 3)
+  expect_equal(names(dt), c("patient", "visit", "screendate"))
+  
+  
+  dt <- fetch(res$demo_studya, select = c("patient", "visit", "screendate"))
+  
+  expect_equal(ncol(dt), 3)
+  expect_equal(names(dt), c("patient", "visit", "screendate"))
+  
+  
+  dt <- fetch(res$demo_studya, select = 1:4)
+  
+  expect_equal(ncol(dt), 4)
+  expect_equal(names(dt), c("study", "inv", "patient", "visit"))
+  
+  
+  
+})
+
+
+test_that("fetch21: fetch() function invalid select parameter", {
+  
+  
+  res <- catalog(base_path, engines$csv)
+  
+  prm <- c("patient", "visit", "fork", "bork")
+  
+  expect_error(fetch(res$demo_studya, select = prm))
+  
+  
+  expect_error(fetch(res$demo_studya, select = 1:25))
+  
+})
