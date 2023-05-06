@@ -1,7 +1,7 @@
 Package: fetch
 Type: Package
-Title: Fetch Data From Various Data Sources
-Version: 0.1.0
+Title: Fetch Data from Various Data Sources
+Version: 0.1.1
 Authors@R: c( 
     person("David", "Bosak", email = "dbosak01@gmail.com", role = c("aut", "cre")),
     person("Raphael", "Huang", email = "chi-hua.huang@astellas.com", role = "ctb"),

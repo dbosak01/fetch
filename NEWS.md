@@ -1,4 +1,4 @@
-# fetch 0.1.0
+# fetch 0.1.1
 
 * Added `catalog()` and `fetch()` functions.
 * Added `specs()` and `import_spec()` functions.
