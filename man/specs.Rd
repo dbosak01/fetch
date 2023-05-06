@@ -32,17 +32,16 @@ by the \code{trim_ws} parameter on the \code{import_spec} function.}
 The specifications collection object.
 }
 \description{
-A function to capture a set of import specifications for a 
+A function to create a collection of import specifications for a 
 data source.  These specs can be used on the 
-\code{\link{catalog}} function to correctly assign the data types for 
-imported data files. The spec collection is a set of \code{\link{import_spec}}
+\code{\link{catalog}} function to correctly assign the data types uniquely for 
+different imported data files. The spec collection is a set of \code{\link{import_spec}}
 objects identified by name/value pairs.  The name corresponds to the name of
 the input dataset, without file extension. The value is the \code{\link{import_spec}}
 object to use for that dataset.  In this way, you may define different
 specs for each dataset in your catalog.  
 
-The 
-import engines will guess at the data types for any columns that
+The import engines will guess at the data types for any columns that
 are not explicitly defined in the import specifications. 
 The import spec syntax is the same for all data engines.
 

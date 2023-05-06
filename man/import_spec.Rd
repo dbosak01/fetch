@@ -8,11 +8,12 @@
 import_spec(..., na = NULL, trim_ws = NULL)
 }
 \arguments{
-\item{...}{Named pairs of column names and column data types.
+\item{...}{Named pairs of column names and column data types, separated
+by commas.
 Available types are: 'guess', 'logical', 'character', 'integer', 'numeric',
 'date', 'datetime', and 'time'.  The date/time data types accept an optional
 input format.  To supply the input format, append it after the data type
-following an equals sign, e.g.: 'date=\%d\%B\%Y' or 
+following an equals sign, e.g.: 'date=\%d\%b\%Y' or 
 'datetime=\%d-\%m-\%Y \%H:\%M:\%S'. Default is NULL, meaning no column 
 types are specified, and the function should make its best 
 guess for each column.}
@@ -36,7 +37,8 @@ The import specification object.
 \description{
 A function to create the import specifications for a 
 particular data file.  This information can be used on the 
-\code{\link{fetch}} function to correctly assign the data types for 
+\code{\link{catalog}} or \code{\link{fetch}} functions to correctly assign 
+the data types for 
 columns on imported data. The import specifications are defined as 
 name/value pairs, where the name is the column name and the value is the
 data type indicator.  Available data type indicators are 

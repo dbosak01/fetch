@@ -8,19 +8,20 @@
 fetch(catalog, select = NULL, where = NULL, top = NULL, import_specs = NULL)
 }
 \arguments{
-\item{catalog}{The catalog item to fetch data from.}
+\item{catalog}{The catalog item to fetch data for.  Catalog items
+are created using the \code{\link{catalog}} function.}
 
 \item{select}{A vector of column names or column numbers to extract from the
 data item. Note that the column names can be easily obtained as a vector
 from the catalog item, and then manipulated to suit your needs.}
 
 \item{where}{An optional expression to be used to filter the fetched data.
-Use the base R \code{\link{expression}} function to define the expression.  The
-expression allows logical operators and Base R functions. Column names
+Use the base R \code{\link{expression}} function to define the expression.  
+The expression allows logical operators and Base R functions. Column names
 can be unquoted.}
 
-\item{top}{A number of records to return from the data source.  Valid 
-value is an integer.}
+\item{top}{A number of records to return from the head of the data item.
+Valid value is an integer.}
 
 \item{import_specs}{The import specs to use for the fetch operation. Import
 specs can be used to control the data types of the fetched dataset.

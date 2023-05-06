@@ -14,7 +14,7 @@ write.specs(x, dir_path = getwd(), file_name = NULL)
 current working directory.}
 
 \item{file_name}{The file name to save to specs, without a file extension.
-The file extension will be added automatically.  If no file name is 
+The ".specs" file extension will be added automatically.  If no file name is 
 supplied, the function will use the variable name as the file name.}
 }
 \value{

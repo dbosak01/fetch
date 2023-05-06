@@ -16,13 +16,17 @@ is required. The available data engines are available on the \code{\link{engines
 enumeration.  For example, \code{engines$csv} will specify the CSV engine, 
 and \code{engines$rdata} will specify the RDATA engine.}
 
-\item{pattern}{A pattern to use when loading the data source.  The pattern
-can be a name or a vector of names.  Names also accept wildcards.}
+\item{pattern}{A pattern to use when loading data items from the data source.
+The pattern can be a name or a vector of names.  Names also accept wildcards.
+The supplied pattern will be used to filter which data items are loaded into
+the catalog.  For example, the pattern \code{pattern = "AD*"} will load
+only datasets that start with "AD".}
 
 \item{where}{A where expression to use when fetching 
 the data. This expression will apply to all fetch operations on this catalog.
 The where expression should be defined with the Base R \code{\link{expression}}
-function.}
+function.  The expression is unquoted and can use any Base R operators or
+functions.}
 
 \item{import_specs}{The import specs to use for any fetch operation on 
 this catalog.  The import spec can be used to control the data types
@@ -121,6 +125,6 @@ ct$ADEX
 
 }
 \seealso{
-The \code{\link{fetch}} function to retrieve data from the catalog.
-Also see the \code{\link{import_spec}} function to create import specifications.
+The \code{\link{fetch}} function to retrieve data from the catalog,
+and the \code{\link{import_spec}} function to create import specifications.
 }

@@ -30,16 +30,17 @@ NULL
 #' may be used to define a subset of the data to retrieve.  The "import_specs"
 #' parameter accepts an \code{\link{import_spec}} object, which can be used
 #' to control how data is read into the data frame.
-#' @param catalog The catalog item to fetch data from.
+#' @param catalog The catalog item to fetch data for.  Catalog items
+#' are created using the \code{\link{catalog}} function. 
 #' @param select A vector of column names or column numbers to extract from the
 #' data item. Note that the column names can be easily obtained as a vector
 #' from the catalog item, and then manipulated to suit your needs.
 #' @param where An optional expression to be used to filter the fetched data.  
-#' Use the base R \code{\link{expression}} function to define the expression.  The
-#' expression allows logical operators and Base R functions. Column names
+#' Use the base R \code{\link{expression}} function to define the expression.  
+#' The expression allows logical operators and Base R functions. Column names
 #' can be unquoted.
-#' @param top A number of records to return from the data source.  Valid 
-#' value is an integer.
+#' @param top A number of records to return from the head of the data item.  
+#' Valid value is an integer.  
 #' @param import_specs The import specs to use for the fetch operation. Import
 #' specs can be used to control the data types of the fetched dataset.
 #' An import specification is created with the \code{\link{import_spec}}

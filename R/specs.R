@@ -5,17 +5,16 @@
 
 #' @title Create an Import Spec Collection
 #' @encoding UTF-8
-#' @description A function to capture a set of import specifications for a 
+#' @description A function to create a collection of import specifications for a 
 #' data source.  These specs can be used on the 
-#' \code{\link{catalog}} function to correctly assign the data types for 
-#' imported data files. The spec collection is a set of \code{\link{import_spec}}
+#' \code{\link{catalog}} function to correctly assign the data types uniquely for 
+#' different imported data files. The spec collection is a set of \code{\link{import_spec}}
 #' objects identified by name/value pairs.  The name corresponds to the name of
 #' the input dataset, without file extension. The value is the \code{\link{import_spec}}
 #' object to use for that dataset.  In this way, you may define different
 #' specs for each dataset in your catalog.  
 #' 
-#' The 
-#' import engines will guess at the data types for any columns that
+#' The import engines will guess at the data types for any columns that
 #' are not explicitly defined in the import specifications. 
 #' The import spec syntax is the same for all data engines.
 #' 
@@ -110,7 +109,8 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 #' @encoding UTF-8
 #' @description A function to create the import specifications for a 
 #' particular data file.  This information can be used on the 
-#' \code{\link{fetch}} function to correctly assign the data types for 
+#' \code{\link{catalog}} or \code{\link{fetch}} functions to correctly assign 
+#' the data types for 
 #' columns on imported data. The import specifications are defined as 
 #' name/value pairs, where the name is the column name and the value is the
 #' data type indicator.  Available data type indicators are 
@@ -138,11 +138,12 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 #'   \item{\%S = second}
 #'   \item{\%p = AM/PM indicator}
 #' }
-#' @param ... Named pairs of column names and column data types.
+#' @param ... Named pairs of column names and column data types, separated
+#' by commas.
 #' Available types are: 'guess', 'logical', 'character', 'integer', 'numeric',
 #' 'date', 'datetime', and 'time'.  The date/time data types accept an optional
 #' input format.  To supply the input format, append it after the data type
-#' following an equals sign, e.g.: 'date=\%d\%B\%Y' or 
+#' following an equals sign, e.g.: 'date=\%d\%b\%Y' or 
 #' 'datetime=\%d-\%m-\%Y \%H:\%M:\%S'. Default is NULL, meaning no column 
 #' types are specified, and the function should make its best 
 #' guess for each column.
@@ -266,7 +267,7 @@ read.specs <- function(file_path = getwd()) {
 #' @param dir_path A full or relative path to save the specs. Default is the 
 #' current working directory.
 #' @param file_name The file name to save to specs, without a file extension.
-#' The file extension will be added automatically.  If no file name is 
+#' The ".specs" file extension will be added automatically.  If no file name is 
 #' supplied, the function will use the variable name as the file name. 
 #' @return The full file path.
 #' @family specs
