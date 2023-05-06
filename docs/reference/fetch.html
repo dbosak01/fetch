@@ -78,7 +78,8 @@ to control how data is read into the data frame.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>catalog</dt>
-<dd><p>The catalog item to fetch data from.</p></dd>
+<dd><p>The catalog item to fetch data for.  Catalog items
+are created using the <code><a href="catalog.html">catalog</a></code> function.</p></dd>
 
 
 <dt>select</dt>
@@ -89,14 +90,14 @@ from the catalog item, and then manipulated to suit your needs.</p></dd>
 
 <dt>where</dt>
 <dd><p>An optional expression to be used to filter the fetched data.
-Use the base R <code><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></code> function to define the expression.  The
-expression allows logical operators and Base R functions. Column names
+Use the base R <code><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></code> function to define the expression.  
+The expression allows logical operators and Base R functions. Column names
 can be unquoted.</p></dd>
 
 
 <dt>top</dt>
-<dd><p>A number of records to return from the data source.  Valid 
-value is an integer.</p></dd>
+<dd><p>A number of records to return from the head of the data item.
+Valid value is an integer.</p></dd>
 
 
 <dt>import_specs</dt>

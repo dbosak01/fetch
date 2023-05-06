@@ -87,15 +87,19 @@ and <code>engines$rdata</code> will specify the RDATA engine.</p></dd>
 
 
 <dt>pattern</dt>
-<dd><p>A pattern to use when loading the data source.  The pattern
-can be a name or a vector of names.  Names also accept wildcards.</p></dd>
+<dd><p>A pattern to use when loading data items from the data source.
+The pattern can be a name or a vector of names.  Names also accept wildcards.
+The supplied pattern will be used to filter which data items are loaded into
+the catalog.  For example, the pattern <code>pattern = "AD*"</code> will load
+only datasets that start with "AD".</p></dd>
 
 
 <dt>where</dt>
 <dd><p>A where expression to use when fetching 
 the data. This expression will apply to all fetch operations on this catalog.
 The where expression should be defined with the Base R <code><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></code>
-function.</p></dd>
+function.  The expression is unquoted and can use any Base R operators or
+functions.</p></dd>
 
 
 <dt>import_specs</dt>
@@ -115,8 +119,8 @@ See the <code><a href="import_spec.html">import_spec</a></code> and
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>The <code><a href="fetch.html">fetch</a></code> function to retrieve data from the catalog.
-Also see the <code><a href="import_spec.html">import_spec</a></code> function to create import specifications.</p></div>
+    <div class="dont-index"><p>The <code><a href="fetch.html">fetch</a></code> function to retrieve data from the catalog,
+and the <code><a href="import_spec.html">import_spec</a></code> function to create import specifications.</p></div>
     </div>
 
     <div class="section level2">
