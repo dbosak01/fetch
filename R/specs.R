@@ -267,7 +267,7 @@ read.specs <- function(file_path = getwd()) {
 #' @param dir_path A full or relative path to save the specs. Default is the 
 #' current working directory.
 #' @param file_name The file name to save to specs, without a file extension.
-#' The ".specs" file extension will be added automatically.  If no file name is 
+#' The '.specs' file extension will be added automatically.  If no file name is 
 #' supplied, the function will use the variable name as the file name. 
 #' @return The full file path.
 #' @family specs
