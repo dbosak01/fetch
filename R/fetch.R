@@ -46,6 +46,7 @@ NULL
 #' An import specification is created with the \code{\link{import_spec}}
 #' function. See the documentation of this function for additional details
 #' and an example.
+#' @return The desired dataset, returned as a tibble.
 #' @seealso The \code{\link{catalog}} function to create a data catalog.
 #' Also see the \code{\link{import_spec}} function to create import specifications.
 #' @examples 

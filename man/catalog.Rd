@@ -36,7 +36,8 @@ See the \code{\link{import_spec}} and
 \code{\link{specs}} functions for more information about this capability.}
 }
 \value{
-The loaded data catalog.
+The loaded data catalog, as class "dcat". The catalog will be a list
+of data dictionaries.  Each data dictionary is a tibble.
 }
 \description{
 The \code{catalog} function returns a data catalog

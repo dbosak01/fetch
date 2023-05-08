@@ -32,7 +32,8 @@
 #' dataset, or one import spec to use for all datasets. 
 #' See the \code{\link{import_spec}} and 
 #' \code{\link{specs}} functions for more information about this capability. 
-#' @return The loaded data catalog.
+#' @return The loaded data catalog, as class "dcat". The catalog will be a list
+#' of data dictionaries.  Each data dictionary is a tibble.  
 #' @seealso The \code{\link{fetch}} function to retrieve data from the catalog,
 #' and the \code{\link{import_spec}} function to create import specifications.
 #' @examples 

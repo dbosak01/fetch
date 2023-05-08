@@ -17,7 +17,7 @@ Verbose style includes a full data dictionary and printing of all
 attributes.}
 }
 \value{
-The object, invisibly.
+The data catalog object, invisibly.
 }
 \description{
 A class-specific instance of the \code{print} function for 

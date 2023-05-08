@@ -23,7 +23,7 @@ as.dinfo <- function(dat) {
 #' By default, the parameter is FALSE, meaning to print in summary style.
 #' Verbose style includes a full data dictionary and printing of all 
 #' attributes.
-#' @return The object, invisibly.
+#' @return The data catalog object, invisibly.
 #' @import crayon
 #' @export
 print.dinfo <- function(x, ..., verbose = TRUE) {

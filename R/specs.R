@@ -44,12 +44,12 @@
 #' Valid values are TRUE, and FALSE.  Default is TRUE.  The value of the 
 #' \code{trim_ws} parameter on the \code{specs} function can be overridden
 #' by the \code{trim_ws} parameter on the \code{import_spec} function.
-#' @return The specifications collection object.
 #' @seealso \code{\link{catalog}} to create a data catalog, 
 #' \code{\link{fetch}} for retrieving data, and 
 #' \code{\link{import_spec}} for additional information on defining an 
 #' import spec.
 #' @family specs
+#' @return The import spec collection.  The class of the object is "specs".
 #' @examples 
 #' # Get sample data directory
 #' pkg <- system.file("extdata", package = "fetch")
@@ -158,7 +158,8 @@ specs <- function(..., na = c("", "NA"), trim_ws = TRUE) {
 #' will be taken from the \code{\link{specs}} function.  Any value supplied 
 #' on the \code{import_spec} function will override the value from the 
 #' \code{specs} function.
-#' @return The import specification object.
+#' @return The import specification object. The class of the object will be 
+#' "import_spec".
 #' @examples 
 #' # Get sample data directory
 #' pkg <- system.file("extdata", package = "fetch")
@@ -300,7 +301,7 @@ write.specs <- function(x, dir_path = getwd(), file_name = NULL) {
 #' @param ... Any follow-on parameters to the print function.
 #' @param verbose Whether or not to print the specifications in verbose style.
 #' By default, the parameter is FALSE, meaning to print in summary style.
-#' @return The specification object, invisibly.
+#' @return The specification object, invisibly. 
 #' @family specs
 #' @import crayon
 #' @export

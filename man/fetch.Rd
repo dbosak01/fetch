@@ -29,6 +29,9 @@ An import specification is created with the \code{\link{import_spec}}
 function. See the documentation of this function for additional details
 and an example.}
 }
+\value{
+The desired dataset, returned as a tibble.
+}
 \description{
 The \code{fetch} function retrieves a dataset from a data
 catalog.  The function accepts a catalog item as the first parameter.  The

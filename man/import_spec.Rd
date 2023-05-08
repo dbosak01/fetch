@@ -32,7 +32,8 @@ on the \code{import_spec} function will override the value from the
 \code{specs} function.}
 }
 \value{
-The import specification object.
+The import specification object. The class of the object will be 
+"import_spec".
 }
 \description{
 A function to create the import specifications for a 

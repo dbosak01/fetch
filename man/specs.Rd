@@ -29,7 +29,7 @@ Valid values are TRUE, and FALSE.  Default is TRUE.  The value of the
 by the \code{trim_ws} parameter on the \code{import_spec} function.}
 }
 \value{
-The specifications collection object.
+The import spec collection.  The class of the object is "specs".
 }
 \description{
 A function to create a collection of import specifications for a 
